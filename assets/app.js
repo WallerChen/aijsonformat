@@ -1304,7 +1304,7 @@
 
   async function callAiJson(mode, input, localRepair) {
     try {
-      const response = await fetch("/api/ai-json", {
+      const response = await fetch("/api/ai-json/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mode, input, localRepair })
