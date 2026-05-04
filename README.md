@@ -42,6 +42,22 @@ http://127.0.0.1:4173/
 
 This is a static site. Deploy the folder to any static host such as Cloudflare Pages, Vercel, Netlify, GitHub Pages or an Nginx server.
 
+Current deployment:
+
+- GitHub: https://github.com/WallerChen/aijsonformat
+- Vercel project: `wallerchens-projects/aijsonformat`
+- Vercel production URL: https://aijsonformat.vercel.app
+- Custom domains added in Vercel:
+  - `aijsonformat.com`
+  - `www.aijsonformat.com`
+
+Cloudflare DNS records needed:
+
+| Type | Name | Value | Proxy |
+| --- | --- | --- | --- |
+| A | `@` | `76.76.21.21` | DNS only |
+| CNAME | `www` | `cname.vercel-dns.com` | DNS only |
+
 Before submitting to an ad network:
 
 - Configure the real contact email in `/contact/`.
