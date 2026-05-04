@@ -56,7 +56,7 @@ Cloudflare DNS records needed:
 | Type | Name | Value | Proxy |
 | --- | --- | --- | --- |
 | A | `@` | `76.76.21.21` | DNS only |
-| CNAME | `www` | `cname.vercel-dns.com` | DNS only |
+| A | `www` | `76.76.21.21` | DNS only |
 
 Before submitting to an ad network:
 
