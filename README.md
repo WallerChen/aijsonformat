@@ -79,14 +79,26 @@ Before submitting to an ad network:
 
 The site works without AI keys. Local tools remain available even when AI is not configured.
 
-To enable AI fallback for JSON repair and AI mode for Text to JSON, set these Vercel environment variables:
+To enable AI fallback for JSON repair and AI mode for Text to JSON, set provider environment variables in Vercel.
+
+OpenAI:
 
 ```text
+AI_PROVIDER=openai
 OPENAI_API_KEY=your_api_key
 OPENAI_MODEL=gpt-5.5
 ```
 
-`OPENAI_MODEL` is optional. Use a smaller model if you want lower per-request cost.
+Doubao / Volcengine Ark:
+
+```text
+AI_PROVIDER=doubao
+ARK_API_KEY=your_ark_api_key
+ARK_BASE_URL=https://ark.cn-beijing.volces.com/api/v3
+DOUBAO_CHAT_MODEL=your_doubao_model_or_endpoint_id
+```
+
+`AI_BASE_URL` and `AI_MODEL` also work as generic aliases, but the Ark-specific names above are preferred for Doubao.
 
 ## Next SEO pages
 
