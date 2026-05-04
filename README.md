@@ -20,8 +20,14 @@ Free, ad-supported developer tools website for JSON, hashes, timestamps, encodin
   - MD5 Generator
   - SHA256 Generator
   - Timestamp Converter
+  - Current Unix Timestamp
   - URL Encode / Decode
+  - HTML Entity Encode / Decode
   - UUID Generator
+  - Case Converter
+  - Slug Generator
+  - Word Counter
+  - Cron Parser
   - JWT Decoder
   - Password Generator
   - Text to JSON
@@ -73,9 +79,8 @@ Before submitting to an ad network:
 
 Good long-tail pages to add next:
 
-- `/md5-hash-generator/`
-- `/sha256-checksum/`
-- `/jwt-payload-decoder/`
 - `/json-parser-error-unexpected-token/`
 - `/json-format-for-openai-response/`
-- `/current-unix-timestamp/`
+- `/html-entity-decode/`
+- `/cron-expression-every-5-minutes/`
+- `/uuid-v4-generator/`
