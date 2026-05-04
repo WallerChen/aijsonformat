@@ -16,8 +16,14 @@
   <url><loc>https://aijsonformat.com/tools/md5/</loc></url>
   <url><loc>https://aijsonformat.com/tools/sha256/</loc></url>
   <url><loc>https://aijsonformat.com/tools/timestamp/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/current-timestamp/</loc></url>
   <url><loc>https://aijsonformat.com/tools/url-encode/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/html-entity/</loc></url>
   <url><loc>https://aijsonformat.com/tools/uuid/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/case-converter/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/slug-generator/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/word-counter/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/cron-parser/</loc></url>
   <url><loc>https://aijsonformat.com/tools/jwt-decoder/</loc></url>
   <url><loc>https://aijsonformat.com/tools/password-generator/</loc></url>
   <url><loc>https://aijsonformat.com/tools/text-to-json/</loc></url>
@@ -27,6 +33,10 @@
   <url><loc>https://aijsonformat.com/unix-timestamp-to-date/</loc></url>
   <url><loc>https://aijsonformat.com/date-to-unix-timestamp/</loc></url>
   <url><loc>https://aijsonformat.com/base64-decode-online/</loc></url>
+  <url><loc>https://aijsonformat.com/md5-hash-generator/</loc></url>
+  <url><loc>https://aijsonformat.com/sha256-checksum/</loc></url>
+  <url><loc>https://aijsonformat.com/jwt-payload-decoder/</loc></url>
+  <url><loc>https://aijsonformat.com/current-unix-timestamp/</loc></url>
   <url><loc>https://aijsonformat.com/privacy/</loc></url>
   <url><loc>https://aijsonformat.com/terms/</loc></url>
   <url><loc>https://aijsonformat.com/contact/</loc></url>
