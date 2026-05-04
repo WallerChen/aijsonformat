@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://aijsonformat.com/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/</loc></url>
+  <url><loc>https://aijsonformat.com/guides/</loc></url>
   <url><loc>https://aijsonformat.com/tools/ai-json-repair/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-formatter/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-validator/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-minifier/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/json-to-csv/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/json-to-yaml/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/json-to-typescript/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/json-to-schema/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-escape-unescape/</loc></url>
   <url><loc>https://aijsonformat.com/tools/base64/</loc></url>
   <url><loc>https://aijsonformat.com/tools/md5/</loc></url>
@@ -15,6 +21,12 @@
   <url><loc>https://aijsonformat.com/tools/jwt-decoder/</loc></url>
   <url><loc>https://aijsonformat.com/tools/password-generator/</loc></url>
   <url><loc>https://aijsonformat.com/tools/text-to-json/</loc></url>
+  <url><loc>https://aijsonformat.com/fix-invalid-json/</loc></url>
+  <url><loc>https://aijsonformat.com/fix-json-from-chatgpt/</loc></url>
+  <url><loc>https://aijsonformat.com/fix-json-trailing-comma/</loc></url>
+  <url><loc>https://aijsonformat.com/unix-timestamp-to-date/</loc></url>
+  <url><loc>https://aijsonformat.com/date-to-unix-timestamp/</loc></url>
+  <url><loc>https://aijsonformat.com/base64-decode-online/</loc></url>
   <url><loc>https://aijsonformat.com/privacy/</loc></url>
   <url><loc>https://aijsonformat.com/terms/</loc></url>
   <url><loc>https://aijsonformat.com/contact/</loc></url>
