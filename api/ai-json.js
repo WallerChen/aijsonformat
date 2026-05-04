@@ -6,8 +6,9 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed." });
   }
 
-  if (!process.env.OPENAI_API_KEY) {
-    return res.status(501).json({ error: "AI is not configured. Set OPENAI_API_KEY in Vercel." });
+  const config = getProviderConfig();
+  if (!config.apiKey) {
+    return res.status(501).json({ error: "AI is not configured. Set AI_API_KEY, ARK_API_KEY, or OPENAI_API_KEY in Vercel." });
   }
 
   const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
@@ -37,29 +38,8 @@ module.exports = async function handler(req, res) {
   ].filter(Boolean).join("\n\n");
 
   try {
-    const apiResponse = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || "gpt-5.5",
-        input: [
-          { role: "developer", content: developer },
-          { role: "user", content: user }
-        ],
-        reasoning: { effort: "low" },
-        max_output_tokens: 2000
-      })
-    });
-
-    const data = await apiResponse.json();
-    if (!apiResponse.ok) {
-      return res.status(502).json({ error: data.error?.message || "OpenAI request failed." });
-    }
-
-    const text = extractResponseText(data).trim();
+    const data = await callModel(config, developer, user);
+    const text = extractModelText(data).trim();
     const jsonText = extractJson(text);
     JSON.parse(jsonText);
 
@@ -72,8 +52,62 @@ module.exports = async function handler(req, res) {
   }
 };
 
-function extractResponseText(data) {
+function getProviderConfig() {
+  const provider = (process.env.AI_PROVIDER || process.env.LLM_PROVIDER || "openai").toLowerCase();
+  const isDoubao = provider === "doubao" || provider === "ark" || provider === "volcengine";
+  const baseUrl = (process.env.AI_BASE_URL || process.env.ARK_BASE_URL || process.env.OPENAI_BASE_URL || (isDoubao ? "https://ark.cn-beijing.volces.com/api/v3" : "https://api.openai.com/v1")).replace(/\/+$/, "");
+  const apiKey = process.env.AI_API_KEY || process.env.ARK_API_KEY || process.env.OPENAI_API_KEY;
+  const model = process.env.AI_MODEL || process.env.DOUBAO_CHAT_MODEL || process.env.OPENAI_MODEL || (isDoubao ? "doubao-seed-1-6-251015" : "gpt-5.5");
+  return {
+    provider,
+    isOpenAIResponses: !isDoubao && baseUrl === "https://api.openai.com/v1",
+    baseUrl,
+    apiKey,
+    model
+  };
+}
+
+async function callModel(config, developer, user) {
+  const endpoint = config.isOpenAIResponses ? `${config.baseUrl}/responses` : `${config.baseUrl}/chat/completions`;
+  const body = config.isOpenAIResponses
+    ? {
+        model: config.model,
+        input: [
+          { role: "developer", content: developer },
+          { role: "user", content: user }
+        ],
+        reasoning: { effort: "low" },
+        max_output_tokens: 2000
+      }
+    : {
+        model: config.model,
+        messages: [
+          { role: "system", content: developer },
+          { role: "user", content: user }
+        ],
+        temperature: 0,
+        max_tokens: 2000
+      };
+
+  const apiResponse = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${config.apiKey}`
+    },
+    body: JSON.stringify(body)
+  });
+
+  const data = await apiResponse.json();
+  if (!apiResponse.ok) {
+    throw new Error(data.error?.message || `${config.provider} request failed.`);
+  }
+  return data;
+}
+
+function extractModelText(data) {
   if (typeof data.output_text === "string") return data.output_text;
+  if (data.choices?.[0]?.message?.content) return data.choices[0].message.content;
   const chunks = [];
   for (const item of data.output || []) {
     for (const content of item.content || []) {
