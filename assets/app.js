@@ -230,6 +230,23 @@
       ]
     },
     {
+      id: "current-timestamp",
+      title: "Current Unix Timestamp",
+      category: "Time",
+      path: "/tools/current-timestamp/",
+      description: "Get the current Unix timestamp in seconds, milliseconds, local time and UTC.",
+      inputLabel: "Optional Date",
+      outputLabel: "Current Time",
+      actionLabel: "Refresh",
+      sample: "",
+      run: currentTimestampTool,
+      faq: [
+        ["What is the current Unix timestamp?", "It is the current number of seconds since January 1, 1970 at 00:00:00 UTC."],
+        ["Why show milliseconds too?", "JavaScript and many logging systems use milliseconds instead of seconds."],
+        ["Does this update automatically?", "Click Refresh to generate the latest values."]
+      ]
+    },
+    {
       id: "url-encode",
       title: "URL Encode / Decode",
       category: "Encode",
@@ -255,6 +272,25 @@
       ]
     },
     {
+      id: "html-entity",
+      title: "HTML Entity Encode / Decode",
+      category: "Encode",
+      path: "/tools/html-entity/",
+      description: "Encode HTML entities or decode escaped HTML text back to readable characters.",
+      inputLabel: "HTML or Text",
+      outputLabel: "Result",
+      actionLabel: "Encode",
+      secondaryActionLabel: "Decode",
+      sample: '<div class="note">Tom & Jerry</div>',
+      run: htmlEntityEncodeTool,
+      secondaryRun: htmlEntityDecodeTool,
+      faq: [
+        ["When should I encode HTML entities?", "Encode text before displaying it as literal text inside HTML."],
+        ["What does decoding do?", "It turns sequences like ampersand-lt and ampersand-amp back into readable characters."],
+        ["Is this a sanitizer?", "No. It is an encoder and decoder, not a full security sanitizer."]
+      ]
+    },
+    {
       id: "uuid",
       title: "UUID Generator",
       category: "Random",
@@ -269,6 +305,74 @@
         ["What version are these UUIDs?", "The tool generates UUID v4 values."],
         ["Can I generate multiple UUIDs?", "Yes. Enter a count between 1 and 100."],
         ["Are they generated locally?", "Yes. They use browser crypto when available."]
+      ]
+    },
+    {
+      id: "case-converter",
+      title: "Case Converter",
+      category: "Text",
+      path: "/tools/case-converter/",
+      description: "Convert text into camelCase, PascalCase, snake_case, kebab-case, uppercase and lowercase.",
+      inputLabel: "Input Text",
+      outputLabel: "Converted Cases",
+      actionLabel: "Convert Case",
+      sample: "AI JSON Format developer tools",
+      run: caseConverterTool,
+      faq: [
+        ["What cases are generated?", "The tool outputs camelCase, PascalCase, snake_case, kebab-case, uppercase and lowercase."],
+        ["Is this useful for code?", "Yes. It helps convert labels, keys and file names into code-friendly forms."],
+        ["Does it support punctuation?", "Punctuation is treated as a word separator."]
+      ]
+    },
+    {
+      id: "slug-generator",
+      title: "Slug Generator",
+      category: "Text",
+      path: "/tools/slug-generator/",
+      description: "Generate clean URL slugs from titles, headings and article names.",
+      inputLabel: "Title or Text",
+      outputLabel: "Slug",
+      actionLabel: "Generate Slug",
+      sample: "Fix Invalid JSON Online: Free Developer Tool",
+      run: slugGeneratorTool,
+      faq: [
+        ["What is a slug?", "A slug is the readable part of a URL, often made from lowercase words separated by hyphens."],
+        ["Are special characters removed?", "Yes. The generator normalizes text and removes punctuation that does not belong in a clean URL."],
+        ["Can I use this for SEO URLs?", "Yes. Short, readable slugs are useful for SEO and sharing."]
+      ]
+    },
+    {
+      id: "word-counter",
+      title: "Word Counter",
+      category: "Text",
+      path: "/tools/word-counter/",
+      description: "Count words, characters, lines and paragraphs in plain text.",
+      inputLabel: "Input Text",
+      outputLabel: "Text Stats",
+      actionLabel: "Count Text",
+      sample: "AI JSON Format is a free developer tools website.\nIt formats JSON and converts timestamps.",
+      run: wordCounterTool,
+      faq: [
+        ["What does this count?", "It counts words, characters, characters without spaces, lines and paragraphs."],
+        ["Does it work offline?", "The counting logic runs locally in your browser."],
+        ["Can I use it for meta descriptions?", "Yes. Character counts are useful when drafting titles and descriptions."]
+      ]
+    },
+    {
+      id: "cron-parser",
+      title: "Cron Parser",
+      category: "Time",
+      path: "/tools/cron-parser/",
+      description: "Explain common 5-field cron expressions in plain English.",
+      inputLabel: "Cron Expression",
+      outputLabel: "Explanation",
+      actionLabel: "Explain Cron",
+      sample: "*/15 9-17 * * 1-5",
+      run: cronParserTool,
+      faq: [
+        ["What cron format is supported?", "This tool explains common five-field cron expressions: minute, hour, day of month, month and day of week."],
+        ["Does it calculate future runs?", "This first version explains the schedule in plain English rather than listing future run times."],
+        ["Are names like MON supported?", "Yes. Common month and weekday names are supported in explanations."]
       ]
     },
     {
@@ -427,6 +531,74 @@
         ["Is Base64 secure?", "No. Base64 is reversible encoding, not encryption."],
         ["Can Base64 contain binary data?", "Yes, but this browser tool is optimized for text output."],
         ["Can I encode text too?", "Yes. The same tool supports encode and decode."]
+      ]
+    },
+    {
+      id: "md5-hash-generator",
+      title: "MD5 Hash Generator",
+      category: "Hash guide",
+      description: "Generate an MD5 hash from text and understand when MD5 is useful or unsafe.",
+      primaryToolId: "md5",
+      points: [
+        "Paste the text you want to hash.",
+        "Click Generate MD5.",
+        "Copy the 32-character hexadecimal hash."
+      ],
+      faq: [
+        ["Can MD5 be used for passwords?", "No. MD5 is not secure for passwords or modern authentication."],
+        ["Why do people still use MD5?", "It is still common for quick fingerprints, legacy checksums and non-security comparisons."],
+        ["Is the input uploaded?", "No. The MD5 tool runs in your browser."]
+      ]
+    },
+    {
+      id: "sha256-checksum",
+      title: "SHA256 Checksum Generator",
+      category: "Hash guide",
+      description: "Generate a SHA-256 checksum from text for stronger fingerprints and integrity checks.",
+      primaryToolId: "sha256",
+      points: [
+        "Paste the text to hash.",
+        "Click Generate SHA256.",
+        "Copy the 64-character hexadecimal digest."
+      ],
+      faq: [
+        ["Is SHA-256 stronger than MD5?", "Yes. SHA-256 is the better default for modern checksums."],
+        ["Can this hash files?", "The current tool hashes text. File hashing can be added later."],
+        ["Does it use browser crypto?", "Yes. It uses the browser crypto API when available."]
+      ]
+    },
+    {
+      id: "jwt-payload-decoder",
+      title: "JWT Payload Decoder",
+      category: "Encode guide",
+      description: "Decode a JWT payload and header locally so you can inspect token claims.",
+      primaryToolId: "jwt-decoder",
+      points: [
+        "Paste the JWT into the decoder.",
+        "Decode the header and payload.",
+        "Review claims such as sub, exp, iat, aud and iss."
+      ],
+      faq: [
+        ["Does decoding verify the token?", "No. Decoding only reads the header and payload. It does not verify the signature."],
+        ["Can I decode expired tokens?", "Yes. Expired tokens can still be decoded."],
+        ["Should I paste production tokens?", "Avoid pasting sensitive tokens into online tools unless you understand the risk."]
+      ]
+    },
+    {
+      id: "current-unix-timestamp",
+      title: "Current Unix Timestamp",
+      category: "Time guide",
+      description: "View the current Unix timestamp in seconds and milliseconds with UTC and local time.",
+      primaryToolId: "current-timestamp",
+      points: [
+        "Open the Current Unix Timestamp tool.",
+        "Click Refresh to get the latest seconds and milliseconds.",
+        "Copy the timestamp format your API or database expects."
+      ],
+      faq: [
+        ["What is the current Unix timestamp?", "It is the current number of seconds since January 1, 1970 UTC."],
+        ["Why are there two timestamp lengths?", "10-digit values are usually seconds. 13-digit values are usually milliseconds."],
+        ["Does timezone affect the timestamp?", "No. The timestamp is absolute, but displayed dates can be local or UTC."]
       ]
     }
   ];
@@ -941,6 +1113,25 @@
     );
   }
 
+  function currentTimestampTool(value) {
+    const input = value.trim();
+    const date = input ? new Date(input) : new Date();
+    if (Number.isNaN(date.getTime())) {
+      return result("", "Could not parse the optional date. Leave it empty for the current time.", "error");
+    }
+    return result(
+      [
+        `Unix seconds: ${Math.floor(date.getTime() / 1000)}`,
+        `Unix milliseconds: ${date.getTime()}`,
+        `ISO 8601: ${date.toISOString()}`,
+        `UTC time: ${date.toUTCString()}`,
+        `Local time: ${date.toString()}`
+      ].join("\n"),
+      input ? "Converted the provided date." : "Current timestamp generated.",
+      "ok"
+    );
+  }
+
   function uuidTool(value) {
     const count = clamp(parseInt(value, 10) || 1, 1, 100);
     const ids = Array.from({ length: count }, () => {
@@ -952,6 +1143,86 @@
       });
     });
     return result(ids.join("\n"), `${count} UUID${count === 1 ? "" : "s"} generated.`, "ok");
+  }
+
+  function htmlEntityEncodeTool(value) {
+    const map = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    };
+    return result(String(value).replace(/[&<>"']/g, (char) => map[char]), "HTML entities encoded.", "ok");
+  }
+
+  function htmlEntityDecodeTool(value) {
+    const textarea = document.createElement("textarea");
+    textarea.innerHTML = value;
+    return result(textarea.value, "HTML entities decoded.", "ok");
+  }
+
+  function caseConverterTool(value) {
+    const words = splitWords(value);
+    if (!words.length) return result("", "Enter text to convert.", "error");
+    const lowerWords = words.map((word) => word.toLowerCase());
+    const pascal = lowerWords.map(capitalize).join("");
+    const camel = pascal.charAt(0).toLowerCase() + pascal.slice(1);
+    const lines = [
+      `camelCase: ${camel}`,
+      `PascalCase: ${pascal}`,
+      `snake_case: ${lowerWords.join("_")}`,
+      `kebab-case: ${lowerWords.join("-")}`,
+      `UPPERCASE: ${String(value).toUpperCase()}`,
+      `lowercase: ${String(value).toLowerCase()}`
+    ];
+    return result(lines.join("\n"), "Converted text into common cases.", "ok");
+  }
+
+  function slugGeneratorTool(value) {
+    const slug = String(value)
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .replace(/-{2,}/g, "-");
+    return result(slug, slug ? "Slug generated." : "Enter text to generate a slug.", slug ? "ok" : "error");
+  }
+
+  function wordCounterTool(value) {
+    const text = String(value);
+    const words = text.trim() ? text.trim().match(/\S+/g) || [] : [];
+    const lines = text ? text.split(/\r?\n/) : [];
+    const paragraphs = text.trim() ? text.trim().split(/\n\s*\n/).filter(Boolean) : [];
+    return result(
+      [
+        `Words: ${words.length}`,
+        `Characters: ${text.length}`,
+        `Characters without spaces: ${text.replace(/\s/g, "").length}`,
+        `Lines: ${lines.length}`,
+        `Paragraphs: ${paragraphs.length}`
+      ].join("\n"),
+      "Text counted.",
+      "ok"
+    );
+  }
+
+  function cronParserTool(value) {
+    const parts = value.trim().split(/\s+/);
+    if (parts.length !== 5) {
+      return result("", "Enter a standard 5-field cron expression: minute hour day-of-month month day-of-week.", "error");
+    }
+    const [minute, hour, dayOfMonth, month, dayOfWeek] = parts;
+    const lines = [
+      `Minute: ${describeCronField(minute, "minute")}`,
+      `Hour: ${describeCronField(hour, "hour")}`,
+      `Day of month: ${describeCronField(dayOfMonth, "day of month")}`,
+      `Month: ${describeCronField(month, "month")}`,
+      `Day of week: ${describeCronField(dayOfWeek, "day of week")}`
+    ];
+    return result(lines.join("\n"), "Cron expression explained.", "ok");
   }
 
   function jwtTool(value) {
@@ -1169,6 +1440,55 @@
       .trim()
       .replace(/[^A-Za-z0-9]+(.)/g, (_, char) => char.toUpperCase())
       .replace(/^[A-Z]/, (char) => char.toLowerCase()) || "value";
+  }
+
+  function splitWords(value) {
+    return String(value)
+      .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+      .split(/[^A-Za-z0-9]+/)
+      .filter(Boolean);
+  }
+
+  function capitalize(value) {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+
+  function describeCronField(field, label) {
+    const names = {
+      jan: "January",
+      feb: "February",
+      mar: "March",
+      apr: "April",
+      may: "May",
+      jun: "June",
+      jul: "July",
+      aug: "August",
+      sep: "September",
+      oct: "October",
+      nov: "November",
+      dec: "December",
+      sun: "Sunday",
+      mon: "Monday",
+      tue: "Tuesday",
+      wed: "Wednesday",
+      thu: "Thursday",
+      fri: "Friday",
+      sat: "Saturday"
+    };
+    const normalize = (text) => names[String(text).toLowerCase()] || text;
+    if (field === "*") return `every ${label}`;
+    if (/^\*\/\d+$/.test(field)) return `every ${field.slice(2)} ${label}s`;
+    if (/^\d+$/.test(field) || names[field.toLowerCase()]) return `at ${normalize(field)}`;
+    if (field.includes(",")) return `at ${field.split(",").map(normalize).join(", ")}`;
+    if (field.includes("-")) {
+      const [start, end] = field.split("-");
+      return `from ${normalize(start)} through ${normalize(end)}`;
+    }
+    if (field.includes("/")) {
+      const [range, step] = field.split("/");
+      return `every ${step} ${label}s within ${range}`;
+    }
+    return field;
   }
 
   function clamp(value, min, max) {
