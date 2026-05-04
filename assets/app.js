@@ -73,6 +73,74 @@
       ]
     },
     {
+      id: "json-to-csv",
+      title: "JSON to CSV",
+      category: "JSON",
+      path: "/tools/json-to-csv/",
+      description: "Convert JSON arrays and objects into CSV tables for spreadsheets and reports.",
+      inputLabel: "JSON Input",
+      outputLabel: "CSV Output",
+      actionLabel: "Convert to CSV",
+      sample: '[{"name":"AI JSON Format","type":"tool"},{"name":"Timestamp Converter","type":"time"}]',
+      run: jsonToCsvTool,
+      faq: [
+        ["What JSON works best?", "Arrays of objects convert best because each object becomes one CSV row."],
+        ["How are nested values handled?", "Nested objects and arrays are stringified into JSON inside a CSV cell."],
+        ["Can I paste the result into Excel?", "Yes. Copy the CSV output into Excel, Google Sheets or Numbers."]
+      ]
+    },
+    {
+      id: "json-to-yaml",
+      title: "JSON to YAML",
+      category: "JSON",
+      path: "/tools/json-to-yaml/",
+      description: "Convert JSON into clean YAML for configs, docs and examples.",
+      inputLabel: "JSON Input",
+      outputLabel: "YAML Output",
+      actionLabel: "Convert to YAML",
+      sample: '{"name":"AI JSON Format","features":["format","repair","convert"],"free":true}',
+      run: jsonToYamlTool,
+      faq: [
+        ["Why convert JSON to YAML?", "YAML is common in configuration files and is often easier to scan by hand."],
+        ["Does this preserve all JSON values?", "Yes. Objects, arrays, strings, numbers, booleans and null are represented in YAML."],
+        ["Is the conversion local?", "Yes. It runs in your browser."]
+      ]
+    },
+    {
+      id: "json-to-typescript",
+      title: "JSON to TypeScript",
+      category: "JSON",
+      path: "/tools/json-to-typescript/",
+      description: "Generate a TypeScript interface from sample JSON data.",
+      inputLabel: "JSON Input",
+      outputLabel: "TypeScript Output",
+      actionLabel: "Generate TypeScript",
+      sample: '{"id":123,"name":"AI JSON Format","tags":["json","tools"],"active":true}',
+      run: jsonToTypeScriptTool,
+      faq: [
+        ["What interface name is used?", "The generated interface is named RootObject in this version."],
+        ["How are arrays handled?", "Arrays infer from the first item and fall back to unknown[] when empty."],
+        ["Should I review the types?", "Yes. Generated types are a fast starting point, not a substitute for API documentation."]
+      ]
+    },
+    {
+      id: "json-to-schema",
+      title: "JSON to Schema",
+      category: "JSON",
+      path: "/tools/json-to-schema/",
+      description: "Generate a JSON Schema draft-style object from example JSON.",
+      inputLabel: "JSON Input",
+      outputLabel: "JSON Schema",
+      actionLabel: "Generate Schema",
+      sample: '{"id":123,"name":"AI JSON Format","active":true,"tags":["json","schema"]}',
+      run: jsonToSchemaTool,
+      faq: [
+        ["What is JSON Schema used for?", "JSON Schema describes and validates the expected shape of JSON data."],
+        ["Are fields marked required?", "Object keys present in the sample are marked as required."],
+        ["Can I edit the schema?", "Yes. Treat the generated schema as a strong first draft."]
+      ]
+    },
+    {
       id: "json-escape-unescape",
       title: "JSON Escape / Unescape",
       category: "JSON",
@@ -258,6 +326,111 @@
   ];
 
   const byId = Object.fromEntries(tools.map((tool) => [tool.id, tool]));
+  const guidePages = [
+    {
+      id: "fix-invalid-json",
+      title: "Fix Invalid JSON Online",
+      category: "JSON guide",
+      description: "Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.",
+      primaryToolId: "ai-json-repair",
+      points: [
+        "Paste the broken JSON into AI JSON Repair.",
+        "Run the repair tool to remove common syntax problems.",
+        "Copy the formatted output and validate it before using it in code or an API."
+      ],
+      faq: [
+        ["What usually makes JSON invalid?", "Trailing commas, comments, single quotes, unquoted keys and unmatched braces are the most common causes."],
+        ["Can invalid JSON be repaired automatically?", "Often, yes. Simple syntax issues can usually be repaired, but you should still review the result."],
+        ["Is this safe for private data?", "The current repair tool runs locally in your browser, but you should avoid pasting secrets into any online tool."]
+      ]
+    },
+    {
+      id: "fix-json-from-chatgpt",
+      title: "Fix JSON from ChatGPT",
+      category: "AI guide",
+      description: "Clean up JSON returned by ChatGPT or other AI tools when the response includes markdown fences, comments or invalid syntax.",
+      primaryToolId: "ai-json-repair",
+      points: [
+        "Remove surrounding explanation by pasting the whole response into the repair tool.",
+        "Let the tool strip markdown fences and normalize common JSON-like syntax.",
+        "Validate the result before sending it to your app, parser or workflow."
+      ],
+      faq: [
+        ["Why does AI output invalid JSON?", "Models sometimes include explanations, markdown fences or JavaScript-style syntax instead of strict JSON."],
+        ["Can this handle code fences?", "Yes. The repair tool strips common json and JavaScript code fences."],
+        ["Should I ask AI to output strict JSON?", "Yes. A strict prompt helps, but a repair step is useful when output still breaks."]
+      ]
+    },
+    {
+      id: "fix-json-trailing-comma",
+      title: "Fix JSON Trailing Comma",
+      category: "JSON guide",
+      description: "Remove trailing commas from JSON objects and arrays so strict JSON parsers can read the data.",
+      primaryToolId: "ai-json-repair",
+      points: [
+        "Paste JSON that fails with an unexpected token error.",
+        "Repair the JSON to remove commas before closing braces or brackets.",
+        "Use JSON Validator to confirm the result is valid."
+      ],
+      faq: [
+        ["Are trailing commas allowed in JSON?", "No. JavaScript allows them in many places, but strict JSON does not."],
+        ["What error do trailing commas cause?", "Many parsers report an unexpected token near the closing brace or bracket."],
+        ["Can I format after fixing?", "Yes. The repair tool formats the repaired JSON automatically."]
+      ]
+    },
+    {
+      id: "unix-timestamp-to-date",
+      title: "Unix Timestamp to Date",
+      category: "Time guide",
+      description: "Convert Unix seconds or milliseconds into readable local and UTC date strings.",
+      primaryToolId: "timestamp",
+      points: [
+        "Paste a 10-digit Unix timestamp for seconds or a 13-digit timestamp for milliseconds.",
+        "Run the converter to see local time, UTC time, seconds and milliseconds.",
+        "Copy the format you need for logs, dashboards or docs."
+      ],
+      faq: [
+        ["Is Unix time in seconds or milliseconds?", "Classic Unix time is seconds, while many JavaScript APIs use milliseconds."],
+        ["What timezone is Unix time?", "The timestamp itself is timezone-neutral. Displayed dates can be local time or UTC."],
+        ["Can negative timestamps work?", "Yes. Negative values represent dates before January 1, 1970 UTC."]
+      ]
+    },
+    {
+      id: "date-to-unix-timestamp",
+      title: "Date to Unix Timestamp",
+      category: "Time guide",
+      description: "Convert a readable date into Unix seconds and milliseconds for APIs, databases and logs.",
+      primaryToolId: "timestamp",
+      points: [
+        "Paste a date string such as 2026-05-05 12:30:00.",
+        "Run the timestamp converter.",
+        "Use the Unix seconds or milliseconds output depending on your API."
+      ],
+      faq: [
+        ["What date formats can I paste?", "Most browser-supported date strings work, including ISO timestamps."],
+        ["Why do timezones matter?", "A date string without a timezone is usually interpreted as local time by the browser."],
+        ["Which value should I use for JavaScript?", "JavaScript Date timestamps are usually milliseconds."]
+      ]
+    },
+    {
+      id: "base64-decode-online",
+      title: "Base64 Decode Online",
+      category: "Encode guide",
+      description: "Decode Base64 text back into readable Unicode text without uploading it to a server.",
+      primaryToolId: "base64",
+      points: [
+        "Paste the Base64 string into the input box.",
+        "Click Decode.",
+        "Copy the readable output."
+      ],
+      faq: [
+        ["Is Base64 secure?", "No. Base64 is reversible encoding, not encryption."],
+        ["Can Base64 contain binary data?", "Yes, but this browser tool is optimized for text output."],
+        ["Can I encode text too?", "Yes. The same tool supports encode and decode."]
+      ]
+    }
+  ];
+  const guidesById = Object.fromEntries(guidePages.map((guide) => [guide.id, guide]));
   const app = document.getElementById("app");
   const pageId = app.dataset.page || pageFromPath();
 
@@ -265,6 +438,8 @@
 
   function renderShell(id) {
     const isHome = id === "home";
+    const isGuides = id === "guides";
+    const guide = guidesById[id] || guidesById[pageFromPath()];
     const tool = byId[id] || byId[pageFromPath()] || byId["json-formatter"];
 
     app.innerHTML = `
@@ -280,11 +455,12 @@
               <a href="/tools/json-formatter/">JSON</a>
               <a href="/tools/md5/">Hash</a>
               <a href="/tools/timestamp/">Time</a>
+              <a href="/guides/">Guides</a>
               <a href="/#all-tools">All tools</a>
             </div>
           </nav>
         </header>
-        ${isHome ? renderHome() : renderToolPage(tool)}
+        ${isHome ? renderHome() : isGuides ? renderGuideIndex() : guide ? renderGuidePage(guide) : renderToolPage(tool)}
         <footer class="footer">
           <div class="footer-inner">
             <span>AI JSON Format provides free browser-based developer utilities.</span>
@@ -297,7 +473,7 @@
     if (isHome) {
       bindHome();
       bindMiniTool();
-    } else {
+    } else if (!guide && !isGuides) {
       bindTool(tool);
     }
   }
@@ -337,7 +513,6 @@
         </div>
       </section>
       <main class="main">
-        <div class="ad-slot">Ad placement</div>
         <section id="all-tools" aria-labelledby="tools-heading">
           <div class="section-head">
             <div>
@@ -356,6 +531,17 @@
             The site starts with JSON because that is where the domain has the strongest match, then expands into
             everyday developer utilities such as MD5, SHA256, Base64, timestamps, UUIDs and JWT decoding.
           </p>
+        </section>
+        <section class="content-band">
+          <div class="section-head">
+            <div>
+              <h2>Popular Fixes</h2>
+              <p>Long-tail guides for common parser errors and everyday developer conversions.</p>
+            </div>
+          </div>
+          <div class="tool-grid">
+            ${guidePages.slice(0, 6).map(renderGuideCard).join("")}
+          </div>
         </section>
       </main>
     `;
@@ -399,7 +585,6 @@
               </div>
               <div class="tool-message" id="tool-message">Ready.</div>
             </section>
-            <div class="ad-slot">Ad placement</div>
             <section class="content-band">
               <h2>About this tool</h2>
               <p>${escapeHtml(tool.description)} It is designed for fast copy-and-paste workflows and does not require a login.</p>
@@ -414,7 +599,6 @@
             </section>
           </div>
           <aside class="side-rail" aria-label="Related tools">
-            <div class="ad-slot">Ad placement</div>
             <div class="side-box">
               <h3>Related tools</h3>
               <div class="side-links">
@@ -438,6 +622,94 @@
           <span class="tag">${escapeHtml(tool.category)}</span>
           <span class="tag">Free</span>
           <span class="tag">No signup</span>
+        </span>
+      </a>
+    `;
+  }
+
+  function renderGuidePage(guide) {
+    const tool = byId[guide.primaryToolId] || byId["json-formatter"];
+    return `
+      <main class="main">
+        <div class="tool-page">
+          <div>
+            <section class="tool-intro">
+              <div class="eyebrow">${escapeHtml(guide.category)}</div>
+              <h1>${escapeHtml(guide.title)}</h1>
+              <p>${escapeHtml(guide.description)}</p>
+              <div class="hero-actions">
+                <a class="button primary" href="${tool.path}">Open ${escapeHtml(tool.title)}</a>
+                <a class="button" href="/#all-tools">Browse tools</a>
+              </div>
+            </section>
+            <section class="content-band">
+              <h2>How to do it</h2>
+              <ol class="steps-list">
+                ${guide.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}
+              </ol>
+            </section>
+            <section class="content-band">
+              <h2>Recommended tool</h2>
+              ${renderToolCard(tool)}
+            </section>
+            <section class="content-band">
+              <h2>FAQ</h2>
+              <div class="faq">
+                ${guide.faq.map(([question, answer]) => `
+                  <article class="faq-item">
+                    <h3>${escapeHtml(question)}</h3>
+                    <p>${escapeHtml(answer)}</p>
+                  </article>
+                `).join("")}
+              </div>
+            </section>
+          </div>
+          <aside class="side-rail" aria-label="Related guides">
+            <div class="side-box">
+              <h3>Related guides</h3>
+              <div class="side-links">
+                ${guidePages.filter((item) => item.id !== guide.id).slice(0, 7).map((item) => `<a href="/${item.id}/">${escapeHtml(item.title)}</a>`).join("")}
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+    `;
+  }
+
+  function renderGuideIndex() {
+    return `
+      <main class="main">
+        <section class="tool-intro">
+          <div class="eyebrow">Guides</div>
+          <h1>Developer Fixes and Conversion Guides</h1>
+          <p>Short, practical pages for common JSON parser errors, timestamp conversions and encoding tasks.</p>
+        </section>
+        <section aria-labelledby="guides-heading">
+          <div class="section-head">
+            <div>
+              <h2 id="guides-heading">All Guides</h2>
+              <p>Each guide links to a free browser-based tool you can use right away.</p>
+            </div>
+          </div>
+          <div class="tool-grid">
+            ${guidePages.map(renderGuideCard).join("")}
+          </div>
+        </section>
+      </main>
+    `;
+  }
+
+  function renderGuideCard(guide) {
+    return `
+      <a class="tool-card" href="/${guide.id}/">
+        <span>
+          <h3>${escapeHtml(guide.title)}</h3>
+          <p>${escapeHtml(guide.description)}</p>
+        </span>
+        <span class="tag-row">
+          <span class="tag">${escapeHtml(guide.category)}</span>
+          <span class="tag">Guide</span>
         </span>
       </a>
     `;
@@ -514,7 +786,8 @@
 
   function pageFromPath() {
     const parts = window.location.pathname.split("/").filter(Boolean);
-    return parts[0] === "tools" && parts[1] ? parts[1] : "home";
+    if (parts[0] === "tools" && parts[1]) return parts[1];
+    return parts[0] || "home";
   }
 
   function relatedTools(tool) {
@@ -735,6 +1008,141 @@
     }
 
     return result(JSON.stringify(lines.map(coerceValue), null, 2), "Converted lines to a JSON array.", "ok");
+  }
+
+  function jsonToCsvTool(value) {
+    try {
+      const parsed = JSON.parse(value);
+      const rows = Array.isArray(parsed) ? parsed : [parsed];
+      if (!rows.length) return result("", "JSON array is empty.", "warn");
+      if (!rows.every((row) => row && typeof row === "object" && !Array.isArray(row))) {
+        return result("", "JSON to CSV works best with an object or an array of objects.", "error");
+      }
+      const headers = Array.from(new Set(rows.flatMap((row) => Object.keys(row))));
+      const csvRows = [
+        headers.map(csvEscape).join(","),
+        ...rows.map((row) => headers.map((header) => csvEscape(formatCsvValue(row[header]))).join(","))
+      ];
+      return result(csvRows.join("\n"), `Converted ${rows.length} row${rows.length === 1 ? "" : "s"} to CSV.`, "ok");
+    } catch (error) {
+      return result("", humanJsonError(error), "error");
+    }
+  }
+
+  function jsonToYamlTool(value) {
+    try {
+      const parsed = JSON.parse(value);
+      return result(toYaml(parsed), "Converted JSON to YAML.", "ok");
+    } catch (error) {
+      return result("", humanJsonError(error), "error");
+    }
+  }
+
+  function jsonToTypeScriptTool(value) {
+    try {
+      const parsed = JSON.parse(value);
+      return result(`interface RootObject ${typeScriptShape(parsed, 0)}`, "Generated TypeScript interface.", "ok");
+    } catch (error) {
+      return result("", humanJsonError(error), "error");
+    }
+  }
+
+  function jsonToSchemaTool(value) {
+    try {
+      const parsed = JSON.parse(value);
+      const schema = {
+        $schema: "https://json-schema.org/draft/2020-12/schema",
+        ...schemaForValue(parsed)
+      };
+      return result(JSON.stringify(schema, null, 2), "Generated JSON Schema.", "ok");
+    } catch (error) {
+      return result("", humanJsonError(error), "error");
+    }
+  }
+
+  function csvEscape(value) {
+    const text = String(value ?? "");
+    return /[",\n\r]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+  }
+
+  function formatCsvValue(value) {
+    if (value === undefined || value === null) return "";
+    if (typeof value === "object") return JSON.stringify(value);
+    return value;
+  }
+
+  function toYaml(value, depth = 0) {
+    const indent = "  ".repeat(depth);
+    if (Array.isArray(value)) {
+      if (!value.length) return "[]";
+      return value.map((item) => {
+        if (item && typeof item === "object") {
+          return `${indent}-\n${toYaml(item, depth + 1)}`;
+        }
+        return `${indent}- ${yamlScalar(item)}`;
+      }).join("\n");
+    }
+    if (value && typeof value === "object") {
+      const entries = Object.entries(value);
+      if (!entries.length) return "{}";
+      return entries.map(([key, item]) => {
+        if (item && typeof item === "object") {
+          return `${indent}${key}:\n${toYaml(item, depth + 1)}`;
+        }
+        return `${indent}${key}: ${yamlScalar(item)}`;
+      }).join("\n");
+    }
+    return `${indent}${yamlScalar(value)}`;
+  }
+
+  function yamlScalar(value) {
+    if (value === null) return "null";
+    if (typeof value === "number" || typeof value === "boolean") return String(value);
+    const text = String(value);
+    return /^[A-Za-z0-9_./:-]+$/.test(text) ? text : JSON.stringify(text);
+  }
+
+  function typeScriptShape(value, depth) {
+    const indent = "  ".repeat(depth);
+    const childIndent = "  ".repeat(depth + 1);
+    if (Array.isArray(value)) {
+      if (!value.length) return "unknown[]";
+      return `${typeScriptShape(value[0], depth)}[]`;
+    }
+    if (value && typeof value === "object") {
+      const lines = Object.entries(value).map(([key, item]) => {
+        return `${childIndent}${safeTypeScriptKey(key)}: ${typeScriptShape(item, depth + 1)};`;
+      });
+      return `{\n${lines.join("\n")}\n${indent}}`;
+    }
+    if (value === null) return "null";
+    if (typeof value === "string") return "string";
+    if (typeof value === "number") return "number";
+    if (typeof value === "boolean") return "boolean";
+    return "unknown";
+  }
+
+  function safeTypeScriptKey(key) {
+    return /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(key) ? key : JSON.stringify(key);
+  }
+
+  function schemaForValue(value) {
+    if (Array.isArray(value)) {
+      return {
+        type: "array",
+        items: value.length ? schemaForValue(value[0]) : {}
+      };
+    }
+    if (value && typeof value === "object") {
+      const properties = Object.fromEntries(Object.entries(value).map(([key, item]) => [key, schemaForValue(item)]));
+      return {
+        type: "object",
+        properties,
+        required: Object.keys(value)
+      };
+    }
+    if (value === null) return { type: "null" };
+    return { type: typeof value };
   }
 
   function humanJsonError(error) {
