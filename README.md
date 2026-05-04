@@ -11,6 +11,10 @@ Free, ad-supported developer tools website for JSON, hashes, timestamps, encodin
   - JSON Formatter
   - JSON Validator
   - JSON Minifier
+  - JSON to CSV
+  - JSON to YAML
+  - JSON to TypeScript
+  - JSON to Schema
   - JSON Escape / Unescape
   - Base64 Encode / Decode
   - MD5 Generator
@@ -21,7 +25,7 @@ Free, ad-supported developer tools website for JSON, hashes, timestamps, encodin
   - JWT Decoder
   - Password Generator
   - Text to JSON
-- Advertising placeholder slots
+- Ready for future ad placements after approval
 - `robots.txt`
 - `sitemap.xml`
 - Privacy, Terms, Contact and 404 pages
@@ -61,7 +65,7 @@ Cloudflare DNS records needed:
 Before submitting to an ad network:
 
 - Configure the real contact email in `/contact/`.
-- Add your ad network script to the shared layout in `assets/app.js` or directly replace `.ad-slot` blocks.
+- Add ad placements to the shared layout in `assets/app.js` after the site is approved by an ad network.
 - Add `ads.txt` after receiving your publisher ID.
 - Verify `https://aijsonformat.com/sitemap.xml` in Google Search Console.
 
@@ -69,12 +73,9 @@ Before submitting to an ad network:
 
 Good long-tail pages to add next:
 
-- `/fix-invalid-json/`
-- `/fix-json-from-chatgpt/`
-- `/fix-json-trailing-comma/`
-- `/unix-timestamp-to-date/`
-- `/date-to-unix-timestamp/`
 - `/md5-hash-generator/`
 - `/sha256-checksum/`
-- `/base64-decode-online/`
 - `/jwt-payload-decoder/`
+- `/json-parser-error-unexpected-token/`
+- `/json-format-for-openai-response/`
+- `/current-unix-timestamp/`
