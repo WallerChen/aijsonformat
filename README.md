@@ -75,6 +75,19 @@ Before submitting to an ad network:
 - Add `ads.txt` after receiving your publisher ID.
 - Verify `https://aijsonformat.com/sitemap.xml` in Google Search Console.
 
+## Optional AI features
+
+The site works without AI keys. Local tools remain available even when AI is not configured.
+
+To enable AI fallback for JSON repair and AI mode for Text to JSON, set these Vercel environment variables:
+
+```text
+OPENAI_API_KEY=your_api_key
+OPENAI_MODEL=gpt-5.5
+```
+
+`OPENAI_MODEL` is optional. Use a smaller model if you want lower per-request cost.
+
 ## Next SEO pages
 
 Good long-tail pages to add next:
