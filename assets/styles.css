@@ -335,20 +335,6 @@ h2 {
   font-weight: 700;
 }
 
-.ad-slot {
-  display: grid;
-  min-height: 92px;
-  margin: 28px 0;
-  place-items: center;
-  border: 1px dashed #bac7cc;
-  border-radius: 8px;
-  background: #f7faf9;
-  color: #7a888f;
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
 .tool-page {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
@@ -466,6 +452,20 @@ h2 {
 .faq-item h3 {
   margin: 0;
   font-size: 16px;
+}
+
+.steps-list {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0 0;
+  padding-left: 22px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.steps-list li::marker {
+  color: var(--brand);
+  font-weight: 800;
 }
 
 .footer {
