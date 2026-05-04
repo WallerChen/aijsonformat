@@ -8,7 +8,7 @@
       category: "JSON",
       path: "/tools/ai-json-repair/",
       description:
-        "Fix broken JSON from ChatGPT, APIs, logs and config files with smart local repair.",
+        "Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.",
       inputLabel: "Broken JSON",
       outputLabel: "Repaired JSON",
       actionLabel: "Repair JSON",
@@ -17,8 +17,8 @@
       run: repairJsonTool,
       faq: [
         ["Can this fix JSON from ChatGPT?", "Yes. It handles common model output issues like code fences, comments, single quotes, trailing commas and unquoted keys."],
-        ["Is my JSON uploaded?", "No. This tool runs in your browser for the current version."],
-        ["What if repair fails?", "The output still shows the best cleaned version and the message explains what failed."]
+        ["Is my JSON uploaded?", "Local repair runs in your browser. If AI fallback is configured and needed, the input is sent to the site API."],
+        ["What if repair fails?", "The tool returns the best local repair and can ask the AI fallback when the API is configured."]
       ]
     },
     {
@@ -419,11 +419,13 @@
       inputLabel: "Text Input",
       outputLabel: "JSON Output",
       actionLabel: "Convert to JSON",
+      secondaryActionLabel: "Convert with AI",
       sample: "name: AI JSON Format\ncategory: developer tools\nfree: true",
       run: textToJsonTool,
+      secondaryRun: aiTextToJsonTool,
       faq: [
         ["What text formats work best?", "Key-value lines, comma-separated lists and simple tables work best."],
-        ["Is this AI powered?", "This version uses local structured parsing. It is designed so an AI parser can be added later."],
+        ["Is this AI powered?", "The default conversion is local. The AI mode uses the site API when OPENAI_API_KEY is configured."],
         ["Can I edit the output?", "Yes. Copy the JSON and refine it in the JSON Formatter or Repair tools."]
       ]
     }
@@ -995,12 +997,14 @@
     }
   }
 
-  function repairJsonTool(value) {
+  async function repairJsonTool(value) {
     const repaired = repairJson(value);
     try {
       const parsed = JSON.parse(repaired);
       return result(JSON.stringify(parsed, null, 2), "JSON repaired and formatted.", "ok");
     } catch (error) {
+      const aiResult = await callAiJson("repair", value, repaired);
+      if (aiResult) return aiResult;
       return result(repaired, `Best effort repair created, but JSON still has an error: ${humanJsonError(error)}`, "warn");
     }
   }
@@ -1286,6 +1290,33 @@
     }
 
     return result(JSON.stringify(lines.map(coerceValue), null, 2), "Converted lines to a JSON array.", "ok");
+  }
+
+  async function aiTextToJsonTool(value) {
+    const aiResult = await callAiJson("text-to-json", value);
+    if (aiResult) return aiResult;
+    return result(
+      textToJsonTool(value).output,
+      "AI mode is not configured yet, so local conversion was used.",
+      "warn"
+    );
+  }
+
+  async function callAiJson(mode, input, localRepair) {
+    try {
+      const response = await fetch("/api/ai-json", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode, input, localRepair })
+      });
+      if (response.status === 404 || response.status === 501) return null;
+      const data = await response.json();
+      if (!response.ok) return result(localRepair || "", data.error || "AI request failed.", "warn");
+      const parsed = JSON.parse(data.output);
+      return result(JSON.stringify(parsed, null, 2), data.message || "AI JSON generated.", "ok");
+    } catch (error) {
+      return null;
+    }
   }
 
   function jsonToCsvTool(value) {
