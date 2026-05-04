@@ -398,16 +398,16 @@
       title: "Password Generator",
       category: "Random",
       path: "/tools/password-generator/",
-      description: "Generate strong random passwords with adjustable length and character sets.",
-      inputLabel: "Length",
+      description: "Generate strong random passwords with configurable length and simple character options.",
+      inputLabel: "Length or Options",
       outputLabel: "Password",
       actionLabel: "Generate Password",
-      sample: "24",
+      sample: "24 symbols",
       run: passwordTool,
       faq: [
-        ["What length should I use?", "Use at least 16 characters for most accounts, and longer for shared secrets."],
+        ["What length should I use?", "Use at least 16 characters for most accounts and longer for shared secrets."],
         ["Are passwords stored?", "No. They are generated locally and not saved."],
-        ["Can I avoid symbols?", "This first version includes letters, numbers and symbols for stronger defaults."]
+        ["Can I avoid symbols?", "Yes. Enter a length followed by no symbols, for example: 24 no symbols."]
       ]
     },
     {
@@ -1242,8 +1242,15 @@
   }
 
   function passwordTool(value) {
-    const length = clamp(parseInt(value, 10) || 24, 8, 128);
-    const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*_-+=?";
+    const options = String(value || "").toLowerCase();
+    const length = clamp(parseInt(options, 10) || 24, 8, 128);
+    const letters = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+    const numbers = "23456789";
+    const symbols = "!@#$%^&*_-+=?";
+    let alphabet = letters + numbers + symbols;
+    if (/no[-\s]?symbols?/.test(options)) alphabet = letters + numbers;
+    if (/letters?\s+only/.test(options)) alphabet = letters;
+    if (/numbers?\s+only|digits?\s+only/.test(options)) alphabet = numbers;
     const array = new Uint32Array(length);
     if (window.crypto && window.crypto.getRandomValues) {
       window.crypto.getRandomValues(array);
@@ -1312,7 +1319,14 @@
   function jsonToTypeScriptTool(value) {
     try {
       const parsed = JSON.parse(value);
-      return result(`interface RootObject ${typeScriptShape(parsed, 0)}`, "Generated TypeScript interface.", "ok");
+      if (Array.isArray(parsed)) {
+        const itemShape = parsed.length ? typeScriptShape(mergeArrayItems(parsed), 0) : "unknown";
+        return result(`type RootObject = ${itemShape}[];`, "Generated TypeScript type.", "ok");
+      }
+      if (parsed && typeof parsed === "object") {
+        return result(`interface RootObject ${typeScriptShape(parsed, 0)}`, "Generated TypeScript interface.", "ok");
+      }
+      return result(`type RootObject = ${typeScriptShape(parsed, 0)};`, "Generated TypeScript type.", "ok");
     } catch (error) {
       return result("", humanJsonError(error), "error");
     }
@@ -1397,11 +1411,36 @@
     return /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(key) ? key : JSON.stringify(key);
   }
 
+  function mergeArrayItems(items) {
+    const objectItems = items.filter((item) => item && typeof item === "object" && !Array.isArray(item));
+    if (!objectItems.length) return items[0];
+    const merged = {};
+    for (const item of objectItems) {
+      for (const [key, value] of Object.entries(item)) {
+        if (!(key in merged)) {
+          merged[key] = value;
+        } else if (Array.isArray(merged[key]) && Array.isArray(value)) {
+          merged[key] = merged[key].length ? merged[key] : value;
+        } else if (
+          merged[key] &&
+          value &&
+          typeof merged[key] === "object" &&
+          typeof value === "object" &&
+          !Array.isArray(merged[key]) &&
+          !Array.isArray(value)
+        ) {
+          merged[key] = { ...merged[key], ...value };
+        }
+      }
+    }
+    return merged;
+  }
+
   function schemaForValue(value) {
     if (Array.isArray(value)) {
       return {
         type: "array",
-        items: value.length ? schemaForValue(value[0]) : {}
+        items: value.length ? schemaForValue(mergeArrayItems(value)) : {}
       };
     }
     if (value && typeof value === "object") {
