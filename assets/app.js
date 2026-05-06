@@ -141,6 +141,76 @@
       ]
     },
     {
+      id: "json-sorter",
+      title: "JSON Sorter",
+      category: "JSON",
+      path: "/tools/json-sorter/",
+      description: "Sort JSON object keys recursively for stable diffs, cleaner configs and predictable output.",
+      inputLabel: "JSON Input",
+      outputLabel: "Sorted JSON",
+      actionLabel: "Sort JSON",
+      sample: '{"z":3,"a":{"name":"AI JSON Format","id":1},"tags":["json","format"]}',
+      run: jsonSorterTool,
+      faq: [
+        ["What does JSON sorting change?", "It sorts object keys alphabetically while preserving values and array order."],
+        ["Why sort JSON keys?", "Sorted keys make diffs, reviews and config comparisons easier to scan."],
+        ["Does it upload data?", "No. Sorting runs locally in your browser."]
+      ]
+    },
+    {
+      id: "json-path",
+      title: "JSON Path Extractor",
+      category: "JSON",
+      path: "/tools/json-path/",
+      description: "Extract a value from JSON with a simple path such as $.user.name or items[0].id.",
+      inputLabel: "JSON, then path on last line",
+      outputLabel: "Extracted Value",
+      actionLabel: "Extract Value",
+      sample: '{\n  "user": { "name": "AI JSON Format", "active": true },\n  "items": [{ "id": 123 }]\n}\n\n$.items[0].id',
+      run: jsonPathTool,
+      faq: [
+        ["What path syntax is supported?", "Use simple dot paths and array indexes, such as $.user.name or $.items[0].id."],
+        ["Can this query multiple values?", "This lightweight version extracts one path at a time."],
+        ["Is this full JSONPath?", "No. It supports the common simple subset developers use for quick inspection."]
+      ]
+    },
+    {
+      id: "json-lines",
+      title: "JSON Lines to JSON",
+      category: "JSON",
+      path: "/tools/json-lines/",
+      description: "Convert JSONL or NDJSON rows into a JSON array, or convert a JSON array back to JSON Lines.",
+      inputLabel: "JSON Lines or JSON Array",
+      outputLabel: "Converted Output",
+      actionLabel: "JSONL to Array",
+      secondaryActionLabel: "Array to JSONL",
+      sample: '{"id":1,"name":"JSON Formatter"}\n{"id":2,"name":"AI JSON Repair"}',
+      run: jsonLinesToArrayTool,
+      secondaryRun: jsonArrayToLinesTool,
+      faq: [
+        ["What is JSON Lines?", "JSON Lines stores one valid JSON value per line, often used for logs and datasets."],
+        ["Can blank lines be included?", "Blank lines are ignored when converting JSON Lines to an array."],
+        ["What is NDJSON?", "NDJSON is newline-delimited JSON, another name for the same common format."]
+      ]
+    },
+    {
+      id: "json-to-markdown",
+      title: "JSON to Markdown Table",
+      category: "JSON",
+      path: "/tools/json-to-markdown/",
+      description: "Convert JSON arrays and objects into Markdown tables for docs, GitHub READMEs and notes.",
+      inputLabel: "JSON Input",
+      outputLabel: "Markdown Table",
+      actionLabel: "Convert to Markdown",
+      sample: '[{"tool":"JSON Formatter","type":"format"},{"tool":"AI JSON Repair","type":"repair"}]',
+      run: jsonToMarkdownTool,
+      faq: [
+        ["What JSON works best?", "Arrays of flat objects convert best into Markdown tables."],
+        ["How are nested values handled?", "Nested objects and arrays are stringified inside a table cell."],
+        ["Where can I use the output?", "Use it in GitHub, Markdown docs, Notion imports or developer notes."]
+      ]
+    },
+    {
       id: "json-escape-unescape",
       title: "JSON Escape / Unescape",
       category: "JSON",
@@ -602,9 +672,279 @@
         ["Why are there two timestamp lengths?", "10-digit values are usually seconds. 13-digit values are usually milliseconds."],
         ["Does timezone affect the timestamp?", "No. The timestamp is absolute, but displayed dates can be local or UTC."]
       ]
+    },
+    {
+      id: "ai-json-formatter",
+      title: "AI JSON Formatter",
+      category: "AI JSON guide",
+      description: "Format and repair AI-generated JSON from ChatGPT, APIs and automation tools with a practical AI JSON formatter workflow.",
+      primaryToolId: "ai-json-repair",
+      points: [
+        "Paste AI-generated JSON or JSON-like output into AI JSON Repair.",
+        "Let local repair clean common issues such as code fences, single quotes and trailing commas.",
+        "Use the AI fallback when the structure is too broken for local repair."
+      ],
+      faq: [
+        ["What is an AI JSON formatter?", "It is a formatter designed for JSON-like output from AI tools, where responses often include markdown or small syntax mistakes."],
+        ["Is it different from a normal JSON formatter?", "Yes. A normal formatter requires valid JSON first. AI JSON formatting often needs repair before prettifying."],
+        ["Can it handle ChatGPT JSON?", "Yes. The repair workflow is designed for model output, copied API examples and automation snippets."]
+      ]
+    },
+    {
+      id: "ai-json-format",
+      title: "AI JSON Format",
+      category: "AI JSON guide",
+      description: "Clean, format and validate JSON for AI workflows, structured prompts and model responses.",
+      primaryToolId: "ai-json-repair",
+      points: [
+        "Use AI JSON Repair when model output is not strict JSON.",
+        "Use JSON Formatter after repair to make the output readable.",
+        "Use JSON Validator before sending the data to an API or parser."
+      ],
+      faq: [
+        ["Why does AI JSON need formatting?", "AI output may include explanations, markdown fences or JSON-like syntax that strict parsers reject."],
+        ["Can I use this for structured outputs?", "Yes. It is useful for checking and cleaning structured AI responses before integration."],
+        ["Should I validate after formatting?", "Yes. Validation catches syntax issues before production use."]
+      ]
+    },
+    {
+      id: "json-format-online",
+      title: "JSON Format Online",
+      category: "JSON guide",
+      description: "Format JSON online into readable indentation and copy clean output for APIs, configs and docs.",
+      primaryToolId: "json-formatter",
+      points: [
+        "Paste valid JSON into the JSON Formatter.",
+        "Click Format JSON to prettify objects and arrays.",
+        "Copy the formatted result into code, docs or API clients."
+      ],
+      faq: [
+        ["What does JSON format online mean?", "It means prettifying JSON in the browser so nested data is easier to read."],
+        ["Does formatting change values?", "No. It only changes whitespace when the input is valid JSON."],
+        ["What if my JSON is invalid?", "Use AI JSON Repair first, then format the repaired result."]
+      ]
+    },
+    {
+      id: "json-formatter-online-free",
+      title: "JSON Formatter Online Free",
+      category: "JSON guide",
+      description: "Use a free online JSON formatter with no signup for quick developer copy-and-paste workflows.",
+      primaryToolId: "json-formatter",
+      points: [
+        "Open the JSON Formatter tool.",
+        "Paste JSON from an API response, config file or log.",
+        "Format, copy and reuse the cleaned output."
+      ],
+      faq: [
+        ["Is the JSON formatter free?", "Yes. The formatter is free and does not require an account."],
+        ["Can I use it for API responses?", "Yes. It is useful for formatting API responses, webhook payloads and config data."],
+        ["Does it run locally?", "The formatter runs in your browser."]
+      ]
+    },
+    {
+      id: "json-beautifier",
+      title: "JSON Beautifier",
+      category: "JSON guide",
+      description: "Beautify minified JSON into readable, indented output for debugging and documentation.",
+      primaryToolId: "json-formatter",
+      points: [
+        "Paste minified or compact JSON.",
+        "Run the JSON Formatter to beautify it.",
+        "Copy the indented output for review or documentation."
+      ],
+      faq: [
+        ["Is beautify the same as format?", "For JSON tools, beautify and format usually mean the same thing: readable indentation."],
+        ["Can it beautify invalid JSON?", "Invalid JSON must be repaired first."],
+        ["Can I minify it again?", "Yes. Use JSON Minifier to compact the formatted output."]
+      ]
+    },
+    {
+      id: "json-prettify",
+      title: "Prettify JSON Online",
+      category: "JSON guide",
+      description: "Prettify JSON online with clean indentation, validation feedback and one-click copy.",
+      primaryToolId: "json-formatter",
+      points: [
+        "Paste your JSON into the formatter.",
+        "Click Format JSON.",
+        "Review indentation and copy the prettified result."
+      ],
+      faq: [
+        ["What is prettified JSON?", "Prettified JSON is JSON printed with line breaks and indentation."],
+        ["Why prettify JSON?", "It makes nested data easier to inspect and debug."],
+        ["Can I prettify JSON from logs?", "Yes, as long as the JSON portion is valid or repaired first."]
+      ]
+    },
+    {
+      id: "json-lint-online",
+      title: "JSON Lint Online",
+      category: "JSON guide",
+      description: "Lint JSON online by validating syntax and identifying parse errors before using data in code.",
+      primaryToolId: "json-validator",
+      points: [
+        "Paste JSON into the JSON Validator.",
+        "Run validation to check parser compatibility.",
+        "Repair invalid JSON if the validator reports an error."
+      ],
+      faq: [
+        ["What is JSON linting?", "JSON linting checks whether JSON syntax is valid and parser-ready."],
+        ["Does linting format JSON?", "Validation checks syntax. Use JSON Formatter when you also want pretty output."],
+        ["What should I do with an error?", "Use the error message to locate the issue or open AI JSON Repair."]
+      ]
+    },
+    {
+      id: "json-parser-online",
+      title: "JSON Parser Online",
+      category: "JSON guide",
+      description: "Parse JSON online to confirm whether a value is a valid object, array, string, number, boolean or null.",
+      primaryToolId: "json-validator",
+      points: [
+        "Paste the JSON value into JSON Validator.",
+        "Run validation to parse the value.",
+        "Use the result summary to understand the top-level JSON type."
+      ],
+      faq: [
+        ["Can JSON be an array?", "Yes. A valid JSON document can be an object, array, string, number, boolean or null."],
+        ["What does a JSON parser do?", "It reads JSON text and converts it into structured data."],
+        ["Why does parsing fail?", "Parsing fails when syntax is not strict JSON."]
+      ]
+    },
+    {
+      id: "json-cleaner",
+      title: "JSON Cleaner",
+      category: "JSON guide",
+      description: "Clean JSON-like text by removing comments, trailing commas, code fences and other parser-breaking syntax.",
+      primaryToolId: "ai-json-repair",
+      points: [
+        "Paste JSON-like text into AI JSON Repair.",
+        "Clean syntax issues with local repair.",
+        "Validate and format the cleaned JSON."
+      ],
+      faq: [
+        ["What can a JSON cleaner fix?", "It can often fix comments, single quotes, trailing commas, unquoted keys and markdown fences."],
+        ["Is cleaned JSON always correct?", "Review important data after cleaning, especially when the original text is badly broken."],
+        ["Can it clean API examples?", "Yes. It is useful for copied examples that look like JavaScript objects instead of strict JSON."]
+      ]
+    },
+    {
+      id: "ai-json-generator",
+      title: "AI JSON Generator",
+      category: "AI JSON guide",
+      description: "Generate structured JSON from text, requirements or simple notes using the Text to JSON workflow.",
+      primaryToolId: "text-to-json",
+      points: [
+        "Describe the data you want as text or key-value notes.",
+        "Use Text to JSON for local structured conversion.",
+        "Use Convert with AI when the input is messy or natural language."
+      ],
+      faq: [
+        ["What is an AI JSON generator?", "It converts natural language or rough notes into a useful JSON structure."],
+        ["Can it infer fields?", "AI mode can infer useful fields from text, but you should review the output."],
+        ["Can I validate the generated JSON?", "Yes. Send it to JSON Validator or JSON Formatter after generation."]
+      ]
+    },
+    {
+      id: "ai-json-to-typescript",
+      title: "AI JSON to TypeScript",
+      category: "AI JSON guide",
+      description: "Clean AI JSON output and turn it into TypeScript interfaces for frontend and API development.",
+      primaryToolId: "json-to-typescript",
+      points: [
+        "Repair AI-generated JSON if needed.",
+        "Paste the valid JSON into JSON to TypeScript.",
+        "Copy the generated RootObject type or interface."
+      ],
+      faq: [
+        ["Why convert AI JSON to TypeScript?", "It helps turn example model responses into typed frontend or API code."],
+        ["Should I review generated types?", "Yes. Generated types are a starting point and may need optional fields or unions."],
+        ["Can arrays be converted?", "Yes. Arrays generate a RootObject array type."]
+      ]
+    },
+    {
+      id: "json-format-for-ai",
+      title: "JSON Format for AI",
+      category: "AI JSON guide",
+      description: "Prepare clean JSON for AI prompts, structured outputs, agents and automation workflows.",
+      primaryToolId: "json-formatter",
+      points: [
+        "Format JSON before putting it into a prompt or config.",
+        "Validate syntax so the AI example is unambiguous.",
+        "Minify JSON when you need a compact prompt snippet."
+      ],
+      faq: [
+        ["Why format JSON for AI?", "Readable JSON examples make prompts and structured-output instructions easier to inspect."],
+        ["Should prompt JSON be valid?", "Yes. Valid JSON reduces ambiguity in examples and tool configuration."],
+        ["Can I use minified JSON in prompts?", "Yes, but formatted JSON is easier to review before minifying."]
+      ]
+    },
+    {
+      id: "json-format-for-openai-response",
+      title: "JSON Format for OpenAI Response",
+      category: "AI JSON guide",
+      description: "Format and repair JSON-like responses from OpenAI-style APIs and structured AI outputs.",
+      primaryToolId: "ai-json-repair",
+      points: [
+        "Paste the response body or JSON-like output.",
+        "Repair syntax if the response includes markdown or commentary.",
+        "Format and validate the final JSON before parsing it in code."
+      ],
+      faq: [
+        ["Why would an AI response need repair?", "Some responses include markdown fences or explanatory text around JSON."],
+        ["Can this parse API response JSON?", "Yes. Use JSON Formatter when the API response is already valid JSON."],
+        ["Can this help with structured outputs?", "Yes. It is useful for checking examples and debugging parser failures."]
+      ]
+    },
+    {
+      id: "json-parser-error-unexpected-token",
+      title: "JSON Parser Error Unexpected Token",
+      category: "JSON guide",
+      description: "Understand and fix unexpected token errors from JSON.parse and strict JSON parsers.",
+      primaryToolId: "ai-json-repair",
+      points: [
+        "Paste the JSON that caused the unexpected token error.",
+        "Repair common syntax problems such as comments, trailing commas and single quotes.",
+        "Validate the repaired JSON before parsing again."
+      ],
+      faq: [
+        ["What causes unexpected token in JSON?", "The parser found a character that strict JSON does not allow at that position."],
+        ["Are comments allowed in JSON?", "No. Comments are common in JavaScript objects but invalid in strict JSON."],
+        ["How do I fix the error?", "Repair the syntax, then validate the result with JSON Validator."]
+      ]
+    },
+    {
+      id: "format-api-response-json",
+      title: "Format API Response JSON",
+      category: "JSON guide",
+      description: "Format API response JSON from REST endpoints, webhooks and logs for easier debugging.",
+      primaryToolId: "json-formatter",
+      points: [
+        "Copy the JSON response from your API client or logs.",
+        "Paste it into JSON Formatter.",
+        "Format, inspect and copy the readable output."
+      ],
+      faq: [
+        ["Can I format webhook payloads?", "Yes. Webhook payloads are often JSON and can be formatted for review."],
+        ["What if the response is escaped JSON?", "Use JSON Escape / Unescape first if the JSON is inside a string."],
+        ["Can I convert an API response to TypeScript?", "Yes. Use JSON to TypeScript after formatting the response."]
+      ]
     }
   ];
   const guidesById = Object.fromEntries(guidePages.map((guide) => [guide.id, guide]));
+  const growthGuideIds = [
+    "ai-json-formatter",
+    "ai-json-format",
+    "json-format-online",
+    "json-formatter-online-free",
+    "json-beautifier",
+    "json-prettify",
+    "json-lint-online",
+    "json-parser-online",
+    "json-cleaner",
+    "ai-json-generator",
+    "json-format-for-ai",
+    "format-api-response-json"
+  ];
+  const growthGuides = growthGuideIds.map((id) => guidesById[id]).filter(Boolean);
   const app = document.getElementById("app");
   const pageId = app.dataset.page || pageFromPath();
 
@@ -709,12 +1049,23 @@
         <section class="content-band">
           <div class="section-head">
             <div>
+              <h2>AI JSON Guides</h2>
+              <p>Growth pages around AI JSON formatting, JSON parser errors and practical model-output cleanup.</p>
+            </div>
+          </div>
+          <div class="tool-grid">
+            ${growthGuides.slice(0, 6).map(renderGuideCard).join("")}
+          </div>
+        </section>
+        <section class="content-band">
+          <div class="section-head">
+            <div>
               <h2>Popular Fixes</h2>
               <p>Long-tail guides for common parser errors and everyday developer conversions.</p>
             </div>
           </div>
           <div class="tool-grid">
-            ${guidePages.slice(0, 6).map(renderGuideCard).join("")}
+            ${guidePages.filter((guide) => !growthGuideIds.includes(guide.id)).slice(0, 6).map(renderGuideCard).join("")}
           </div>
         </section>
       </main>
@@ -842,7 +1193,7 @@
             <div class="side-box">
               <h3>Related guides</h3>
               <div class="side-links">
-                ${guidePages.filter((item) => item.id !== guide.id).slice(0, 7).map((item) => `<a href="/${item.id}/">${escapeHtml(item.title)}</a>`).join("")}
+                ${relatedGuides(guide).map((item) => `<a href="/${item.id}/">${escapeHtml(item.title)}</a>`).join("")}
               </div>
             </div>
           </aside>
@@ -968,6 +1319,13 @@
     const same = tools.filter((item) => item.category === tool.category && item.id !== tool.id);
     const rest = tools.filter((item) => item.category !== tool.category);
     return same.concat(rest).slice(0, 7);
+  }
+
+  function relatedGuides(guide) {
+    const sameCategory = guidePages.filter((item) => item.category === guide.category && item.id !== guide.id);
+    const sameTool = guidePages.filter((item) => item.primaryToolId === guide.primaryToolId && item.category !== guide.category && item.id !== guide.id);
+    const rest = guidePages.filter((item) => item.category !== guide.category && item.primaryToolId !== guide.primaryToolId && item.id !== guide.id);
+    return sameCategory.concat(sameTool, rest).slice(0, 7);
   }
 
   function result(output, message, level) {
@@ -1374,6 +1732,151 @@
     } catch (error) {
       return result("", humanJsonError(error), "error");
     }
+  }
+
+  function jsonSorterTool(value) {
+    try {
+      const parsed = JSON.parse(value);
+      return result(JSON.stringify(sortJsonValue(parsed), null, 2), "JSON object keys sorted recursively.", "ok");
+    } catch (error) {
+      return result("", humanJsonError(error), "error");
+    }
+  }
+
+  function sortJsonValue(value) {
+    if (Array.isArray(value)) return value.map(sortJsonValue);
+    if (value && typeof value === "object") {
+      return Object.keys(value).sort().reduce((sorted, key) => {
+        sorted[key] = sortJsonValue(value[key]);
+        return sorted;
+      }, {});
+    }
+    return value;
+  }
+
+  function jsonPathTool(value) {
+    const { jsonText, path } = splitJsonAndPath(value);
+    if (!jsonText || !path) {
+      return result("", "Paste JSON, add a blank line, then add a path like $.items[0].id.", "error");
+    }
+    try {
+      const parsed = JSON.parse(jsonText);
+      const extracted = readSimpleJsonPath(parsed, path);
+      return result(formatJsonValue(extracted), `Extracted value at ${path}.`, "ok");
+    } catch (error) {
+      return result("", error.message || humanJsonError(error), "error");
+    }
+  }
+
+  function splitJsonAndPath(value) {
+    const text = String(value || "").trim();
+    const blocks = text.split(/\n\s*\n/);
+    if (blocks.length > 1) {
+      return {
+        jsonText: blocks.slice(0, -1).join("\n\n").trim(),
+        path: blocks[blocks.length - 1].trim().split(/\r?\n/)[0].trim()
+      };
+    }
+    const lines = text.split(/\r?\n/);
+    const path = (lines.pop() || "").trim();
+    return { jsonText: lines.join("\n").trim(), path };
+  }
+
+  function readSimpleJsonPath(value, path) {
+    let expression = String(path || "").trim();
+    if (!expression) throw new Error("Enter a JSON path.");
+    if (expression.startsWith("$")) expression = expression.slice(1);
+    if (expression.startsWith(".")) expression = expression.slice(1);
+    if (!expression) return value;
+
+    const tokens = [];
+    const pattern = /([A-Za-z_$][\w$-]*|\[(?:\d+|"[^"]+"|'[^']+')\])/g;
+    let match;
+    let cursor = 0;
+    while ((match = pattern.exec(expression))) {
+      if (match.index !== cursor) {
+        throw new Error("Unsupported path syntax. Try $.user.name or $.items[0].id.");
+      }
+      const token = match[1];
+      if (token.startsWith("[")) {
+        const inner = token.slice(1, -1);
+        tokens.push(/^\d+$/.test(inner) ? Number(inner) : inner.replace(/^["']|["']$/g, ""));
+      } else {
+        tokens.push(token);
+      }
+      cursor = pattern.lastIndex;
+      if (expression[cursor] === ".") {
+        cursor += 1;
+        pattern.lastIndex = cursor;
+      }
+    }
+    if (!tokens.length || cursor < expression.length) {
+      throw new Error("Unsupported path syntax. Try $.user.name or $.items[0].id.");
+    }
+
+    return tokens.reduce((current, token) => {
+      if (current == null || !(token in Object(current))) {
+        throw new Error(`Path not found at ${String(token)}.`);
+      }
+      return current[token];
+    }, value);
+  }
+
+  function jsonLinesToArrayTool(value) {
+    try {
+      const lines = String(value || "").split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+      if (!lines.length) return result("[]", "Enter JSON Lines to convert.", "error");
+      const parsed = lines.map((line, index) => {
+        try {
+          return JSON.parse(line);
+        } catch (error) {
+          throw new Error(`Line ${index + 1}: ${humanJsonError(error)}`);
+        }
+      });
+      return result(JSON.stringify(parsed, null, 2), `Converted ${parsed.length} JSONL row${parsed.length === 1 ? "" : "s"} to a JSON array.`, "ok");
+    } catch (error) {
+      return result("", error.message, "error");
+    }
+  }
+
+  function jsonArrayToLinesTool(value) {
+    try {
+      const parsed = JSON.parse(value);
+      if (!Array.isArray(parsed)) return result("", "Input must be a JSON array.", "error");
+      return result(parsed.map((item) => JSON.stringify(item)).join("\n"), `Converted ${parsed.length} array item${parsed.length === 1 ? "" : "s"} to JSON Lines.`, "ok");
+    } catch (error) {
+      return result("", humanJsonError(error), "error");
+    }
+  }
+
+  function jsonToMarkdownTool(value) {
+    try {
+      const parsed = JSON.parse(value);
+      const rows = Array.isArray(parsed) ? parsed : [parsed];
+      if (!rows.length) return result("", "JSON array is empty.", "warn");
+      if (!rows.every((row) => row && typeof row === "object" && !Array.isArray(row))) {
+        return result("", "JSON to Markdown works best with an object or an array of objects.", "error");
+      }
+      const headers = Array.from(new Set(rows.flatMap((row) => Object.keys(row))));
+      const table = [
+        `| ${headers.map(markdownCell).join(" | ")} |`,
+        `| ${headers.map(() => "---").join(" | ")} |`,
+        ...rows.map((row) => `| ${headers.map((header) => markdownCell(formatJsonValue(row[header]))).join(" | ")} |`)
+      ];
+      return result(table.join("\n"), `Converted ${rows.length} row${rows.length === 1 ? "" : "s"} to a Markdown table.`, "ok");
+    } catch (error) {
+      return result("", humanJsonError(error), "error");
+    }
+  }
+
+  function formatJsonValue(value) {
+    if (value === undefined) return "";
+    if (value && typeof value === "object") return JSON.stringify(value, null, 2);
+    return String(value);
+  }
+
+  function markdownCell(value) {
+    return String(value ?? "").replace(/\|/g, "\\|").replace(/\r?\n/g, "<br>");
   }
 
   function csvEscape(value) {
