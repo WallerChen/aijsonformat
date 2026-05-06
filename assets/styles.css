@@ -550,6 +550,37 @@ h2 {
   font-size: 16px;
 }
 
+.link-cluster {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.link-item {
+  display: grid;
+  gap: 6px;
+  min-height: 92px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfdfc;
+}
+
+.link-item span {
+  font-weight: 850;
+}
+
+.link-item small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.link-item:hover {
+  border-color: #b7ded7;
+  background: #f0faf7;
+}
+
 .steps-list {
   display: grid;
   gap: 12px;
@@ -608,6 +639,10 @@ h2 {
   .tool-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .link-cluster {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 720px) {
@@ -650,7 +685,8 @@ h2 {
 
   .mini-grid,
   .tool-layout,
-  .tool-grid {
+  .tool-grid,
+  .link-cluster {
     grid-template-columns: 1fr;
   }
 
