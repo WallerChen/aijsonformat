@@ -57,10 +57,10 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 18px;
   max-width: 1180px;
   margin: 0 auto;
-  padding: 14px 22px;
+  padding: 12px 22px;
 }
 
 .brand {
@@ -86,13 +86,91 @@ select {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 18px;
+  justify-content: flex-end;
+  gap: 8px;
   color: var(--muted);
   font-size: 14px;
 }
 
-.nav-links a:hover {
+.nav-links a,
+.nav-menu summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  border-radius: 8px;
+  padding: 0 11px;
+  color: var(--muted);
+  font-weight: 750;
+}
+
+.nav-links a:hover,
+.nav-menu summary:hover {
   color: var(--ink);
+  background: #eef5f3;
+}
+
+.nav-links .nav-primary {
+  color: var(--ink);
+}
+
+.nav-links .nav-primary:first-child {
+  border: 1px solid #b7ded7;
+  background: #e8faf5;
+  color: var(--brand);
+}
+
+.nav-menu {
+  position: relative;
+}
+
+.nav-menu summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.nav-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-menu summary::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-left: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.nav-menu[open] summary {
+  background: #eef5f3;
+  color: var(--ink);
+}
+
+.nav-menu-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  display: grid;
+  min-width: 220px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.nav-menu-panel a {
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 38px;
+  padding: 0 10px;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.nav-menu-panel a:hover {
+  background: var(--soft);
 }
 
 .hero {
@@ -534,15 +612,36 @@ h2 {
 
 @media (max-width: 720px) {
   .nav {
-    align-items: flex-start;
+    align-items: stretch;
     flex-direction: column;
     gap: 12px;
   }
 
   .nav-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
-    overflow-x: auto;
-    padding-bottom: 2px;
+    gap: 8px;
+  }
+
+  .nav-links a,
+  .nav-menu summary {
+    justify-content: center;
+    width: 100%;
+    min-height: 38px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+  }
+
+  .nav-menu-panel {
+    position: static;
+    min-width: 0;
+    margin-top: 8px;
+    box-shadow: none;
+  }
+
+  .nav-menu-panel a {
+    justify-content: center;
   }
 
   .hero-inner {
