@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JWT Decoder - Decode JWT Header and Payload Online</title>
-    <meta name="description" content="Decode JWT header and payload locally in your browser. Inspect JSON web tokens without uploading them." />
+    <title>JWT Decoder - Free Online Encode Tool</title>
+    <meta name="description" content="Decode JWT header and payload without sending tokens to a server." />
     <link rel="canonical" href="https://aijsonformat.com/tools/jwt-decoder/" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <!-- Google tag (gtag.js) -->
@@ -16,9 +16,96 @@
 
       gtag('config', 'G-GQ2BSP5T08');
     </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aijsonformat.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://aijsonformat.com/tools/"},{"@type":"ListItem","position":3,"name":"JWT Decoder","item":"https://aijsonformat.com/tools/jwt-decoder/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"JWT Decoder","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://aijsonformat.com/tools/jwt-decoder/","description":"Decode JWT header and payload without sending tokens to a server.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does this verify JWT signatures?","acceptedAnswer":{"@type":"Answer","text":"No. It decodes header and payload only. Signature verification requires the secret or public key."}},{"@type":"Question","name":"Is my token uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. Decoding runs in your browser."}},{"@type":"Question","name":"Can expired tokens be decoded?","acceptedAnswer":{"@type":"Answer","text":"Yes. Expiration does not prevent decoding."}}]}</script>
   </head>
   <body>
-    <div id="app" data-page="jwt-decoder"></div>
+    <div id="app" data-page="jwt-decoder">
+      <main class="main">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>JWT Decoder</span>
+      </nav>
+        <section class="tool-intro">
+          <div class="eyebrow">Encode tool</div>
+          <h1>JWT Decoder</h1>
+          <p>Decode JWT header and payload without sending tokens to a server.</p>
+          <p><a class="button primary" href="/tools/jwt-decoder/">Open JWT Decoder</a></p>
+        </section>
+        <section class="content-band">
+          <h2>Common use cases</h2>
+          <ul class="plain-list">
+            <li>Encode or decode data while testing requests and tokens.</li>
+            <li>Inspect copied values without sending them to another service.</li>
+            <li>Prepare text for URLs, HTML, Base64 or JWT debugging.</li>
+          </ul>
+        </section>
+        <section class="content-band">
+          <h2>FAQ</h2>
+          <div class="faq">
+            <article class="faq-item">
+              <h3>Does this verify JWT signatures?</h3>
+              <p>No. It decodes header and payload only. Signature verification requires the secret or public key.</p>
+            </article>
+            <article class="faq-item">
+              <h3>Is my token uploaded?</h3>
+              <p>No. Decoding runs in your browser.</p>
+            </article>
+            <article class="faq-item">
+              <h3>Can expired tokens be decoded?</h3>
+              <p>Yes. Expiration does not prevent decoding.</p>
+            </article>
+          </div>
+        </section>
+        <section class="content-band">
+          <h2>Related tools</h2>
+          <div class="tool-grid">
+          <a class="tool-card" href="/tools/base64/">
+            <span>
+              <h3>Base64 Encode / Decode</h3>
+              <p>Encode text to Base64 or decode Base64 back to Unicode text.</p>
+            </span>
+            <span class="tag-row"><span class="tag">Encode</span></span>
+          </a>
+          <a class="tool-card" href="/tools/url-encode/">
+            <span>
+              <h3>URL Encode / Decode</h3>
+              <p>Encode text for URLs or decode percent-encoded query strings.</p>
+            </span>
+            <span class="tag-row"><span class="tag">Encode</span></span>
+          </a>
+          <a class="tool-card" href="/tools/html-entity/">
+            <span>
+              <h3>HTML Entity Encode / Decode</h3>
+              <p>Encode HTML entities or decode escaped HTML text back to readable characters.</p>
+            </span>
+            <span class="tag-row"><span class="tag">Encode</span></span>
+          </a>
+          <a class="tool-card" href="/tools/ai-json-repair/">
+            <span>
+              <h3>AI JSON Repair</h3>
+              <p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p>
+            </span>
+            <span class="tag-row"><span class="tag">JSON</span></span>
+          </a>
+          <a class="tool-card" href="/tools/json-formatter/">
+            <span>
+              <h3>JSON Formatter</h3>
+              <p>Prettify JSON with readable indentation, validation and one-click copy.</p>
+            </span>
+            <span class="tag-row"><span class="tag">JSON</span></span>
+          </a>
+          <a class="tool-card" href="/tools/json-validator/">
+            <span>
+              <h3>JSON Validator</h3>
+              <p>Validate JSON syntax and find parse errors before using it in code or APIs.</p>
+            </span>
+            <span class="tag-row"><span class="tag">JSON</span></span>
+          </a>
+          </div>
+        </section>
+      </main>
+    </div>
     <script src="/assets/app.js"></script>
   </body>
 </html>
