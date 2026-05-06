@@ -1,4 +1,12 @@
 {
   "cleanUrls": false,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "rewrites": [
+    { "source": "/directories/", "destination": "/directories/index.html" },
+    { "source": "/json-tools/", "destination": "/json-tools/index.html" },
+    { "source": "/ai-json-tools/", "destination": "/ai-json-tools/index.html" },
+    { "source": "/json-format-tools/", "destination": "/json-format-tools/index.html" },
+    { "source": "/json-converter-tools/", "destination": "/json-converter-tools/index.html" },
+    { "source": "/developer-tools/", "destination": "/developer-tools/index.html" }
+  ]
 }
