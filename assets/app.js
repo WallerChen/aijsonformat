@@ -1007,6 +1007,29 @@
     }
   ];
   const directoriesById = Object.fromEntries(directoryPages.map((directory) => [directory.id, directory]));
+  const languagePages = [
+    {
+      code: "ja",
+      title: "日本語",
+      localTitle: "AI JSON フォーマッター",
+      path: "/ja/",
+      description: "日本語ユーザー向けの JSON 整形、AI JSON 修復、JSON 検証ツール入口です。"
+    },
+    {
+      code: "de",
+      title: "Deutsch",
+      localTitle: "AI JSON Formatter",
+      path: "/de/",
+      description: "Deutschsprachiger Einstieg fuer JSON formatieren, AI JSON reparieren und Entwickler-Tools."
+    },
+    {
+      code: "es",
+      title: "Español",
+      localTitle: "Formateador AI JSON",
+      path: "/es/",
+      description: "Entrada en espanol para formatear JSON, reparar AI JSON y usar herramientas de desarrollo."
+    }
+  ];
   const app = document.getElementById("app");
   const pageId = app.dataset.page || pageFromPath();
 
@@ -1032,6 +1055,7 @@
               <a href="/tools/ai-json-repair/">AI Repair</a>
               <a href="/tools/json-formatter/">JSON</a>
               <a href="/directories/">Directories</a>
+              <a href="/languages/">Languages</a>
               <a href="/tools/md5/">Hash</a>
               <a href="/tools/timestamp/">Time</a>
               <a href="/guides/">Guides</a>
@@ -1122,6 +1146,17 @@
           </div>
           <div class="tool-grid">
             ${directoryPages.filter((directory) => directory.id !== "directories").map(renderDirectoryCard).join("")}
+          </div>
+        </section>
+        <section class="content-band">
+          <div class="section-head">
+            <div>
+              <h2>Language Entrances</h2>
+              <p>Lightweight regional landing pages for users who search for JSON tools in their own language.</p>
+            </div>
+          </div>
+          <div class="tool-grid">
+            ${languagePages.map(renderLanguageCard).join("")}
           </div>
         </section>
         <section class="content-band">
@@ -1431,6 +1466,21 @@
         <span class="tag-row">
           <span class="tag">${escapeHtml(directory.category)}</span>
           <span class="tag">Directory</span>
+        </span>
+      </a>
+    `;
+  }
+
+  function renderLanguageCard(language) {
+    return `
+      <a class="tool-card" href="${language.path}" hreflang="${language.code}">
+        <span>
+          <h3>${escapeHtml(language.localTitle)}</h3>
+          <p>${escapeHtml(language.description)}</p>
+        </span>
+        <span class="tag-row">
+          <span class="tag">${escapeHtml(language.title)}</span>
+          <span class="tag">Language</span>
         </span>
       </a>
     `;
