@@ -945,6 +945,68 @@
     "format-api-response-json"
   ];
   const growthGuides = growthGuideIds.map((id) => guidesById[id]).filter(Boolean);
+  const directoryPages = [
+    {
+      id: "directories",
+      title: "Tool Directories",
+      category: "Directory",
+      description: "Browse AI JSON Format by tool category, search intent and everyday developer workflow.",
+      path: "/directories/",
+      intro: "Start from a focused directory when you know the type of task you need: JSON formatting, AI JSON cleanup, conversion, timestamps, hashes or encoding.",
+      directoryIds: ["json-tools", "ai-json-tools", "json-format-tools", "json-converter-tools", "developer-tools"]
+    },
+    {
+      id: "json-tools",
+      title: "JSON Tools Online",
+      category: "JSON directory",
+      description: "A focused directory of free JSON tools for formatting, validating, repairing, sorting, extracting and converting JSON.",
+      path: "/json-tools/",
+      intro: "Use these JSON tools for API responses, config files, logs, AI model output and quick debugging sessions.",
+      toolIds: ["json-formatter", "ai-json-repair", "json-validator", "json-minifier", "json-sorter", "json-path", "json-lines", "json-to-markdown", "json-escape-unescape"],
+      guideIds: ["json-format-online", "json-formatter-online-free", "json-beautifier", "json-prettify", "json-lint-online", "json-parser-online", "json-cleaner", "format-api-response-json"]
+    },
+    {
+      id: "ai-json-tools",
+      title: "AI JSON Tools",
+      category: "AI JSON directory",
+      description: "Tools and guides for repairing, formatting and generating JSON for AI prompts, agents and model responses.",
+      path: "/ai-json-tools/",
+      intro: "AI JSON output often needs repair before a strict parser can read it. This directory collects the pages that handle that workflow.",
+      toolIds: ["ai-json-repair", "text-to-json", "json-formatter", "json-validator", "json-to-typescript", "json-to-schema"],
+      guideIds: ["ai-json-formatter", "ai-json-format", "ai-json-generator", "ai-json-to-typescript", "json-format-for-ai", "json-format-for-openai-response", "fix-json-from-chatgpt"]
+    },
+    {
+      id: "json-format-tools",
+      title: "JSON Format Tools",
+      category: "JSON format directory",
+      description: "Format, beautify, prettify, minify and sort JSON with free browser-based tools.",
+      path: "/json-format-tools/",
+      intro: "This directory targets the common JSON formatting jobs people search for when they need readable or compact JSON fast.",
+      toolIds: ["json-formatter", "json-minifier", "json-sorter", "json-validator", "ai-json-repair"],
+      guideIds: ["json-format-online", "json-formatter-online-free", "json-beautifier", "json-prettify", "json-format-for-ai", "format-api-response-json"]
+    },
+    {
+      id: "json-converter-tools",
+      title: "JSON Converter Tools",
+      category: "JSON converter directory",
+      description: "Convert JSON to CSV, YAML, TypeScript, JSON Schema, Markdown tables and JSON Lines.",
+      path: "/json-converter-tools/",
+      intro: "Use these converters when JSON needs to move into docs, spreadsheets, typed code, schemas, logs or configuration files.",
+      toolIds: ["json-to-csv", "json-to-yaml", "json-to-typescript", "json-to-schema", "json-to-markdown", "json-lines", "text-to-json"],
+      guideIds: ["ai-json-to-typescript", "format-api-response-json", "json-format-for-ai"]
+    },
+    {
+      id: "developer-tools",
+      title: "Free Developer Tools",
+      category: "Developer tools directory",
+      description: "A directory of free browser-based tools for JSON, Base64, hashes, timestamps, UUIDs, JWTs, text and encoding.",
+      path: "/developer-tools/",
+      intro: "Beyond JSON, this directory groups the everyday utilities developers often need while debugging APIs and writing docs.",
+      toolIds: ["base64", "md5", "sha256", "timestamp", "current-timestamp", "url-encode", "html-entity", "uuid", "jwt-decoder", "case-converter", "slug-generator", "word-counter", "cron-parser", "password-generator"],
+      guideIds: ["base64-decode-online", "md5-hash-generator", "sha256-checksum", "unix-timestamp-to-date", "date-to-unix-timestamp", "current-unix-timestamp", "jwt-payload-decoder"]
+    }
+  ];
+  const directoriesById = Object.fromEntries(directoryPages.map((directory) => [directory.id, directory]));
   const app = document.getElementById("app");
   const pageId = app.dataset.page || pageFromPath();
 
@@ -953,8 +1015,10 @@
   function renderShell(id) {
     const isHome = id === "home";
     const isGuides = id === "guides";
+    const isTools = id === "tools";
     const guide = guidesById[id] || guidesById[pageFromPath()];
-    const tool = byId[id] || byId[pageFromPath()] || byId["json-formatter"];
+    const directory = directoriesById[id] || directoriesById[pageFromPath()];
+    const tool = byId[id] || byId[pageFromPath()] || (isTools ? null : byId["json-formatter"]);
 
     app.innerHTML = `
       <div class="site-shell">
@@ -967,6 +1031,7 @@
             <div class="nav-links">
               <a href="/tools/ai-json-repair/">AI Repair</a>
               <a href="/tools/json-formatter/">JSON</a>
+              <a href="/directories/">Directories</a>
               <a href="/tools/md5/">Hash</a>
               <a href="/tools/timestamp/">Time</a>
               <a href="/guides/">Guides</a>
@@ -974,7 +1039,7 @@
             </div>
           </nav>
         </header>
-        ${isHome ? renderHome() : isGuides ? renderGuideIndex() : guide ? renderGuidePage(guide) : renderToolPage(tool)}
+        ${isHome ? renderHome() : isGuides ? renderGuideIndex() : isTools ? renderToolIndex() : directory ? renderDirectoryPage(directory) : guide ? renderGuidePage(guide) : renderToolPage(tool)}
         <footer class="footer">
           <div class="footer-inner">
             <span>AI JSON Format provides free browser-based developer utilities.</span>
@@ -987,7 +1052,9 @@
     if (isHome) {
       bindHome();
       bindMiniTool();
-    } else if (!guide && !isGuides) {
+    } else if (isTools) {
+      bindToolIndex();
+    } else if (!guide && !isGuides && !directory) {
       bindTool(tool);
     }
   }
@@ -1049,6 +1116,17 @@
         <section class="content-band">
           <div class="section-head">
             <div>
+              <h2>Browse by Directory</h2>
+              <p>Focused hubs help you find the right tool path and give search engines a clearer site structure.</p>
+            </div>
+          </div>
+          <div class="tool-grid">
+            ${directoryPages.filter((directory) => directory.id !== "directories").map(renderDirectoryCard).join("")}
+          </div>
+        </section>
+        <section class="content-band">
+          <div class="section-head">
+            <div>
               <h2>AI JSON Guides</h2>
               <p>Growth pages around AI JSON formatting, JSON parser errors and practical model-output cleanup.</p>
             </div>
@@ -1075,6 +1153,7 @@
   function renderToolPage(tool) {
     return `
       <main class="main">
+        ${renderBreadcrumb([{ label: "Tools", href: "/tools/" }, { label: tool.title }])}
         <div class="tool-page">
           <div>
             <section class="tool-intro">
@@ -1113,6 +1192,10 @@
             <section class="content-band">
               <h2>About this tool</h2>
               <p>${escapeHtml(tool.description)} It is designed for fast copy-and-paste workflows and does not require a login.</p>
+              <h3>Common use cases</h3>
+              <ul class="plain-list">
+                ${toolUseCases(tool).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+              </ul>
               <div class="faq">
                 ${tool.faq.map(([question, answer]) => `
                   <article class="faq-item">
@@ -1128,6 +1211,12 @@
               <h3>Related tools</h3>
               <div class="side-links">
                 ${relatedTools(tool).map((item) => `<a href="${item.path}">${escapeHtml(item.title)}</a>`).join("")}
+              </div>
+            </div>
+            <div class="side-box">
+              <h3>Directories</h3>
+              <div class="side-links">
+                ${directoriesForTool(tool).map((item) => `<a href="${item.path}">${escapeHtml(item.title)}</a>`).join("")}
               </div>
             </div>
           </aside>
@@ -1156,6 +1245,7 @@
     const tool = byId[guide.primaryToolId] || byId["json-formatter"];
     return `
       <main class="main">
+        ${renderBreadcrumb([{ label: "Guides", href: "/guides/" }, { label: guide.title }])}
         <div class="tool-page">
           <div>
             <section class="tool-intro">
@@ -1196,6 +1286,12 @@
                 ${relatedGuides(guide).map((item) => `<a href="/${item.id}/">${escapeHtml(item.title)}</a>`).join("")}
               </div>
             </div>
+            <div class="side-box">
+              <h3>Related directories</h3>
+              <div class="side-links">
+                ${directoriesForGuide(guide).map((item) => `<a href="${item.path}">${escapeHtml(item.title)}</a>`).join("")}
+              </div>
+            </div>
           </aside>
         </div>
       </main>
@@ -1225,6 +1321,91 @@
     `;
   }
 
+  function renderToolIndex() {
+    return `
+      <main class="main">
+        ${renderBreadcrumb([{ label: "Tools" }])}
+        <section class="tool-intro">
+          <div class="eyebrow">Tools</div>
+          <h1>Free Online Developer Tools</h1>
+          <p>Browse every AI JSON Format utility for JSON formatting, AI cleanup, conversion, hashing, timestamps, encoding, JWTs and text work.</p>
+        </section>
+        <section aria-labelledby="tools-index-heading">
+          <div class="section-head">
+            <div>
+              <h2 id="tools-index-heading">All Tools</h2>
+              <p>Each tool is free, browser-friendly and built for quick copy-and-paste workflows.</p>
+            </div>
+            <input class="tool-filter" id="tool-filter" type="search" placeholder="Search tools" />
+          </div>
+          <div class="tool-grid">
+            ${tools.map(renderToolCard).join("")}
+          </div>
+        </section>
+      </main>
+    `;
+  }
+
+  function renderDirectoryPage(directory) {
+    const isIndex = directory.id === "directories";
+    const toolsForDirectory = (directory.toolIds || []).map((id) => byId[id]).filter(Boolean);
+    const guidesForDirectory = (directory.guideIds || []).map((id) => guidesById[id]).filter(Boolean);
+    const childDirectories = (directory.directoryIds || []).map((id) => directoriesById[id]).filter(Boolean);
+    return `
+      <main class="main">
+        ${renderBreadcrumb([{ label: "Directories", href: "/directories/" }, { label: directory.title }])}
+        <section class="tool-intro">
+          <div class="eyebrow">${escapeHtml(directory.category)}</div>
+          <h1>${escapeHtml(directory.title)}</h1>
+          <p>${escapeHtml(directory.description)}</p>
+        </section>
+        <section class="content-band">
+          <h2>${isIndex ? "Choose a directory" : "What this directory covers"}</h2>
+          <p>${escapeHtml(directory.intro)}</p>
+        </section>
+        ${childDirectories.length ? `
+          <section aria-labelledby="directory-list-heading">
+            <div class="section-head">
+              <div>
+                <h2 id="directory-list-heading">Directories</h2>
+                <p>Start with the hub that matches your task.</p>
+              </div>
+            </div>
+            <div class="tool-grid">
+              ${childDirectories.map(renderDirectoryCard).join("")}
+            </div>
+          </section>
+        ` : ""}
+        ${toolsForDirectory.length ? `
+          <section aria-labelledby="directory-tools-heading">
+            <div class="section-head">
+              <div>
+                <h2 id="directory-tools-heading">Tools in this directory</h2>
+                <p>Open the tool that matches the action you need right now.</p>
+              </div>
+            </div>
+            <div class="tool-grid">
+              ${toolsForDirectory.map(renderToolCard).join("")}
+            </div>
+          </section>
+        ` : ""}
+        ${guidesForDirectory.length ? `
+          <section class="content-band" aria-labelledby="directory-guides-heading">
+            <div class="section-head">
+              <div>
+                <h2 id="directory-guides-heading">Related SEO guides</h2>
+                <p>These pages cover the common search questions around ${escapeHtml(directory.title.toLowerCase())}.</p>
+              </div>
+            </div>
+            <div class="tool-grid">
+              ${guidesForDirectory.map(renderGuideCard).join("")}
+            </div>
+          </section>
+        ` : ""}
+      </main>
+    `;
+  }
+
   function renderGuideCard(guide) {
     return `
       <a class="tool-card" href="/${guide.id}/">
@@ -1240,6 +1421,32 @@
     `;
   }
 
+  function renderDirectoryCard(directory) {
+    return `
+      <a class="tool-card" href="${directory.path}">
+        <span>
+          <h3>${escapeHtml(directory.title)}</h3>
+          <p>${escapeHtml(directory.description)}</p>
+        </span>
+        <span class="tag-row">
+          <span class="tag">${escapeHtml(directory.category)}</span>
+          <span class="tag">Directory</span>
+        </span>
+      </a>
+    `;
+  }
+
+  function renderBreadcrumb(items) {
+    const crumbs = [{ label: "Home", href: "/" }, ...items];
+    return `
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        ${crumbs.map((item, index) => item.href && index < crumbs.length - 1
+          ? `<a href="${item.href}">${escapeHtml(item.label)}</a><span>/</span>`
+          : `<span>${escapeHtml(item.label)}</span>`).join("")}
+      </nav>
+    `;
+  }
+
   function bindHome() {
     const filter = document.getElementById("tool-filter");
     const cards = Array.from(document.querySelectorAll("[data-tool-card]"));
@@ -1249,6 +1456,10 @@
         card.classList.toggle("hidden", query && !card.dataset.search.includes(query));
       });
     });
+  }
+
+  function bindToolIndex() {
+    bindHome();
   }
 
   function bindMiniTool() {
@@ -1326,6 +1537,57 @@
     const sameTool = guidePages.filter((item) => item.primaryToolId === guide.primaryToolId && item.category !== guide.category && item.id !== guide.id);
     const rest = guidePages.filter((item) => item.category !== guide.category && item.primaryToolId !== guide.primaryToolId && item.id !== guide.id);
     return sameCategory.concat(sameTool, rest).slice(0, 7);
+  }
+
+  function directoriesForTool(tool) {
+    const matches = directoryPages.filter((directory) => (directory.toolIds || []).includes(tool.id));
+    return (matches.length ? matches : directoryPages.filter((directory) => directory.id !== "directories")).slice(0, 4);
+  }
+
+  function directoriesForGuide(guide) {
+    const matches = directoryPages.filter((directory) => (directory.guideIds || []).includes(guide.id));
+    return (matches.length ? matches : directoryPages.filter((directory) => directory.id !== "directories")).slice(0, 4);
+  }
+
+  function toolUseCases(tool) {
+    const cases = {
+      JSON: [
+        "Clean API responses before sharing them in documentation.",
+        "Debug parser errors from logs, webhooks and config files.",
+        "Prepare JSON examples for prompts, tests and frontend code."
+      ],
+      AI: [
+        "Turn rough notes or model output into valid JSON.",
+        "Review AI-generated data before using it in an app.",
+        "Move from natural language to structured fields faster."
+      ],
+      Hash: [
+        "Create quick fingerprints for snippets and expected values.",
+        "Compare text checksums during debugging.",
+        "Generate non-secret hashes without a server round trip."
+      ],
+      Time: [
+        "Convert timestamps while reading logs and API payloads.",
+        "Check local and UTC time without changing apps.",
+        "Copy seconds or milliseconds for databases and scripts."
+      ],
+      Encode: [
+        "Encode or decode data while testing requests and tokens.",
+        "Inspect copied values without sending them to another service.",
+        "Prepare text for URLs, HTML, Base64 or JWT debugging."
+      ],
+      Text: [
+        "Clean titles, identifiers and documentation snippets.",
+        "Convert text into developer-friendly formats.",
+        "Count or reshape text during content and code reviews."
+      ],
+      Random: [
+        "Generate identifiers or passwords for tests and prototypes.",
+        "Create random values locally in the browser.",
+        "Copy outputs into API clients, docs or fixtures."
+      ]
+    };
+    return cases[tool.category] || cases.JSON;
   }
 
   function result(output, message, level) {
