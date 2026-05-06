@@ -249,6 +249,24 @@ h1 {
   padding: 34px 22px 60px;
 }
 
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.breadcrumb a {
+  color: var(--brand);
+  font-weight: 750;
+}
+
+.breadcrumb a:hover {
+  color: var(--ink);
+}
+
 .section-head {
   display: flex;
   align-items: end;
@@ -466,6 +484,17 @@ h2 {
 .steps-list li::marker {
   color: var(--brand);
   font-weight: 800;
+}
+
+.plain-list {
+  margin: 14px 0 18px;
+  padding-left: 22px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.plain-list li + li {
+  margin-top: 8px;
 }
 
 .footer {
