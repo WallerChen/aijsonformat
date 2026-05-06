@@ -32,10 +32,11 @@ module.exports = async function handler(req, res) {
     const data = await callModel(config, prompt.developer, user);
     const text = extractModelText(data).trim();
     const jsonText = extractJson(text);
-    JSON.parse(jsonText);
+    const outputText = mode === "regex-from-text" ? normalizeRegexOutput(jsonText, input) : jsonText;
+    JSON.parse(outputText);
 
     return res.status(200).json({
-      output: jsonText,
+      output: outputText,
       message: prompt.message
     });
   } catch (error) {
@@ -93,6 +94,28 @@ function promptForMode(mode) {
     developer: base.join(" "),
     ...prompt
   };
+}
+
+function normalizeRegexOutput(jsonText, input) {
+  const parsed = JSON.parse(jsonText);
+  if (!parsed || typeof parsed !== "object" || typeof parsed.pattern !== "string") {
+    return jsonText;
+  }
+  const wantsLowercase = /\blowercase\b/i.test(input) && !/\b(case[-\s]?insensitive|ignore case|uppercase|mixed case)\b/i.test(input);
+  if (wantsLowercase) {
+    parsed.flags = String(parsed.flags || "").replace(/i/g, "");
+    parsed.pattern = parsed.pattern
+      .replace(/\[a-zA-Z/g, "[a-z")
+      .replace(/\[A-Za-z/g, "[a-z")
+      .replace(/A-Z/g, "a-z");
+  }
+  if (parsed.examples !== undefined && !Array.isArray(parsed.examples)) {
+    parsed.examples = [String(parsed.examples)];
+  }
+  if (parsed.notes !== undefined && !Array.isArray(parsed.notes)) {
+    parsed.notes = [String(parsed.notes)];
+  }
+  return JSON.stringify(parsed, null, 2);
 }
 
 function getProviderConfig() {
