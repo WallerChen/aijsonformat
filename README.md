@@ -31,7 +31,7 @@ Free, ad-supported developer tools website for JSON, hashes, timestamps, encodin
   - JWT Decoder
   - Password Generator
   - Text to JSON
-- Ready for future ad placements after approval
+- Ready for analytics and organic growth pages
 - `robots.txt`
 - `sitemap.xml`
 - Privacy, Terms, Contact and 404 pages
@@ -71,7 +71,7 @@ Cloudflare DNS records needed:
 Before submitting to an ad network:
 
 - Configure the real contact email in `/contact/`.
-- Add ad placements to the shared layout in `assets/app.js` after the site is approved by an ad network.
+- Add more long-tail SEO pages after the current AI and JSON tool clusters have search data.
 - Add `ads.txt` after receiving your publisher ID.
 - Verify `https://aijsonformat.com/sitemap.xml` in Google Search Console.
 
