@@ -84,7 +84,7 @@ function promptForMode(mode) {
       message: "AI generated mock JSON."
     },
     "regex-from-text": {
-      task: "Generate a useful regular expression from the user's plain-English requirement. Return a JSON object with keys pattern, flags, explanation, examples, and notes. The pattern value must not include slash delimiters.",
+      task: "Generate a useful regular expression from the user's plain-English requirement. Respect casing, anchors, allowed characters, length rules and negative constraints exactly. If the user says lowercase, do not include uppercase character ranges. Return a JSON object with keys pattern, flags, explanation, examples, and notes. examples and notes must be arrays of short strings. The pattern value must not include slash delimiters.",
       message: "AI generated a regex."
     }
   };
