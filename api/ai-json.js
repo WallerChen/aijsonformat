@@ -1,23 +1,47 @@
 const MAX_INPUT_CHARS = 12000;
+const RATE_LIMIT_WINDOW_MS = Number(process.env.AI_RATE_LIMIT_WINDOW_MS || 60_000);
+const RATE_LIMIT_MAX_REQUESTS = Number(process.env.AI_RATE_LIMIT_MAX_REQUESTS || 12);
+const RATE_LIMIT_BUCKETS = new Map();
 
 module.exports = async function handler(req, res) {
+  res.setHeader("Cache-Control", "no-store");
+
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed." });
   }
 
-  const config = getProviderConfig();
-  if (!config.apiKey) {
-    return res.status(501).json({ error: "AI is not configured. Set AI_API_KEY, ARK_API_KEY, or OPENAI_API_KEY in Vercel." });
+  const rateLimit = checkRateLimit(getClientKey(req));
+  res.setHeader("X-RateLimit-Limit", String(RATE_LIMIT_MAX_REQUESTS));
+  res.setHeader("X-RateLimit-Remaining", String(rateLimit.remaining));
+  res.setHeader("X-RateLimit-Reset", String(Math.ceil(rateLimit.resetAt / 1000)));
+  if (!rateLimit.allowed) {
+    res.setHeader("Retry-After", String(Math.ceil(rateLimit.retryAfterMs / 1000)));
+    return res.status(429).json({ error: "Too many AI requests. Please wait a moment and try again." });
   }
 
-  const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
+  let body;
+  try {
+    body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
+  } catch {
+    return res.status(400).json({ error: "Request body must be valid JSON." });
+  }
   const mode = normalizeMode(body.mode);
-  const input = String(body.input || "").slice(0, MAX_INPUT_CHARS);
-  const localRepair = String(body.localRepair || "").slice(0, MAX_INPUT_CHARS);
+  const rawInput = String(body.input || "");
+  const rawLocalRepair = String(body.localRepair || "");
+  if (rawInput.length > MAX_INPUT_CHARS || rawLocalRepair.length > MAX_INPUT_CHARS) {
+    return res.status(413).json({ error: `Input is too long. Please keep each field under ${MAX_INPUT_CHARS} characters.` });
+  }
+  const input = rawInput;
+  const localRepair = rawLocalRepair;
 
   if (!input.trim()) {
     return res.status(400).json({ error: "Input is required." });
+  }
+
+  const config = getProviderConfig();
+  if (!config.apiKey) {
+    return res.status(501).json({ error: "AI is not configured. Set AI_API_KEY, ARK_API_KEY, or OPENAI_API_KEY in Vercel." });
   }
 
   const prompt = promptForMode(mode);
@@ -43,6 +67,54 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: error.message || "AI JSON processing failed." });
   }
 };
+
+function checkRateLimit(key) {
+  const now = Date.now();
+  const resetAt = now + RATE_LIMIT_WINDOW_MS;
+  cleanupRateLimitBuckets(now);
+
+  const bucket = RATE_LIMIT_BUCKETS.get(key);
+  if (!bucket || bucket.resetAt <= now) {
+    RATE_LIMIT_BUCKETS.set(key, { count: 1, resetAt });
+    return {
+      allowed: true,
+      remaining: Math.max(0, RATE_LIMIT_MAX_REQUESTS - 1),
+      resetAt,
+      retryAfterMs: 0
+    };
+  }
+
+  if (bucket.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return {
+      allowed: false,
+      remaining: 0,
+      resetAt: bucket.resetAt,
+      retryAfterMs: bucket.resetAt - now
+    };
+  }
+
+  bucket.count += 1;
+  return {
+    allowed: true,
+    remaining: Math.max(0, RATE_LIMIT_MAX_REQUESTS - bucket.count),
+    resetAt: bucket.resetAt,
+    retryAfterMs: 0
+  };
+}
+
+function cleanupRateLimitBuckets(now) {
+  if (RATE_LIMIT_BUCKETS.size < 5000) return;
+  for (const [key, bucket] of RATE_LIMIT_BUCKETS.entries()) {
+    if (bucket.resetAt <= now) RATE_LIMIT_BUCKETS.delete(key);
+  }
+}
+
+function getClientKey(req) {
+  const headers = req.headers || {};
+  const forwardedFor = String(headers["x-forwarded-for"] || "");
+  const ip = forwardedFor.split(",")[0].trim() || headers["x-real-ip"] || req.socket?.remoteAddress || "unknown";
+  return `${ip}:${String(headers["user-agent"] || "unknown").slice(0, 80)}`;
+}
 
 function normalizeMode(mode) {
   const value = String(mode || "").toLowerCase();
