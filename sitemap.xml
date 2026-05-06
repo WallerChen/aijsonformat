@@ -11,6 +11,10 @@
   <url><loc>https://aijsonformat.com/tools/json-to-yaml/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-to-typescript/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-to-schema/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/json-sorter/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/json-path/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/json-lines/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/json-to-markdown/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-escape-unescape/</loc></url>
   <url><loc>https://aijsonformat.com/tools/base64/</loc></url>
   <url><loc>https://aijsonformat.com/tools/md5/</loc></url>
@@ -37,13 +41,6 @@
   <url><loc>https://aijsonformat.com/sha256-checksum/</loc></url>
   <url><loc>https://aijsonformat.com/jwt-payload-decoder/</loc></url>
   <url><loc>https://aijsonformat.com/current-unix-timestamp/</loc></url>
-  <url><loc>https://aijsonformat.com/privacy/</loc></url>
-  <url><loc>https://aijsonformat.com/terms/</loc></url>
-  <url><loc>https://aijsonformat.com/contact/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/json-sorter/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/json-path/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/json-lines/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/json-to-markdown/</loc></url>
   <url><loc>https://aijsonformat.com/ai-json-formatter/</loc></url>
   <url><loc>https://aijsonformat.com/ai-json-format/</loc></url>
   <url><loc>https://aijsonformat.com/json-format-online/</loc></url>
@@ -59,4 +56,13 @@
   <url><loc>https://aijsonformat.com/json-format-for-openai-response/</loc></url>
   <url><loc>https://aijsonformat.com/json-parser-error-unexpected-token/</loc></url>
   <url><loc>https://aijsonformat.com/format-api-response-json/</loc></url>
+  <url><loc>https://aijsonformat.com/directories/</loc></url>
+  <url><loc>https://aijsonformat.com/json-tools/</loc></url>
+  <url><loc>https://aijsonformat.com/ai-json-tools/</loc></url>
+  <url><loc>https://aijsonformat.com/json-format-tools/</loc></url>
+  <url><loc>https://aijsonformat.com/json-converter-tools/</loc></url>
+  <url><loc>https://aijsonformat.com/developer-tools/</loc></url>
+  <url><loc>https://aijsonformat.com/privacy/</loc></url>
+  <url><loc>https://aijsonformat.com/terms/</loc></url>
+  <url><loc>https://aijsonformat.com/contact/</loc></url>
 </urlset>
