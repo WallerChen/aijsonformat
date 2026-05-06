@@ -2710,21 +2710,29 @@
   function formatRegexResult(data) {
     const pattern = String(data?.pattern || ".+");
     const flags = String(data?.flags || "");
+    const examples = toStringList(data?.examples);
+    const notes = toStringList(data?.notes);
     const lines = [
       `Regex: /${pattern.replace(/\//g, "\\/")}/${flags}`,
       `Pattern: ${pattern}`,
       `Flags: ${flags || "(none)"}`
     ];
     if (data?.explanation) lines.push("", `Explanation: ${data.explanation}`);
-    if (Array.isArray(data?.examples) && data.examples.length) {
+    if (examples.length) {
       lines.push("", "Examples:");
-      lines.push(...data.examples.map((item) => `- ${String(item)}`));
+      lines.push(...examples.map((item) => `- ${item}`));
     }
-    if (Array.isArray(data?.notes) && data.notes.length) {
+    if (notes.length) {
       lines.push("", "Notes:");
-      lines.push(...data.notes.map((item) => `- ${String(item)}`));
+      lines.push(...notes.map((item) => `- ${item}`));
     }
     return lines.join("\n");
+  }
+
+  function toStringList(value) {
+    if (Array.isArray(value)) return value.map((item) => String(item)).filter(Boolean);
+    if (value === undefined || value === null || value === "") return [];
+    return [String(value)];
   }
 
   function jsonToCsvTool(value) {
