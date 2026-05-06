@@ -429,6 +429,101 @@
       ]
     },
     {
+      id: "remove-whitespace",
+      title: "Remove Whitespace",
+      category: "Text",
+      path: "/tools/remove-whitespace/",
+      description: "Remove spaces, tabs, line breaks or normalize repeated whitespace in text.",
+      inputLabel: "Input Text",
+      outputLabel: "Cleaned Text",
+      actionLabel: "Remove All Whitespace",
+      secondaryActionLabel: "Normalize Spaces",
+      sample: "  AI   JSON   Format  \n\n  remove   extra   spaces\tand line breaks.  ",
+      run: removeWhitespaceTool,
+      secondaryRun: normalizeWhitespaceTool,
+      faq: [
+        ["What whitespace is removed?", "The main action removes spaces, tabs and line breaks. Normalize Spaces keeps words readable with single spaces."],
+        ["Can I remove line breaks only?", "Use Text Formatter or Line Sorter for line-based cleanup."],
+        ["Is the text uploaded?", "No. Whitespace cleanup runs locally in your browser."]
+      ]
+    },
+    {
+      id: "text-formatter",
+      title: "Text Formatter",
+      category: "Text",
+      path: "/tools/text-formatter/",
+      description: "Format plain text by trimming lines, normalizing blank lines and cleaning repeated spaces.",
+      inputLabel: "Messy Text",
+      outputLabel: "Formatted Text",
+      actionLabel: "Format Text",
+      secondaryActionLabel: "Compact Paragraphs",
+      sample: "  First line with   extra spaces.  \n\n\n  Second line.  \nThird    line.",
+      run: textFormatterTool,
+      secondaryRun: compactParagraphsTool,
+      faq: [
+        ["What does text formatting change?", "It trims each line, normalizes repeated spaces and collapses multiple blank lines."],
+        ["Does it rewrite the words?", "No. It only cleans spacing and line breaks."],
+        ["Can I use it for copied docs?", "Yes. It is useful for cleaning copied emails, notes, prompts and documentation snippets."]
+      ]
+    },
+    {
+      id: "text-replace",
+      title: "Find and Replace Text",
+      category: "Text",
+      path: "/tools/text-replace/",
+      description: "Find and replace text online with plain text or regex-style replacement.",
+      inputLabel: "Find, replace, then text",
+      outputLabel: "Replaced Text",
+      actionLabel: "Replace Text",
+      secondaryActionLabel: "Regex Replace",
+      sample: "Find: JSON\nReplace: AI JSON\n\nJSON Formatter helps format JSON quickly.",
+      run: textReplaceTool,
+      secondaryRun: regexReplaceTool,
+      faq: [
+        ["How do I enter find and replace?", "Use Find: value and Replace: value on the first lines, then add a blank line and the text to update."],
+        ["Can I use regex?", "Yes. Use Regex Replace with a pattern such as /json/gi in the Find line."],
+        ["Does this run locally?", "Yes. Replacement happens in your browser."]
+      ]
+    },
+    {
+      id: "line-sorter",
+      title: "Line Sorter",
+      category: "Text",
+      path: "/tools/line-sorter/",
+      description: "Sort lines alphabetically, reverse line order and clean line-based lists.",
+      inputLabel: "Lines",
+      outputLabel: "Sorted Lines",
+      actionLabel: "Sort Lines",
+      secondaryActionLabel: "Reverse Lines",
+      sample: "json formatter\nai json repair\ntimestamp converter\nbase64 decoder",
+      run: lineSorterTool,
+      secondaryRun: reverseLinesTool,
+      faq: [
+        ["How are lines sorted?", "Lines are sorted alphabetically with case-insensitive comparison."],
+        ["Are blank lines kept?", "Blank lines are removed before sorting or reversing."],
+        ["Can I deduplicate lines?", "Yes. Use the Duplicate Line Remover tool."]
+      ]
+    },
+    {
+      id: "duplicate-line-remover",
+      title: "Duplicate Line Remover",
+      category: "Text",
+      path: "/tools/duplicate-line-remover/",
+      description: "Remove duplicate lines from lists while preserving the first occurrence order.",
+      inputLabel: "Lines",
+      outputLabel: "Unique Lines",
+      actionLabel: "Remove Duplicates",
+      secondaryActionLabel: "Case-insensitive Unique",
+      sample: "json\nJSON\nformatter\njson\nrepair\nformatter",
+      run: duplicateLineRemoverTool,
+      secondaryRun: duplicateLineRemoverInsensitiveTool,
+      faq: [
+        ["Does order stay the same?", "Yes. The first occurrence is kept and later duplicates are removed."],
+        ["Can matching ignore case?", "Yes. Use Case-insensitive Unique to treat JSON and json as the same value."],
+        ["Are blank lines included?", "Blank lines are ignored."]
+      ]
+    },
+    {
       id: "cron-parser",
       title: "Cron Parser",
       category: "Time",
@@ -953,7 +1048,7 @@
       description: "Browse AI JSON Format by tool category, search intent and everyday developer workflow.",
       path: "/directories/",
       intro: "Start from a focused directory when you know the type of task you need: JSON formatting, AI JSON cleanup, conversion, timestamps, hashes or encoding.",
-      directoryIds: ["json-tools", "ai-json-tools", "json-format-tools", "json-converter-tools", "developer-tools"]
+      directoryIds: ["json-tools", "ai-json-tools", "json-format-tools", "json-converter-tools", "text-tools", "developer-tools"]
     },
     {
       id: "json-tools",
@@ -1004,6 +1099,16 @@
       intro: "Beyond JSON, this directory groups the everyday utilities developers often need while debugging APIs and writing docs.",
       toolIds: ["base64", "md5", "sha256", "timestamp", "current-timestamp", "url-encode", "html-entity", "uuid", "jwt-decoder", "case-converter", "slug-generator", "word-counter", "cron-parser", "password-generator"],
       guideIds: ["base64-decode-online", "md5-hash-generator", "sha256-checksum", "unix-timestamp-to-date", "date-to-unix-timestamp", "current-unix-timestamp", "jwt-payload-decoder"]
+    },
+    {
+      id: "text-tools",
+      title: "Text Tools Online",
+      category: "Text tools directory",
+      description: "Free text tools for removing whitespace, formatting text, find and replace, sorting lines, removing duplicates and counting words.",
+      path: "/text-tools/",
+      intro: "Use these text utilities when copied notes, prompts, lists or documentation snippets need quick cleanup before being pasted into another tool.",
+      toolIds: ["remove-whitespace", "text-formatter", "text-replace", "line-sorter", "duplicate-line-remover", "word-counter", "case-converter", "slug-generator"],
+      guideIds: []
     }
   ];
   const directoriesById = Object.fromEntries(directoryPages.map((directory) => [directory.id, directory]));
@@ -1629,7 +1734,7 @@
       Text: [
         "Clean titles, identifiers and documentation snippets.",
         "Convert text into developer-friendly formats.",
-        "Count or reshape text during content and code reviews."
+        "Remove whitespace, replace text and reshape lists during content and code reviews."
       ],
       Random: [
         "Generate identifiers or passwords for tests and prototypes.",
@@ -1881,6 +1986,110 @@
       "Text counted.",
       "ok"
     );
+  }
+
+  function removeWhitespaceTool(value) {
+    const output = String(value || "").replace(/\s+/g, "");
+    return result(output, `Removed whitespace. Output length: ${output.length}.`, "ok");
+  }
+
+  function normalizeWhitespaceTool(value) {
+    const output = String(value || "").trim().replace(/\s+/g, " ");
+    return result(output, output ? "Whitespace normalized to single spaces." : "Enter text to normalize.", output ? "ok" : "error");
+  }
+
+  function textFormatterTool(value) {
+    const output = String(value || "")
+      .replace(/\r\n?/g, "\n")
+      .split("\n")
+      .map((line) => line.trim().replace(/[ \t]+/g, " "))
+      .join("\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+    return result(output, output ? "Text formatted." : "Enter text to format.", output ? "ok" : "error");
+  }
+
+  function compactParagraphsTool(value) {
+    const output = String(value || "")
+      .replace(/\r\n?/g, "\n")
+      .split(/\n\s*\n/)
+      .map((paragraph) => paragraph.split("\n").map((line) => line.trim()).filter(Boolean).join(" ").replace(/[ \t]+/g, " "))
+      .filter(Boolean)
+      .join("\n\n");
+    return result(output, output ? "Paragraphs compacted." : "Enter text to compact.", output ? "ok" : "error");
+  }
+
+  function textReplaceTool(value) {
+    const parsed = parseReplaceInput(value);
+    if (!parsed.find) return result("", "Use Find: value and Replace: value, then a blank line and the text.", "error");
+    const output = parsed.text.split(parsed.find).join(parsed.replace);
+    const count = parsed.text.split(parsed.find).length - 1;
+    return result(output, `Replaced ${count} occurrence${count === 1 ? "" : "s"}.`, "ok");
+  }
+
+  function regexReplaceTool(value) {
+    try {
+      const parsed = parseReplaceInput(value);
+      if (!parsed.find) return result("", "Use Find: /pattern/flags and Replace: value, then a blank line and the text.", "error");
+      const regex = parseRegexPattern(parsed.find);
+      const matches = parsed.text.match(regex);
+      return result(parsed.text.replace(regex, parsed.replace), `Regex replaced ${matches ? matches.length : 0} match${matches && matches.length === 1 ? "" : "es"}.`, "ok");
+    } catch (error) {
+      return result("", error.message, "error");
+    }
+  }
+
+  function parseReplaceInput(value) {
+    const text = String(value || "").replace(/\r\n?/g, "\n");
+    const blocks = text.split(/\n\s*\n/);
+    const header = blocks.shift() || "";
+    const body = blocks.join("\n\n");
+    const lines = header.split("\n");
+    const findLine = lines.find((line) => /^find\s*:/i.test(line)) || lines[0] || "";
+    const replaceLine = lines.find((line) => /^replace\s*:/i.test(line)) || lines[1] || "";
+    const find = findLine.replace(/^find\s*:/i, "").trim();
+    const replace = replaceLine.replace(/^replace\s*:/i, "");
+    return { find, replace: replace.trim(), text: body || lines.slice(2).join("\n") };
+  }
+
+  function parseRegexPattern(value) {
+    const match = String(value).match(/^\/([\s\S]+)\/([a-z]*)$/i);
+    if (match) return new RegExp(match[1], match[2].includes("g") ? match[2] : `${match[2]}g`);
+    return new RegExp(escapeRegExp(value), "g");
+  }
+
+  function lineSorterTool(value) {
+    const lines = cleanLines(value).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+    return result(lines.join("\n"), `Sorted ${lines.length} line${lines.length === 1 ? "" : "s"}.`, lines.length ? "ok" : "error");
+  }
+
+  function reverseLinesTool(value) {
+    const lines = cleanLines(value).reverse();
+    return result(lines.join("\n"), `Reversed ${lines.length} line${lines.length === 1 ? "" : "s"}.`, lines.length ? "ok" : "error");
+  }
+
+  function duplicateLineRemoverTool(value) {
+    return uniqueLinesTool(value, false);
+  }
+
+  function duplicateLineRemoverInsensitiveTool(value) {
+    return uniqueLinesTool(value, true);
+  }
+
+  function uniqueLinesTool(value, insensitive) {
+    const seen = new Set();
+    const unique = [];
+    for (const line of cleanLines(value)) {
+      const key = insensitive ? line.toLowerCase() : line;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      unique.push(line);
+    }
+    return result(unique.join("\n"), `Kept ${unique.length} unique line${unique.length === 1 ? "" : "s"}.`, unique.length ? "ok" : "error");
+  }
+
+  function cleanLines(value) {
+    return String(value || "").replace(/\r\n?/g, "\n").split("\n").map((line) => line.trim()).filter(Boolean);
   }
 
   function cronParserTool(value) {
@@ -2403,6 +2612,10 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+
+  function escapeRegExp(value) {
+    return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
   function md5(input) {
