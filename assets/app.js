@@ -1361,6 +1361,17 @@
       description: "Entrada en espanol para formatear JSON, reparar AI JSON y usar herramientas de desarrollo."
     }
   ];
+
+  if (typeof window !== "undefined") {
+    window.__AI_JSON_FORMAT_DATA__ = {
+      tools,
+      guidePages,
+      growthGuideIds,
+      directoryPages,
+      languagePages
+    };
+  }
+
   const app = document.getElementById("app");
   const pageId = app.dataset.page || pageFromPath();
 
@@ -1485,6 +1496,11 @@
             everyday developer utilities such as MD5, SHA256, Base64, timestamps, UUIDs and JWT decoding.
           </p>
         </section>
+        ${renderInternalLinkBand(
+          "Popular workflows",
+          "Start from the task people search for most, then move into the exact tool or guide.",
+          homeWorkflowLinks()
+        )}
         <section class="content-band">
           <div class="section-head">
             <div>
@@ -1588,6 +1604,11 @@
                 `).join("")}
               </div>
             </section>
+            ${renderInternalLinkBand(
+              "Next useful workflows",
+              "Move from this tool into adjacent JSON, AI and developer workflows.",
+              internalLinksForTool(tool)
+            )}
           </div>
           <aside class="side-rail" aria-label="Related tools">
             <div class="side-box">
@@ -1650,6 +1671,11 @@
               <h2>Recommended tool</h2>
               ${renderToolCard(tool)}
             </section>
+            ${renderInternalLinkBand(
+              "Related workflows",
+              "Continue with the most relevant tools, directories and follow-up guides.",
+              internalLinksForGuide(guide)
+            )}
             <section class="content-band">
               <h2>FAQ</h2>
               <div class="faq">
@@ -1746,6 +1772,11 @@
           <h2>${isIndex ? "Choose a directory" : "What this directory covers"}</h2>
           <p>${escapeHtml(directory.intro)}</p>
         </section>
+        ${renderInternalLinkBand(
+          isIndex ? "High-intent hubs" : "Related hubs",
+          "These internal links keep common JSON, AI and developer workflows close together.",
+          internalLinksForDirectory(directory)
+        )}
         ${childDirectories.length ? `
           <section aria-labelledby="directory-list-heading">
             <div class="section-head">
@@ -1832,6 +1863,139 @@
         </span>
       </a>
     `;
+  }
+
+  function renderInternalLinkBand(title, intro, links) {
+    const visibleLinks = links.filter(Boolean).slice(0, 8);
+    if (!visibleLinks.length) return "";
+    return `
+      <section class="content-band">
+        <div class="section-head">
+          <div>
+            <h2>${escapeHtml(title)}</h2>
+            <p>${escapeHtml(intro)}</p>
+          </div>
+        </div>
+        <div class="link-cluster">
+          ${visibleLinks.map((link) => `
+            <a class="link-item" href="${link.href}">
+              <span>${escapeHtml(link.label)}</span>
+              <small>${escapeHtml(link.description)}</small>
+            </a>
+          `).join("")}
+        </div>
+      </section>
+    `;
+  }
+
+  function homeWorkflowLinks() {
+    return [
+      linkToTool("json-formatter", "Format JSON online"),
+      linkToTool("ai-json-repair", "Fix invalid AI JSON"),
+      linkToTool("text-to-json", "Generate JSON from text"),
+      linkToTool("ai-json-schema-generator", "Draft JSON Schema"),
+      linkToDirectory("json-converter-tools", "Convert JSON"),
+      linkToDirectory("text-tools", "Clean text"),
+      linkToGuide("json-parser-error-unexpected-token", "Fix parser errors"),
+      linkToGuide("json-format-for-ai", "Prepare JSON for AI")
+    ];
+  }
+
+  function internalLinksForTool(tool) {
+    const base = [
+      linkToDirectory("json-tools", "Browse JSON tools"),
+      linkToDirectory("ai-json-tools", "Browse AI JSON tools"),
+      linkToGuide("json-format-online", "JSON format guide"),
+      linkToGuide("fix-invalid-json", "Fix invalid JSON")
+    ];
+    const byCategory = {
+      JSON: [
+        linkToTool("json-validator", "Validate JSON"),
+        linkToTool("json-compare", "Compare JSON"),
+        linkToTool("json-to-schema", "Generate schema"),
+        linkToGuide("format-api-response-json", "Format API responses")
+      ],
+      AI: [
+        linkToTool("ai-json-repair", "Repair AI JSON"),
+        linkToTool("text-to-json", "Text to JSON"),
+        linkToTool("ai-mock-json-generator", "Mock JSON"),
+        linkToGuide("ai-json-generator", "AI JSON generator guide")
+      ],
+      Text: [
+        linkToDirectory("text-tools", "Browse text tools"),
+        linkToTool("regex-tester", "Test regex"),
+        linkToTool("text-replace", "Find and replace"),
+        linkToTool("duplicate-line-remover", "Remove duplicates")
+      ],
+      Encode: [
+        linkToDirectory("developer-tools", "Browse developer tools"),
+        linkToTool("jwt-decoder", "Decode JWT"),
+        linkToTool("url-parser", "Parse URLs"),
+        linkToTool("query-string-to-json", "Query to JSON")
+      ],
+      Hash: [
+        linkToDirectory("developer-tools", "Browse developer tools"),
+        linkToGuide("md5-hash-generator", "MD5 guide"),
+        linkToGuide("sha256-checksum", "SHA256 guide")
+      ],
+      Time: [
+        linkToTool("current-timestamp", "Current timestamp"),
+        linkToGuide("unix-timestamp-to-date", "Timestamp to date"),
+        linkToGuide("date-to-unix-timestamp", "Date to timestamp")
+      ]
+    };
+    return (byCategory[tool.category] || []).concat(base).filter((link) => link && link.href !== tool.path);
+  }
+
+  function internalLinksForGuide(guide) {
+    const tool = byId[guide.primaryToolId];
+    return [
+      tool ? linkToTool(tool.id, `Open ${tool.title}`) : null,
+      linkToDirectory("ai-json-tools", "AI JSON tools"),
+      linkToDirectory("json-tools", "JSON tools"),
+      linkToGuide("ai-json-formatter", "AI JSON formatter"),
+      linkToGuide("json-format-online", "JSON format online"),
+      linkToGuide("fix-json-from-chatgpt", "Fix ChatGPT JSON"),
+      linkToGuide("format-api-response-json", "Format API response"),
+      linkToTool("json-validator", "Validate JSON")
+    ].filter((link) => link && link.href !== `/${guide.id}/`);
+  }
+
+  function internalLinksForDirectory(directory) {
+    if (directory.id === "directories") {
+      return [
+        linkToDirectory("json-tools", "JSON tools"),
+        linkToDirectory("ai-json-tools", "AI JSON tools"),
+        linkToDirectory("json-converter-tools", "Converters"),
+        linkToDirectory("text-tools", "Text tools"),
+        linkToDirectory("developer-tools", "Developer tools")
+      ];
+    }
+    return [
+      linkToDirectory("directories", "All directories"),
+      linkToDirectory("json-tools", "JSON tools"),
+      linkToDirectory("ai-json-tools", "AI JSON tools"),
+      linkToDirectory("json-converter-tools", "JSON converters"),
+      linkToDirectory("text-tools", "Text tools"),
+      linkToDirectory("developer-tools", "Developer tools"),
+      linkToGuide("json-format-online", "JSON format online"),
+      linkToGuide("ai-json-generator", "AI JSON generator")
+    ].filter((link) => link && link.href !== directory.path);
+  }
+
+  function linkToTool(id, label) {
+    const tool = byId[id];
+    return tool ? { href: tool.path, label: label || tool.title, description: tool.description } : null;
+  }
+
+  function linkToGuide(id, label) {
+    const guide = guidesById[id];
+    return guide ? { href: `/${guide.id}/`, label: label || guide.title, description: guide.description } : null;
+  }
+
+  function linkToDirectory(id, label) {
+    const directory = directoriesById[id];
+    return directory ? { href: directory.path, label: label || directory.title, description: directory.description } : null;
   }
 
   function renderBreadcrumb(items) {
