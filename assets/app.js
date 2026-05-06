@@ -90,6 +90,23 @@
       ]
     },
     {
+      id: "csv-to-json",
+      title: "CSV to JSON",
+      category: "JSON",
+      path: "/tools/csv-to-json/",
+      description: "Convert CSV tables into JSON arrays with header-based object keys.",
+      inputLabel: "CSV Input",
+      outputLabel: "JSON Output",
+      actionLabel: "Convert to JSON",
+      sample: "name,type\nAI JSON Format,tool\nTimestamp Converter,time",
+      run: csvToJsonTool,
+      faq: [
+        ["What CSV format works best?", "A header row followed by data rows works best because headers become JSON object keys."],
+        ["Are quoted CSV values supported?", "Yes. Quoted fields and escaped double quotes are supported."],
+        ["Does this upload my CSV?", "No. CSV to JSON conversion runs locally in your browser."]
+      ]
+    },
+    {
       id: "json-to-yaml",
       title: "JSON to YAML",
       category: "JSON",
@@ -208,6 +225,23 @@
         ["What JSON works best?", "Arrays of flat objects convert best into Markdown tables."],
         ["How are nested values handled?", "Nested objects and arrays are stringified inside a table cell."],
         ["Where can I use the output?", "Use it in GitHub, Markdown docs, Notion imports or developer notes."]
+      ]
+    },
+    {
+      id: "json-compare",
+      title: "JSON Compare",
+      category: "JSON",
+      path: "/tools/json-compare/",
+      description: "Compare two JSON values and list added, removed and changed paths.",
+      inputLabel: "First JSON, blank line, second JSON",
+      outputLabel: "JSON Differences",
+      actionLabel: "Compare JSON",
+      sample: '{ "name": "AI JSON Format", "version": 1, "tools": ["json"] }\n\n{ "name": "AI JSON Format", "version": 2, "tools": ["json", "text"] }',
+      run: jsonCompareTool,
+      faq: [
+        ["How do I enter two JSON values?", "Paste the first JSON value, add a blank line, then paste the second JSON value."],
+        ["What differences are shown?", "The tool lists added, removed and changed paths with old and new values."],
+        ["Is this a visual diff?", "This version is a concise path-based diff designed for quick API and config checks."]
       ]
     },
     {
@@ -339,6 +373,40 @@
         ["When should I URL encode text?", "Encode values before putting them inside query strings or URL path segments."],
         ["Does this encode a full URL?", "It encodes the complete input. For full URLs, usually encode only the parameter value."],
         ["Is decoding safe?", "Decoding only transforms percent escapes into readable characters."]
+      ]
+    },
+    {
+      id: "url-parser",
+      title: "URL Parser",
+      category: "Encode",
+      path: "/tools/url-parser/",
+      description: "Parse a URL into protocol, host, path, query parameters, hash and origin.",
+      inputLabel: "URL",
+      outputLabel: "Parsed URL",
+      actionLabel: "Parse URL",
+      sample: "https://aijsonformat.com/tools/json-formatter/?utm_source=chat&q=json#tool",
+      run: urlParserTool,
+      faq: [
+        ["What URL parts are shown?", "The parser returns protocol, hostname, port, path, query parameters, hash and origin."],
+        ["Can it parse relative URLs?", "Yes. Relative URLs are resolved against this site's domain for parsing."],
+        ["Is the URL sent to a server?", "No. URL parsing uses the browser URL API locally."]
+      ]
+    },
+    {
+      id: "query-string-to-json",
+      title: "Query String to JSON",
+      category: "Encode",
+      path: "/tools/query-string-to-json/",
+      description: "Convert URL query strings into JSON objects for debugging links and tracking parameters.",
+      inputLabel: "Query String or URL",
+      outputLabel: "JSON Output",
+      actionLabel: "Convert Query to JSON",
+      sample: "https://aijsonformat.com/?utm_source=google&utm_medium=organic&q=json&q=tools",
+      run: queryStringToJsonTool,
+      faq: [
+        ["Can I paste a full URL?", "Yes. The tool extracts the query string from a full URL or accepts only the part after the question mark."],
+        ["How are duplicate keys handled?", "Duplicate keys become arrays so repeated parameters are preserved."],
+        ["Does this decode percent encoding?", "Yes. URLSearchParams decodes percent-encoded values."]
       ]
     },
     {
@@ -483,6 +551,23 @@
         ["How do I enter find and replace?", "Use Find: value and Replace: value on the first lines, then add a blank line and the text to update."],
         ["Can I use regex?", "Yes. Use Regex Replace with a pattern such as /json/gi in the Find line."],
         ["Does this run locally?", "Yes. Replacement happens in your browser."]
+      ]
+    },
+    {
+      id: "regex-tester",
+      title: "Regex Tester",
+      category: "Text",
+      path: "/tools/regex-tester/",
+      description: "Test regular expressions against text and inspect matches, groups and indexes.",
+      inputLabel: "Pattern, then test text",
+      outputLabel: "Regex Matches",
+      actionLabel: "Test Regex",
+      sample: "Pattern: /json/gi\n\nAI JSON Format includes json formatter and JSON repair tools.",
+      run: regexTesterTool,
+      faq: [
+        ["How do I enter a regex?", "Use Pattern: /your-pattern/flags on the first line, then add a blank line and the text to test."],
+        ["Are capture groups shown?", "Yes. Capture groups are shown when the regex includes them."],
+        ["Does it modify text?", "No. Regex Tester only reports matches. Use Find and Replace Text when you want to replace matches."]
       ]
     },
     {
@@ -1057,7 +1142,7 @@
       description: "A focused directory of free JSON tools for formatting, validating, repairing, sorting, extracting and converting JSON.",
       path: "/json-tools/",
       intro: "Use these JSON tools for API responses, config files, logs, AI model output and quick debugging sessions.",
-      toolIds: ["json-formatter", "ai-json-repair", "json-validator", "json-minifier", "json-sorter", "json-path", "json-lines", "json-to-markdown", "json-escape-unescape"],
+      toolIds: ["json-formatter", "ai-json-repair", "json-validator", "json-minifier", "json-sorter", "json-compare", "json-path", "json-lines", "json-to-markdown", "json-escape-unescape"],
       guideIds: ["json-format-online", "json-formatter-online-free", "json-beautifier", "json-prettify", "json-lint-online", "json-parser-online", "json-cleaner", "format-api-response-json"]
     },
     {
@@ -1087,7 +1172,7 @@
       description: "Convert JSON to CSV, YAML, TypeScript, JSON Schema, Markdown tables and JSON Lines.",
       path: "/json-converter-tools/",
       intro: "Use these converters when JSON needs to move into docs, spreadsheets, typed code, schemas, logs or configuration files.",
-      toolIds: ["json-to-csv", "json-to-yaml", "json-to-typescript", "json-to-schema", "json-to-markdown", "json-lines", "text-to-json"],
+      toolIds: ["json-to-csv", "csv-to-json", "json-to-yaml", "json-to-typescript", "json-to-schema", "json-to-markdown", "json-lines", "query-string-to-json", "text-to-json"],
       guideIds: ["ai-json-to-typescript", "format-api-response-json", "json-format-for-ai"]
     },
     {
@@ -1097,7 +1182,7 @@
       description: "A directory of free browser-based tools for JSON, Base64, hashes, timestamps, UUIDs, JWTs, text and encoding.",
       path: "/developer-tools/",
       intro: "Beyond JSON, this directory groups the everyday utilities developers often need while debugging APIs and writing docs.",
-      toolIds: ["base64", "md5", "sha256", "timestamp", "current-timestamp", "url-encode", "html-entity", "uuid", "jwt-decoder", "case-converter", "slug-generator", "word-counter", "cron-parser", "password-generator"],
+      toolIds: ["base64", "md5", "sha256", "timestamp", "current-timestamp", "url-encode", "url-parser", "query-string-to-json", "html-entity", "uuid", "jwt-decoder", "regex-tester", "case-converter", "slug-generator", "word-counter", "cron-parser", "password-generator"],
       guideIds: ["base64-decode-online", "md5-hash-generator", "sha256-checksum", "unix-timestamp-to-date", "date-to-unix-timestamp", "current-unix-timestamp", "jwt-payload-decoder"]
     },
     {
@@ -1107,7 +1192,7 @@
       description: "Free text tools for removing whitespace, formatting text, find and replace, sorting lines, removing duplicates and counting words.",
       path: "/text-tools/",
       intro: "Use these text utilities when copied notes, prompts, lists or documentation snippets need quick cleanup before being pasted into another tool.",
-      toolIds: ["remove-whitespace", "text-formatter", "text-replace", "line-sorter", "duplicate-line-remover", "word-counter", "case-converter", "slug-generator"],
+      toolIds: ["remove-whitespace", "text-formatter", "text-replace", "regex-tester", "line-sorter", "duplicate-line-remover", "word-counter", "case-converter", "slug-generator"],
       guideIds: []
     }
   ];
@@ -1941,6 +2026,49 @@
     return result(textarea.value, "HTML entities decoded.", "ok");
   }
 
+  function urlParserTool(value) {
+    try {
+      const url = new URL(String(value || "").trim(), window.location.origin);
+      const parsed = {
+        href: url.href,
+        protocol: url.protocol,
+        origin: url.origin,
+        hostname: url.hostname,
+        port: url.port,
+        pathname: url.pathname,
+        search: url.search,
+        hash: url.hash,
+        query: paramsToObject(url.searchParams)
+      };
+      return result(JSON.stringify(parsed, null, 2), "URL parsed.", "ok");
+    } catch (error) {
+      return result("", "Enter a valid URL.", "error");
+    }
+  }
+
+  function queryStringToJsonTool(value) {
+    try {
+      const input = String(value || "").trim();
+      if (!input) return result("{}", "Enter a query string or URL.", "error");
+      const query = input.includes("?") ? new URL(input, window.location.origin).search : input.startsWith("?") ? input : `?${input}`;
+      return result(JSON.stringify(paramsToObject(new URLSearchParams(query)), null, 2), "Query string converted to JSON.", "ok");
+    } catch (error) {
+      return result("", "Enter a valid query string or URL.", "error");
+    }
+  }
+
+  function paramsToObject(params) {
+    const object = {};
+    for (const [key, value] of params.entries()) {
+      if (key in object) {
+        object[key] = Array.isArray(object[key]) ? object[key].concat(value) : [object[key], value];
+      } else {
+        object[key] = value;
+      }
+    }
+    return object;
+  }
+
   function caseConverterTool(value) {
     const words = splitWords(value);
     if (!words.length) return result("", "Enter text to convert.", "error");
@@ -2034,6 +2162,28 @@
       const regex = parseRegexPattern(parsed.find);
       const matches = parsed.text.match(regex);
       return result(parsed.text.replace(regex, parsed.replace), `Regex replaced ${matches ? matches.length : 0} match${matches && matches.length === 1 ? "" : "es"}.`, "ok");
+    } catch (error) {
+      return result("", error.message, "error");
+    }
+  }
+
+  function regexTesterTool(value) {
+    try {
+      const text = String(value || "").replace(/\r\n?/g, "\n");
+      const blocks = text.split(/\n\s*\n/);
+      const header = blocks.shift() || "";
+      const body = blocks.join("\n\n");
+      const patternLine = header.split("\n").find((line) => /^pattern\s*:/i.test(line)) || header.split("\n")[0] || "";
+      const patternText = patternLine.replace(/^pattern\s*:/i, "").trim();
+      if (!patternText) return result("", "Use Pattern: /your-pattern/flags, then a blank line and test text.", "error");
+      const regex = parseRegexPattern(patternText);
+      const matches = Array.from(body.matchAll(regex));
+      if (!matches.length) return result("No matches.", "No regex matches found.", "warn");
+      const lines = matches.map((match, index) => {
+        const groups = match.length > 1 ? `\n  Groups: ${match.slice(1).map((item) => item ?? "").join(" | ")}` : "";
+        return `Match ${index + 1}: ${match[0]}\n  Index: ${match.index}${groups}`;
+      });
+      return result(lines.join("\n\n"), `Found ${matches.length} match${matches.length === 1 ? "" : "es"}.`, "ok");
     } catch (error) {
       return result("", error.message, "error");
     }
@@ -2217,6 +2367,20 @@
     }
   }
 
+  function csvToJsonTool(value) {
+    try {
+      const rows = parseCsv(value);
+      if (rows.length < 2) return result("[]", "CSV needs a header row and at least one data row.", "error");
+      const headers = rows[0].map((header, index) => toCamelKey(header || `column ${index + 1}`));
+      const data = rows.slice(1).filter((row) => row.some((cell) => String(cell).trim())).map((row) => {
+        return Object.fromEntries(headers.map((header, index) => [header, coerceValue(row[index] || "")]));
+      });
+      return result(JSON.stringify(data, null, 2), `Converted ${data.length} CSV row${data.length === 1 ? "" : "s"} to JSON.`, "ok");
+    } catch (error) {
+      return result("", error.message, "error");
+    }
+  }
+
   function jsonToYamlTool(value) {
     try {
       const parsed = JSON.parse(value);
@@ -2252,6 +2416,20 @@
       return result(JSON.stringify(schema, null, 2), "Generated JSON Schema.", "ok");
     } catch (error) {
       return result("", humanJsonError(error), "error");
+    }
+  }
+
+  function jsonCompareTool(value) {
+    try {
+      const { first, second } = splitTwoInputs(value, "Paste the first JSON, a blank line, then the second JSON.");
+      const left = JSON.parse(first);
+      const right = JSON.parse(second);
+      const changes = [];
+      compareJsonValues(left, right, "$", changes);
+      if (!changes.length) return result("No differences found.", "JSON values are equal.", "ok");
+      return result(changes.join("\n"), `Found ${changes.length} difference${changes.length === 1 ? "" : "s"}.`, "warn");
+    } catch (error) {
+      return result("", error.message || humanJsonError(error), "error");
     }
   }
 
@@ -2398,6 +2576,91 @@
 
   function markdownCell(value) {
     return String(value ?? "").replace(/\|/g, "\\|").replace(/\r?\n/g, "<br>");
+  }
+
+  function parseCsv(value) {
+    const rows = [];
+    let row = [];
+    let cell = "";
+    let quoted = false;
+    const text = String(value || "").replace(/\r\n?/g, "\n");
+    for (let index = 0; index < text.length; index += 1) {
+      const char = text[index];
+      const next = text[index + 1];
+      if (quoted) {
+        if (char === '"' && next === '"') {
+          cell += '"';
+          index += 1;
+        } else if (char === '"') {
+          quoted = false;
+        } else {
+          cell += char;
+        }
+      } else if (char === '"') {
+        quoted = true;
+      } else if (char === ",") {
+        row.push(cell);
+        cell = "";
+      } else if (char === "\n") {
+        row.push(cell);
+        rows.push(row);
+        row = [];
+        cell = "";
+      } else {
+        cell += char;
+      }
+    }
+    if (quoted) throw new Error("CSV has an unclosed quoted field.");
+    row.push(cell);
+    rows.push(row);
+    return rows.filter((item) => item.some((cellValue) => String(cellValue).trim()));
+  }
+
+  function splitTwoInputs(value, message) {
+    const blocks = String(value || "").trim().split(/\n\s*\n/);
+    if (blocks.length < 2) throw new Error(message);
+    return { first: blocks[0].trim(), second: blocks.slice(1).join("\n\n").trim() };
+  }
+
+  function compareJsonValues(left, right, path, changes) {
+    if (Object.is(left, right)) return;
+    if (Array.isArray(left) || Array.isArray(right)) {
+      if (!Array.isArray(left)) {
+        changes.push(`Changed ${path}: ${formatDiffValue(left)} -> ${formatDiffValue(right)}`);
+        return;
+      }
+      if (!Array.isArray(right)) {
+        changes.push(`Changed ${path}: ${formatDiffValue(left)} -> ${formatDiffValue(right)}`);
+        return;
+      }
+      const max = Math.max(left.length, right.length);
+      for (let index = 0; index < max; index += 1) {
+        const nextPath = `${path}[${index}]`;
+        if (index >= left.length) changes.push(`Added ${nextPath}: ${formatDiffValue(right[index])}`);
+        else if (index >= right.length) changes.push(`Removed ${nextPath}: ${formatDiffValue(left[index])}`);
+        else compareJsonValues(left[index], right[index], nextPath, changes);
+      }
+      return;
+    }
+    if (isPlainObject(left) && isPlainObject(right)) {
+      const keys = Array.from(new Set([...Object.keys(left), ...Object.keys(right)])).sort();
+      for (const key of keys) {
+        const nextPath = `${path}.${key}`;
+        if (!(key in left)) changes.push(`Added ${nextPath}: ${formatDiffValue(right[key])}`);
+        else if (!(key in right)) changes.push(`Removed ${nextPath}: ${formatDiffValue(left[key])}`);
+        else compareJsonValues(left[key], right[key], nextPath, changes);
+      }
+      return;
+    }
+    changes.push(`Changed ${path}: ${formatDiffValue(left)} -> ${formatDiffValue(right)}`);
+  }
+
+  function isPlainObject(value) {
+    return value && typeof value === "object" && !Array.isArray(value);
+  }
+
+  function formatDiffValue(value) {
+    return typeof value === "string" ? JSON.stringify(value) : JSON.stringify(value);
   }
 
   function csvEscape(value) {
