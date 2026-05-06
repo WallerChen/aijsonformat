@@ -1384,14 +1384,30 @@
               <span>AI JSON Format</span>
             </a>
             <div class="nav-links">
-              <a href="/tools/ai-json-repair/">AI Repair</a>
-              <a href="/tools/json-formatter/">JSON</a>
-              <a href="/directories/">Directories</a>
-              <a href="/languages/">Languages</a>
-              <a href="/tools/md5/">Hash</a>
-              <a href="/tools/timestamp/">Time</a>
-              <a href="/guides/">Guides</a>
-              <a href="/#all-tools">All tools</a>
+              <a class="nav-primary" href="/tools/json-formatter/">Format JSON</a>
+              <a class="nav-primary" href="/tools/ai-json-repair/">AI Repair</a>
+              <details class="nav-menu">
+                <summary>Tools</summary>
+                <div class="nav-menu-panel">
+                  <a href="/tools/">All Tools</a>
+                  <a href="/ai-json-tools/">AI JSON Tools</a>
+                  <a href="/json-tools/">JSON Tools</a>
+                  <a href="/json-converter-tools/">Converters</a>
+                  <a href="/text-tools/">Text Tools</a>
+                  <a href="/developer-tools/">Developer Tools</a>
+                </div>
+              </details>
+              <details class="nav-menu">
+                <summary>Resources</summary>
+                <div class="nav-menu-panel">
+                  <a href="/directories/">Directories</a>
+                  <a href="/guides/">Guides</a>
+                  <a href="/languages/">Languages</a>
+                  <a href="/tools/ai-json-schema-generator/">AI Schema</a>
+                  <a href="/tools/ai-mock-json-generator/">Mock JSON</a>
+                  <a href="/tools/ai-regex-generator/">AI Regex</a>
+                </div>
+              </details>
             </div>
           </nav>
         </header>
