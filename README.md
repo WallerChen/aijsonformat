@@ -50,7 +50,7 @@ http://127.0.0.1:4173/
 
 ## Deploy
 
-This is a static site. Deploy the folder to any static host such as Cloudflare Pages, Vercel, Netlify, GitHub Pages or an Nginx server.
+This site is deployed on Vercel. Static pages and `/api/ai-json` serverless functions both run through the same Vercel project.
 
 Current deployment:
 
@@ -74,6 +74,22 @@ Before submitting to an ad network:
 - Add more long-tail SEO pages after the current AI and JSON tool clusters have search data.
 - Add `ads.txt` after receiving your publisher ID.
 - Verify `https://aijsonformat.com/sitemap.xml` in Google Search Console.
+
+## SEO page generation
+
+The site data lives in `assets/app.js` and can be reused by the generator.
+
+Preview generated SEO files without writing:
+
+```bash
+node scripts/generate-seo-pages.js
+```
+
+Regenerate tool pages, guide pages, directory pages and `sitemap.xml`:
+
+```bash
+node scripts/generate-seo-pages.js --write
+```
 
 ## Optional AI features
 
@@ -99,6 +115,13 @@ DOUBAO_CHAT_MODEL=your_doubao_model_or_endpoint_id
 ```
 
 `AI_BASE_URL` and `AI_MODEL` also work as generic aliases, but the Ark-specific names above are preferred for Doubao.
+
+AI request protection is enabled in the Vercel function. Optional limits:
+
+```text
+AI_RATE_LIMIT_WINDOW_MS=60000
+AI_RATE_LIMIT_MAX_REQUESTS=12
+```
 
 ## Next SEO pages
 
