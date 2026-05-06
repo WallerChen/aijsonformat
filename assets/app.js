@@ -661,6 +661,76 @@
       ]
     },
     {
+      id: "ai-json-schema-generator",
+      title: "AI JSON Schema Generator",
+      category: "AI",
+      path: "/tools/ai-json-schema-generator/",
+      description: "Generate JSON Schema from sample JSON, field notes or plain-English API requirements.",
+      inputLabel: "Sample JSON or schema notes",
+      outputLabel: "JSON Schema",
+      actionLabel: "Generate Schema",
+      secondaryActionLabel: "Generate with AI",
+      sample: "A user profile object with id, email, display name, plan, signup date and an array of feature flags.",
+      run: localJsonSchemaFromTextTool,
+      secondaryRun: aiJsonSchemaTool,
+      faq: [
+        ["What can I paste?", "Paste valid JSON, a field list or a short description of the API object you want to validate."],
+        ["Is the schema ready for production?", "It is a strong first draft. Review required fields, formats and enums before production validation."],
+        ["Does this use AI?", "Valid JSON can be converted locally. Natural-language requirements use the configured AI API."]
+      ]
+    },
+    {
+      id: "ai-json-explainer",
+      title: "AI JSON Explainer",
+      category: "AI",
+      path: "/tools/ai-json-explainer/",
+      description: "Explain JSON structure, important fields and likely issues in plain language.",
+      inputLabel: "JSON or JSON-like input",
+      outputLabel: "Explanation",
+      actionLabel: "Explain JSON",
+      sample: '{"user":{"id":123,"email":"demo@example.com","roles":["admin"]},"active":true,"lastLogin":"2026-05-06T08:30:00Z"}',
+      run: aiJsonExplainerTool,
+      faq: [
+        ["What does the explainer look for?", "It summarizes the top-level type, important fields, potential issues and practical next steps."],
+        ["Can it explain broken JSON?", "It can often explain JSON-like input, but repairing it first gives the best result."],
+        ["Is this local?", "This tool uses the configured AI API because it produces a human-readable explanation."]
+      ]
+    },
+    {
+      id: "ai-mock-json-generator",
+      title: "AI Mock JSON Generator",
+      category: "AI",
+      path: "/tools/ai-mock-json-generator/",
+      description: "Generate realistic mock JSON from a schema, field list or plain-English data description.",
+      inputLabel: "Schema, fields or description",
+      outputLabel: "Mock JSON",
+      actionLabel: "Generate Mock JSON",
+      sample: "Create 3 product review objects with id, rating, reviewer, title, body, tags and createdAt.",
+      run: aiMockJsonTool,
+      faq: [
+        ["What is mock JSON useful for?", "Use it for prototypes, API docs, fixtures, demos and frontend states before the backend is ready."],
+        ["Can I paste JSON Schema?", "Yes. Pasting a schema usually produces more consistent mock data."],
+        ["Should mock data include secrets?", "No. Use fake emails, IDs and values only."]
+      ]
+    },
+    {
+      id: "ai-regex-generator",
+      title: "AI Regex Generator",
+      category: "AI",
+      path: "/tools/ai-regex-generator/",
+      description: "Generate a regular expression from a plain-English matching requirement.",
+      inputLabel: "Regex requirement",
+      outputLabel: "Generated Regex",
+      actionLabel: "Generate Regex",
+      sample: "Match lowercase slugs that can contain letters, numbers and hyphens, but cannot start or end with a hyphen.",
+      run: aiRegexGeneratorTool,
+      faq: [
+        ["What does the tool return?", "It returns a regex pattern, flags, short explanation, examples and notes."],
+        ["Should I test the regex?", "Yes. Open Regex Tester and verify the pattern against real examples."],
+        ["Does this replace a security review?", "No. Review generated regexes carefully before using them in validation or security-sensitive code."]
+      ]
+    },
+    {
       id: "text-to-json",
       title: "Text to JSON",
       category: "AI",
@@ -675,7 +745,7 @@
       secondaryRun: aiTextToJsonTool,
       faq: [
         ["What text formats work best?", "Key-value lines, comma-separated lists and simple tables work best."],
-        ["Is this AI powered?", "The default conversion is local. The AI mode uses the site API when OPENAI_API_KEY is configured."],
+        ["Is this AI powered?", "The default conversion is local. The AI mode uses the configured site AI API."],
         ["Can I edit the output?", "Yes. Copy the JSON and refine it in the JSON Formatter or Repair tools."]
       ]
     }
@@ -1024,6 +1094,74 @@
       ]
     },
     {
+      id: "ai-json-schema-generator",
+      title: "AI JSON Schema Generator",
+      category: "AI JSON guide",
+      description: "Create JSON Schema from sample JSON, API notes or plain-English requirements for validation and documentation.",
+      primaryToolId: "ai-json-schema-generator",
+      points: [
+        "Paste sample JSON when you have a real payload.",
+        "Use natural-language field notes when the API shape is still being planned.",
+        "Review required fields, formats and enums before using the schema in production."
+      ],
+      faq: [
+        ["What is an AI JSON Schema generator?", "It uses sample data or requirements to draft a JSON Schema document faster."],
+        ["Can this infer schema from JSON?", "Yes. Valid JSON can be converted locally, and AI mode can handle rough descriptions."],
+        ["Should I edit the generated schema?", "Yes. Generated schemas are a starting point and should be reviewed for business rules."]
+      ]
+    },
+    {
+      id: "ai-json-explainer",
+      title: "AI JSON Explainer",
+      category: "AI JSON guide",
+      description: "Explain JSON structure, important fields and likely cleanup steps for unfamiliar API responses or AI output.",
+      primaryToolId: "ai-json-explainer",
+      points: [
+        "Paste the JSON payload or model output you want to understand.",
+        "Run the explainer to get a concise structure summary and important fields.",
+        "Use the suggested next steps to validate, format or convert the data."
+      ],
+      faq: [
+        ["Why explain JSON with AI?", "AI can summarize field meaning and likely issues faster than manually scanning a large payload."],
+        ["Can it explain nested JSON?", "Yes. It can highlight nested fields and top-level structure."],
+        ["Should I paste private data?", "Avoid secrets and sensitive production data in any AI-powered online tool."]
+      ]
+    },
+    {
+      id: "ai-mock-json-generator",
+      title: "AI Mock JSON Generator",
+      category: "AI JSON guide",
+      description: "Generate mock JSON examples for API docs, prototypes, frontend states and test fixtures.",
+      primaryToolId: "ai-mock-json-generator",
+      points: [
+        "Describe the data shape, count and important fields.",
+        "Paste JSON Schema when you want more consistent mock output.",
+        "Validate and format the generated JSON before adding it to docs or fixtures."
+      ],
+      faq: [
+        ["What is mock JSON?", "Mock JSON is fake but realistic structured data used for demos, testing and documentation."],
+        ["Can AI generate arrays of objects?", "Yes. Ask for a count and describe the object fields."],
+        ["Can I use this for frontend development?", "Yes. It is useful before the backend endpoint is ready."]
+      ]
+    },
+    {
+      id: "ai-regex-generator",
+      title: "AI Regex Generator",
+      category: "AI guide",
+      description: "Generate a regular expression from plain English, then test it with real examples.",
+      primaryToolId: "ai-regex-generator",
+      points: [
+        "Describe what should match and what should not match.",
+        "Generate the regex pattern, flags and examples.",
+        "Open Regex Tester to verify the pattern against realistic input."
+      ],
+      faq: [
+        ["Can AI write regex?", "It can produce a useful first draft, but you should always test edge cases."],
+        ["What should my prompt include?", "Mention allowed characters, length limits, anchors and negative examples when possible."],
+        ["Can this help with validation?", "Yes, but generated regex validation should be reviewed before production use."]
+      ]
+    },
+    {
       id: "ai-json-to-typescript",
       title: "AI JSON to TypeScript",
       category: "AI JSON guide",
@@ -1121,6 +1259,9 @@
     "json-parser-online",
     "json-cleaner",
     "ai-json-generator",
+    "ai-json-schema-generator",
+    "ai-json-explainer",
+    "ai-mock-json-generator",
     "json-format-for-ai",
     "format-api-response-json"
   ];
@@ -1152,8 +1293,8 @@
       description: "Tools and guides for repairing, formatting and generating JSON for AI prompts, agents and model responses.",
       path: "/ai-json-tools/",
       intro: "AI JSON output often needs repair before a strict parser can read it. This directory collects the pages that handle that workflow.",
-      toolIds: ["ai-json-repair", "text-to-json", "json-formatter", "json-validator", "json-to-typescript", "json-to-schema"],
-      guideIds: ["ai-json-formatter", "ai-json-format", "ai-json-generator", "ai-json-to-typescript", "json-format-for-ai", "json-format-for-openai-response", "fix-json-from-chatgpt"]
+      toolIds: ["ai-json-repair", "text-to-json", "ai-json-schema-generator", "ai-json-explainer", "ai-mock-json-generator", "ai-regex-generator", "json-formatter", "json-validator", "json-to-typescript", "json-to-schema"],
+      guideIds: ["ai-json-formatter", "ai-json-format", "ai-json-generator", "ai-json-schema-generator", "ai-json-explainer", "ai-mock-json-generator", "ai-regex-generator", "ai-json-to-typescript", "json-format-for-ai", "json-format-for-openai-response", "fix-json-from-chatgpt"]
     },
     {
       id: "json-format-tools",
@@ -1172,8 +1313,8 @@
       description: "Convert JSON to CSV, YAML, TypeScript, JSON Schema, Markdown tables and JSON Lines.",
       path: "/json-converter-tools/",
       intro: "Use these converters when JSON needs to move into docs, spreadsheets, typed code, schemas, logs or configuration files.",
-      toolIds: ["json-to-csv", "csv-to-json", "json-to-yaml", "json-to-typescript", "json-to-schema", "json-to-markdown", "json-lines", "query-string-to-json", "text-to-json"],
-      guideIds: ["ai-json-to-typescript", "format-api-response-json", "json-format-for-ai"]
+      toolIds: ["json-to-csv", "csv-to-json", "json-to-yaml", "json-to-typescript", "json-to-schema", "ai-json-schema-generator", "json-to-markdown", "json-lines", "query-string-to-json", "text-to-json"],
+      guideIds: ["ai-json-to-typescript", "ai-json-schema-generator", "format-api-response-json", "json-format-for-ai"]
     },
     {
       id: "developer-tools",
@@ -1182,8 +1323,8 @@
       description: "A directory of free browser-based tools for JSON, Base64, hashes, timestamps, UUIDs, JWTs, text and encoding.",
       path: "/developer-tools/",
       intro: "Beyond JSON, this directory groups the everyday utilities developers often need while debugging APIs and writing docs.",
-      toolIds: ["base64", "md5", "sha256", "timestamp", "current-timestamp", "url-encode", "url-parser", "query-string-to-json", "html-entity", "uuid", "jwt-decoder", "regex-tester", "case-converter", "slug-generator", "word-counter", "cron-parser", "password-generator"],
-      guideIds: ["base64-decode-online", "md5-hash-generator", "sha256-checksum", "unix-timestamp-to-date", "date-to-unix-timestamp", "current-unix-timestamp", "jwt-payload-decoder"]
+      toolIds: ["base64", "md5", "sha256", "timestamp", "current-timestamp", "url-encode", "url-parser", "query-string-to-json", "html-entity", "uuid", "jwt-decoder", "regex-tester", "ai-regex-generator", "case-converter", "slug-generator", "word-counter", "cron-parser", "password-generator"],
+      guideIds: ["base64-decode-online", "md5-hash-generator", "sha256-checksum", "unix-timestamp-to-date", "date-to-unix-timestamp", "current-unix-timestamp", "jwt-payload-decoder", "ai-regex-generator"]
     },
     {
       id: "text-tools",
@@ -1229,7 +1370,8 @@
     const isHome = id === "home";
     const isGuides = id === "guides";
     const isTools = id === "tools";
-    const guide = guidesById[id] || guidesById[pageFromPath()];
+    const isToolPath = window.location.pathname.split("/").filter(Boolean)[0] === "tools";
+    const guide = isToolPath ? null : guidesById[id] || guidesById[pageFromPath()];
     const directory = directoriesById[id] || directoriesById[pageFromPath()];
     const tool = byId[id] || byId[pageFromPath()] || (isTools ? null : byId["json-formatter"]);
 
@@ -2331,7 +2473,77 @@
     );
   }
 
-  async function callAiJson(mode, input, localRepair) {
+  function localJsonSchemaFromTextTool(value) {
+    try {
+      JSON.parse(value);
+      return jsonToSchemaTool(value);
+    } catch {
+      const fields = cleanLines(value)
+        .flatMap((line) => line.split(/,|;|\band\b/i))
+        .map((field) => field.replace(/\b(a|an|the|with|object|array|field|fields|of|and)\b/gi, " ").trim())
+        .map((field) => field.match(/[A-Za-z][A-Za-z0-9 _-]*/)?.[0] || "")
+        .map(toCamelKey)
+        .filter((field) => field && field !== "value");
+      const uniqueFields = Array.from(new Set(fields)).slice(0, 24);
+      if (!uniqueFields.length) {
+        return result("", "Paste valid JSON or list the fields you want in the schema.", "error");
+      }
+      const schema = {
+        $schema: "https://json-schema.org/draft/2020-12/schema",
+        type: "object",
+        properties: Object.fromEntries(uniqueFields.map((field) => [field, inferSchemaForField(field)])),
+        required: uniqueFields
+      };
+      return result(JSON.stringify(schema, null, 2), "Generated a local schema draft from field names.", "warn");
+    }
+  }
+
+  async function aiJsonSchemaTool(value) {
+    const aiResult = await callAiJson("schema-from-text", value);
+    if (aiResult) return aiResult;
+    return localJsonSchemaFromTextTool(value);
+  }
+
+  async function aiJsonExplainerTool(value) {
+    const aiResult = await callAiJsonData("explain-json", value);
+    if (aiResult && !aiResult.error) {
+      return result(formatJsonExplanation(aiResult.data), aiResult.message || "AI explained the JSON structure.", "ok");
+    }
+    try {
+      const parsed = JSON.parse(value);
+      return result(formatLocalJsonExplanation(parsed), "Generated a local JSON structure summary.", "warn");
+    } catch (error) {
+      const repaired = repairJson(value);
+      try {
+        const parsed = JSON.parse(repaired);
+        return result(formatLocalJsonExplanation(parsed), "Repaired JSON locally and generated a structure summary.", "warn");
+      } catch {
+        return result("", aiResult?.error || humanJsonError(error), "error");
+      }
+    }
+  }
+
+  async function aiMockJsonTool(value) {
+    const aiResult = await callAiJson("mock-json", value);
+    if (aiResult) return aiResult;
+    try {
+      const parsed = JSON.parse(value);
+      const mock = mockFromSchema(parsed);
+      return result(JSON.stringify(mock, null, 2), "Generated local mock JSON from schema-like input.", "warn");
+    } catch {
+      return result(textToJsonTool(value).output, "AI mode is not configured, so a local JSON draft was generated.", "warn");
+    }
+  }
+
+  async function aiRegexGeneratorTool(value) {
+    const aiResult = await callAiJsonData("regex-from-text", value);
+    if (aiResult && !aiResult.error) {
+      return result(formatRegexResult(aiResult.data), aiResult.message || "AI generated a regex.", "ok");
+    }
+    return result(formatRegexResult(heuristicRegex(value)), aiResult?.error || "Generated a local regex draft.", "warn");
+  }
+
+  async function callAiJsonData(mode, input, localRepair) {
     try {
       const response = await fetch("/api/ai-json/", {
         method: "POST",
@@ -2340,12 +2552,179 @@
       });
       if (response.status === 404 || response.status === 501) return null;
       const data = await response.json();
-      if (!response.ok) return result(localRepair || "", data.error || "AI request failed.", "warn");
-      const parsed = JSON.parse(data.output);
-      return result(JSON.stringify(parsed, null, 2), data.message || "AI JSON generated.", "ok");
-    } catch (error) {
+      if (!response.ok) return { error: data.error || "AI request failed." };
+      return {
+        data: JSON.parse(data.output),
+        message: data.message || "AI JSON generated."
+      };
+    } catch {
       return null;
     }
+  }
+
+  async function callAiJson(mode, input, localRepair) {
+    const aiResult = await callAiJsonData(mode, input, localRepair);
+    if (!aiResult) return null;
+    if (aiResult.error) return result(localRepair || "", aiResult.error, "warn");
+    return result(JSON.stringify(aiResult.data, null, 2), aiResult.message || "AI JSON generated.", "ok");
+  }
+
+  function inferSchemaForField(field) {
+    if (/id$/i.test(field)) return { type: "string" };
+    if (/email/i.test(field)) return { type: "string", format: "email" };
+    if (/url|uri|link/i.test(field)) return { type: "string", format: "uri" };
+    if (/date|time|created|updated/i.test(field)) return { type: "string", format: "date-time" };
+    if (/count|total|amount|price|score|rating|age|number/i.test(field)) return { type: "number" };
+    if (/is|has|enabled|active|valid|paid/i.test(field)) return { type: "boolean" };
+    if (/tags|items|list|roles|flags/i.test(field)) return { type: "array", items: { type: "string" } };
+    return { type: "string" };
+  }
+
+  function formatJsonExplanation(data) {
+    if (!data || typeof data !== "object") return formatJsonValue(data);
+    const lines = [];
+    if (data.summary) lines.push(`Summary: ${data.summary}`);
+    if (data.topLevelType) lines.push(`Top-level type: ${data.topLevelType}`);
+    const listFields = [
+      ["Important fields", data.importantFields],
+      ["Potential issues", data.potentialIssues],
+      ["Suggested next steps", data.suggestedNextSteps]
+    ];
+    for (const [label, items] of listFields) {
+      if (!Array.isArray(items) || !items.length) continue;
+      lines.push("");
+      lines.push(`${label}:`);
+      lines.push(...items.map((item) => `- ${String(item)}`));
+    }
+    return lines.join("\n").trim() || JSON.stringify(data, null, 2);
+  }
+
+  function formatLocalJsonExplanation(value) {
+    const topLevelType = Array.isArray(value) ? "array" : value === null ? "null" : typeof value;
+    const paths = collectFieldPaths(value).slice(0, 16);
+    const lines = [
+      `Summary: This is a JSON ${topLevelType}.`,
+      `Top-level type: ${topLevelType}`
+    ];
+    if (paths.length) {
+      lines.push("");
+      lines.push("Important fields:");
+      lines.push(...paths.map((path) => `- ${path}`));
+    }
+    lines.push("");
+    lines.push("Suggested next steps:");
+    lines.push("- Validate the JSON before parsing it in production.");
+    lines.push("- Generate TypeScript or JSON Schema if you need a contract.");
+    return lines.join("\n");
+  }
+
+  function collectFieldPaths(value, prefix = "$", output = []) {
+    if (Array.isArray(value)) {
+      if (value.length) collectFieldPaths(value[0], `${prefix}[0]`, output);
+      return output;
+    }
+    if (value && typeof value === "object") {
+      for (const [key, item] of Object.entries(value)) {
+        const path = `${prefix}.${key}`;
+        output.push(path);
+        if (item && typeof item === "object") collectFieldPaths(item, path, output);
+      }
+    }
+    return output;
+  }
+
+  function mockFromSchema(schema) {
+    if (schema && schema.$schema && schema.type) return exampleFromSchema(schema, "value");
+    if (schema && schema.type) return exampleFromSchema(schema, "value");
+    if (schema && typeof schema === "object") {
+      return Object.fromEntries(Object.keys(schema).slice(0, 12).map((key) => [key, mockValueForKey(key)]));
+    }
+    return { value: "Example value" };
+  }
+
+  function exampleFromSchema(schema, key) {
+    if (!schema || typeof schema !== "object") return mockValueForKey(key);
+    if (schema.example !== undefined) return schema.example;
+    if (schema.default !== undefined) return schema.default;
+    const type = Array.isArray(schema.type) ? schema.type.find((item) => item !== "null") : schema.type;
+    if (type === "object" || schema.properties) {
+      const properties = schema.properties || {};
+      return Object.fromEntries(Object.entries(properties).slice(0, 16).map(([property, child]) => [property, exampleFromSchema(child, property)]));
+    }
+    if (type === "array") return [exampleFromSchema(schema.items || {}, key)];
+    if (type === "number" || type === "integer") return mockValueForKey(key, "number");
+    if (type === "boolean") return true;
+    if (schema.enum && schema.enum.length) return schema.enum[0];
+    return mockValueForKey(key);
+  }
+
+  function mockValueForKey(key, preferredType) {
+    if (preferredType === "number") return /rating|score/i.test(key) ? 4.8 : 123;
+    if (/email/i.test(key)) return "demo@example.com";
+    if (/url|link/i.test(key)) return "https://aijsonformat.com/";
+    if (/date|time|created|updated/i.test(key)) return new Date().toISOString();
+    if (/id$/i.test(key)) return "item_123";
+    if (/active|enabled|valid|paid/i.test(key)) return true;
+    if (/tags|roles|items|flags/i.test(key)) return ["example"];
+    return `Example ${String(key || "value").replace(/([A-Z])/g, " $1").toLowerCase()}`.trim();
+  }
+
+  function heuristicRegex(value) {
+    const text = String(value || "").toLowerCase();
+    if (text.includes("email")) {
+      return {
+        pattern: "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+        flags: "",
+        explanation: "Matches a simple email address shape.",
+        examples: ["demo@example.com"],
+        notes: ["Use stricter validation for production identity systems."]
+      };
+    }
+    if (text.includes("url") || text.includes("http")) {
+      return {
+        pattern: "^https?:\\/\\/[^\\s/$.?#].[^\\s]*$",
+        flags: "i",
+        explanation: "Matches a basic HTTP or HTTPS URL.",
+        examples: ["https://aijsonformat.com/tools/"],
+        notes: ["URL parsing is often safer than regex-only validation."]
+      };
+    }
+    if (text.includes("slug")) {
+      return {
+        pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+        flags: "",
+        explanation: "Matches lowercase URL slugs without leading or trailing hyphens.",
+        examples: ["ai-json-format"],
+        notes: ["Adjust length limits if your app needs them."]
+      };
+    }
+    return {
+      pattern: ".+",
+      flags: "",
+      explanation: "Fallback pattern that matches non-empty text.",
+      examples: ["example"],
+      notes: ["Describe allowed characters, length and negative examples for a better AI regex."]
+    };
+  }
+
+  function formatRegexResult(data) {
+    const pattern = String(data?.pattern || ".+");
+    const flags = String(data?.flags || "");
+    const lines = [
+      `Regex: /${pattern.replace(/\//g, "\\/")}/${flags}`,
+      `Pattern: ${pattern}`,
+      `Flags: ${flags || "(none)"}`
+    ];
+    if (data?.explanation) lines.push("", `Explanation: ${data.explanation}`);
+    if (Array.isArray(data?.examples) && data.examples.length) {
+      lines.push("", "Examples:");
+      lines.push(...data.examples.map((item) => `- ${String(item)}`));
+    }
+    if (Array.isArray(data?.notes) && data.notes.length) {
+      lines.push("", "Notes:");
+      lines.push(...data.notes.map((item) => `- ${String(item)}`));
+    }
+    return lines.join("\n");
   }
 
   function jsonToCsvTool(value) {
