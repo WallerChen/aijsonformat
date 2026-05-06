@@ -7,6 +7,7 @@
     { "source": "/ai-json-tools/", "destination": "/ai-json-tools/index.html" },
     { "source": "/json-format-tools/", "destination": "/json-format-tools/index.html" },
     { "source": "/json-converter-tools/", "destination": "/json-converter-tools/index.html" },
+    { "source": "/text-tools/", "destination": "/text-tools/index.html" },
     { "source": "/developer-tools/", "destination": "/developer-tools/index.html" },
     { "source": "/languages/", "destination": "/languages/index.html" },
     { "source": "/ja/", "destination": "/ja/index.html" },
