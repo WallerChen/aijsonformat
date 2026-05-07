@@ -25,40 +25,84 @@
   </head>
   <body>
     <div id="app" data-page="html-entity">
-      <main class="main">
-        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>HTML Entity Encode / Decode</span></nav>
-        <section class="tool-intro">
-          <div class="eyebrow">Encode tool</div>
-          <h1>HTML Entity Encode / Decode</h1>
-          <p>Encode HTML entities or decode escaped HTML text back to readable characters.</p>
-          <p><a class="button primary" href="#tool-input">Use the tool</a></p>
-        </section>
-        <section class="content-band">
-          <h2>Common use cases</h2>
-          <ul class="plain-list">
-            <li>Encode values for URLs and HTML.</li>
-            <li>Decode copied tokens and payload snippets.</li>
-            <li>Inspect data without switching tools.</li>
-          </ul>
-        </section>
-        <section class="content-band">
-          <h2>Example input</h2>
-          <pre class="code-sample"><code>&lt;div class=&quot;note&quot;&gt;Tom &amp; Jerry&lt;/div&gt;</code></pre>
-        </section>
-        <section class="content-band">
-          <h2>Related tools</h2>
-          <div class="tool-grid">
-            <a class="tool-card" href="/tools/base64/"><span><h3>Base64 Encode / Decode</h3><p>Encode text to Base64 or decode Base64 back to Unicode text.</p></span><span class="tag-row"><span class="tag">Encode</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/url-encode/"><span><h3>URL Encode / Decode</h3><p>Encode text for URLs or decode percent-encoded query strings.</p></span><span class="tag-row"><span class="tag">Encode</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/url-parser/"><span><h3>URL Parser</h3><p>Parse a URL into protocol, host, path, query parameters, hash and origin.</p></span><span class="tag-row"><span class="tag">Encode</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/query-string-to-json/"><span><h3>Query String to JSON</h3><p>Convert URL query strings into JSON objects for debugging links and tracking parameters.</p></span><span class="tag-row"><span class="tag">Encode</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/jwt-decoder/"><span><h3>JWT Decoder</h3><p>Decode JWT header and payload without sending tokens to a server.</p></span><span class="tag-row"><span class="tag">Encode</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/ai-json-repair/"><span><h3>AI JSON Repair</h3><p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+      <div class="site-shell">
+        <header class="topbar">
+          <nav class="nav" aria-label="Primary">
+            <a class="brand" href="/">
+              <span class="brand-mark">{ }</span>
+              <span>AI JSON Format</span>
+            </a>
+            <div class="nav-links">
+              <a class="nav-primary" href="/tools/json-formatter/">Format JSON</a>
+              <a class="nav-primary" href="/tools/ai-json-repair/">AI Repair</a>
+              <details class="nav-menu">
+                <summary>Tools</summary>
+                <div class="nav-menu-panel">
+                  <a href="/tools/">All Tools</a>
+                  <a href="/ai-json-tools/">AI JSON Tools</a>
+                  <a href="/json-tools/">JSON Tools</a>
+                  <a href="/json-converter-tools/">Converters</a>
+                  <a href="/text-tools/">Text Tools</a>
+                  <a href="/developer-tools/">Developer Tools</a>
+                </div>
+              </details>
+              <details class="nav-menu">
+                <summary>Resources</summary>
+                <div class="nav-menu-panel">
+                  <a href="/directories/">Directories</a>
+                  <a href="/guides/">Guides</a>
+                  <a href="/languages/">Languages</a>
+                  <a href="/tools/ai-json-schema-generator/">AI Schema</a>
+                  <a href="/tools/ai-mock-json-generator/">Mock JSON</a>
+                  <a href="/tools/ai-regex-generator/">AI Regex</a>
+                </div>
+              </details>
+            </div>
+          </nav>
+        </header>
+        <main class="main">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>HTML Entity Encode / Decode</span></nav>
+          <section class="tool-intro">
+            <div class="eyebrow">Encode tool</div>
+            <h1>HTML Entity Encode / Decode</h1>
+            <p>Encode HTML entities or decode escaped HTML text back to readable characters.</p>
+            <p><a class="button primary" href="#tool-mount">Use the tool</a></p>
+          </section>
+          <div id="tool-mount" data-tool-id="html-entity"></div>
+          <section class="content-band">
+            <h2>Common use cases</h2>
+            <ul class="plain-list">
+              <li>Encode values for URLs and HTML.</li>
+              <li>Decode copied tokens and payload snippets.</li>
+              <li>Inspect data without switching tools.</li>
+            </ul>
+          </section>
+          <section class="content-band">
+            <h2>Example input</h2>
+            <pre class="code-sample"><code>&lt;div class=&quot;note&quot;&gt;Tom &amp; Jerry&lt;/div&gt;</code></pre>
+          </section>
+          <section class="content-band">
+            <h2>Related tools</h2>
+            <div class="tool-grid">
+              <a class="tool-card" href="/tools/base64/"><span><h3>Base64 Encode / Decode</h3><p>Encode text to Base64 or decode Base64 back to Unicode text.</p></span><span class="tag-row"><span class="tag">Encode</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/url-encode/"><span><h3>URL Encode / Decode</h3><p>Encode text for URLs or decode percent-encoded query strings.</p></span><span class="tag-row"><span class="tag">Encode</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/url-parser/"><span><h3>URL Parser</h3><p>Parse a URL into protocol, host, path, query parameters, hash and origin.</p></span><span class="tag-row"><span class="tag">Encode</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/query-string-to-json/"><span><h3>Query String to JSON</h3><p>Convert URL query strings into JSON objects for debugging links and tracking parameters.</p></span><span class="tag-row"><span class="tag">Encode</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/jwt-decoder/"><span><h3>JWT Decoder</h3><p>Decode JWT header and payload without sending tokens to a server.</p></span><span class="tag-row"><span class="tag">Encode</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/ai-json-repair/"><span><h3>AI JSON Repair</h3><p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+            </div>
+          </section>
+          <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>When should I encode HTML entities?</h3><p>Encode text before displaying it as literal text inside HTML.</p></article><article class="faq-item"><h3>What does decoding do?</h3><p>It turns sequences like ampersand-lt and ampersand-amp back into readable characters.</p></article><article class="faq-item"><h3>Is this a sanitizer?</h3><p>No. It is an encoder and decoder, not a full security sanitizer.</p></article></div></section>
+        </main>
+        <footer class="footer">
+          <div class="footer-inner">
+            <span>AI JSON Format provides free browser-based developer utilities.</span>
+            <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></span>
           </div>
-        </section>
-        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>When should I encode HTML entities?</h3><p>Encode text before displaying it as literal text inside HTML.</p></article><article class="faq-item"><h3>What does decoding do?</h3><p>It turns sequences like ampersand-lt and ampersand-amp back into readable characters.</p></article><article class="faq-item"><h3>Is this a sanitizer?</h3><p>No. It is an encoder and decoder, not a full security sanitizer.</p></article></div></section>
-      </main>
+        </footer>
+      </div>
     </div>
-    <script src="/assets/app.js"></script>
+    <script>(function(){var seen=new Set();function pf(href){if(!href||seen.has(href))return;seen.add(href);try{var l=document.createElement('link');l.rel='prefetch';l.href=href;l.as='document';document.head.appendChild(l);}catch(e){}}function on(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');if(!u||u[0]!=='/'||u.indexOf('//')===0||u.indexOf('#')===0)return;if(a.host&&a.host!==location.host)return;pf(u);}document.addEventListener('mouseover',on,{passive:true});document.addEventListener('touchstart',on,{passive:true});})();</script>
+    <script defer src="/assets/app.js"></script>
   </body>
 </html>

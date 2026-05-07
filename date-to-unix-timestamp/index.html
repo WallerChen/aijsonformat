@@ -25,42 +25,84 @@
   </head>
   <body>
     <div id="app" data-page="date-to-unix-timestamp">
-      <main class="main">
-        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>Date to Unix Timestamp</span></nav>
-        <section class="tool-intro">
-          <div class="eyebrow">Time guide</div>
-          <h1>Date to Unix Timestamp</h1>
-          <p>Convert a readable date into Unix seconds and milliseconds for APIs, databases and logs.</p>
-          <p><a class="button primary" href="/tools/timestamp/">Open Timestamp Converter</a></p>
-        </section>
-        <section class="content-band">
-          <h2>How to do it</h2>
-          <ol class="steps-list">
-            <li>Paste a date string such as 2026-05-05 12:30:00.</li>
-            <li>Run the timestamp converter.</li>
-            <li>Use the Unix seconds or milliseconds output depending on your API.</li>
-          </ol>
-        </section>
-        
-        
-        <section class="content-band">
-          <h2>Recommended tool</h2>
-          <div class="tool-grid"><a class="tool-card" href="/tools/timestamp/"><span><h3>Timestamp Converter</h3><p>Convert Unix timestamps to dates and dates back to Unix time in seconds or milliseconds.</p></span><span class="tag-row"><span class="tag">Time</span><span class="tag">Free</span></span></a></div>
-        </section>
-        <section class="content-band">
-          <h2>Related guides</h2>
-          <div class="tool-grid">
-            <a class="tool-card" href="/unix-timestamp-to-date/"><span><h3>Unix Timestamp to Date</h3><p>Convert Unix seconds or milliseconds into readable local and UTC date strings.</p></span><span class="tag-row"><span class="tag">Time guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/current-unix-timestamp/"><span><h3>Current Unix Timestamp</h3><p>View the current Unix timestamp in seconds and milliseconds with UTC and local time.</p></span><span class="tag-row"><span class="tag">Time guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/fix-invalid-json/"><span><h3>Fix Invalid JSON Online</h3><p>Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/fix-json-from-chatgpt/"><span><h3>Fix JSON from ChatGPT</h3><p>Clean up JSON returned by ChatGPT or other AI tools when the response includes markdown fences, comments or invalid syntax.</p></span><span class="tag-row"><span class="tag">AI guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/fix-json-trailing-comma/"><span><h3>Fix JSON Trailing Comma</h3><p>Remove trailing commas from JSON objects and arrays so strict JSON parsers can read the data.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/base64-decode-online/"><span><h3>Base64 Decode Online</h3><p>Decode Base64 text back into readable Unicode text without uploading it to a server.</p></span><span class="tag-row"><span class="tag">Encode guide</span><span class="tag">Guide</span></span></a>
+      <div class="site-shell">
+        <header class="topbar">
+          <nav class="nav" aria-label="Primary">
+            <a class="brand" href="/">
+              <span class="brand-mark">{ }</span>
+              <span>AI JSON Format</span>
+            </a>
+            <div class="nav-links">
+              <a class="nav-primary" href="/tools/json-formatter/">Format JSON</a>
+              <a class="nav-primary" href="/tools/ai-json-repair/">AI Repair</a>
+              <details class="nav-menu">
+                <summary>Tools</summary>
+                <div class="nav-menu-panel">
+                  <a href="/tools/">All Tools</a>
+                  <a href="/ai-json-tools/">AI JSON Tools</a>
+                  <a href="/json-tools/">JSON Tools</a>
+                  <a href="/json-converter-tools/">Converters</a>
+                  <a href="/text-tools/">Text Tools</a>
+                  <a href="/developer-tools/">Developer Tools</a>
+                </div>
+              </details>
+              <details class="nav-menu">
+                <summary>Resources</summary>
+                <div class="nav-menu-panel">
+                  <a href="/directories/">Directories</a>
+                  <a href="/guides/">Guides</a>
+                  <a href="/languages/">Languages</a>
+                  <a href="/tools/ai-json-schema-generator/">AI Schema</a>
+                  <a href="/tools/ai-mock-json-generator/">Mock JSON</a>
+                  <a href="/tools/ai-regex-generator/">AI Regex</a>
+                </div>
+              </details>
+            </div>
+          </nav>
+        </header>
+        <main class="main">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>Date to Unix Timestamp</span></nav>
+          <section class="tool-intro">
+            <div class="eyebrow">Time guide</div>
+            <h1>Date to Unix Timestamp</h1>
+            <p>Convert a readable date into Unix seconds and milliseconds for APIs, databases and logs.</p>
+            <p><a class="button primary" href="/tools/timestamp/">Open Timestamp Converter</a></p>
+          </section>
+          <section class="content-band">
+            <h2>How to do it</h2>
+            <ol class="steps-list">
+              <li>Paste a date string such as 2026-05-05 12:30:00.</li>
+              <li>Run the timestamp converter.</li>
+              <li>Use the Unix seconds or milliseconds output depending on your API.</li>
+            </ol>
+          </section>
+          
+          
+          <section class="content-band">
+            <h2>Recommended tool</h2>
+            <div class="tool-grid"><a class="tool-card" href="/tools/timestamp/"><span><h3>Timestamp Converter</h3><p>Convert Unix timestamps to dates and dates back to Unix time in seconds or milliseconds.</p></span><span class="tag-row"><span class="tag">Time</span><span class="tag">Free</span></span></a></div>
+          </section>
+          <section class="content-band">
+            <h2>Related guides</h2>
+            <div class="tool-grid">
+              <a class="tool-card" href="/unix-timestamp-to-date/"><span><h3>Unix Timestamp to Date</h3><p>Convert Unix seconds or milliseconds into readable local and UTC date strings.</p></span><span class="tag-row"><span class="tag">Time guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/current-unix-timestamp/"><span><h3>Current Unix Timestamp</h3><p>View the current Unix timestamp in seconds and milliseconds with UTC and local time.</p></span><span class="tag-row"><span class="tag">Time guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/fix-invalid-json/"><span><h3>Fix Invalid JSON Online</h3><p>Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/fix-json-from-chatgpt/"><span><h3>Fix JSON from ChatGPT</h3><p>Clean up JSON returned by ChatGPT or other AI tools when the response includes markdown fences, comments or invalid syntax.</p></span><span class="tag-row"><span class="tag">AI guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/fix-json-trailing-comma/"><span><h3>Fix JSON Trailing Comma</h3><p>Remove trailing commas from JSON objects and arrays so strict JSON parsers can read the data.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/base64-decode-online/"><span><h3>Base64 Decode Online</h3><p>Decode Base64 text back into readable Unicode text without uploading it to a server.</p></span><span class="tag-row"><span class="tag">Encode guide</span><span class="tag">Guide</span></span></a>
+            </div>
+          </section>
+          <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What date formats can I paste?</h3><p>Most browser-supported date strings work, including ISO timestamps.</p></article><article class="faq-item"><h3>Why do timezones matter?</h3><p>A date string without a timezone is usually interpreted as local time by the browser.</p></article><article class="faq-item"><h3>Which value should I use for JavaScript?</h3><p>JavaScript Date timestamps are usually milliseconds.</p></article></div></section>
+        </main>
+        <footer class="footer">
+          <div class="footer-inner">
+            <span>AI JSON Format provides free browser-based developer utilities.</span>
+            <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></span>
           </div>
-        </section>
-        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What date formats can I paste?</h3><p>Most browser-supported date strings work, including ISO timestamps.</p></article><article class="faq-item"><h3>Why do timezones matter?</h3><p>A date string without a timezone is usually interpreted as local time by the browser.</p></article><article class="faq-item"><h3>Which value should I use for JavaScript?</h3><p>JavaScript Date timestamps are usually milliseconds.</p></article></div></section>
-      </main>
+        </footer>
+      </div>
     </div>
-    <script src="/assets/app.js"></script>
+    <script>(function(){var seen=new Set();function pf(href){if(!href||seen.has(href))return;seen.add(href);try{var l=document.createElement('link');l.rel='prefetch';l.href=href;l.as='document';document.head.appendChild(l);}catch(e){}}function on(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');if(!u||u[0]!=='/'||u.indexOf('//')===0||u.indexOf('#')===0)return;if(a.host&&a.host!==location.host)return;pf(u);}document.addEventListener('mouseover',on,{passive:true});document.addEventListener('touchstart',on,{passive:true});})();</script>
   </body>
 </html>

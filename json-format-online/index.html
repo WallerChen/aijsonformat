@@ -25,78 +25,120 @@
   </head>
   <body>
     <div id="app" data-page="json-format-online">
-      <main class="main">
-        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>JSON Format Online</span></nav>
-        <section class="tool-intro">
-          <div class="eyebrow">JSON guide</div>
-          <h1>JSON Format Online</h1>
-          <p>Format JSON online into readable indentation and copy clean output for APIs, configs and docs.</p>
-          <p><a class="button primary" href="/tools/json-formatter/">Open JSON Formatter</a></p>
-        </section>
-        <section class="content-band">
-          <h2>How to do it</h2>
-          <ol class="steps-list">
-            <li>Open JSON Formatter from any device — no download or install required.</li>
-            <li>Paste the JSON you got from an API client, log line or config file.</li>
-            <li>Format with two-space indentation and copy the result for review or sharing.</li>
-          </ol>
-        </section>
-        <section class="content-band">
-            <h2>Why format JSON in the browser</h2>
-            <p>Formatting JSON online removes the friction of reaching for a CLI. You do not need jq installed, you do not need to remember Python&#039;s json.tool flags, and you do not need to write a temporary file just to look at a payload. A browser-based formatter is the fastest path from &#039;I have a wall of unreadable JSON&#039; to &#039;I can see the structure&#039;.</p>
-            <p>It also works when you cannot install software — locked-down work laptops, freshly provisioned servers accessed through a jump host, or a tablet you happened to grab. The same URL works everywhere your browser does.</p>
-            
+      <div class="site-shell">
+        <header class="topbar">
+          <nav class="nav" aria-label="Primary">
+            <a class="brand" href="/">
+              <span class="brand-mark">{ }</span>
+              <span>AI JSON Format</span>
+            </a>
+            <div class="nav-links">
+              <a class="nav-primary" href="/tools/json-formatter/">Format JSON</a>
+              <a class="nav-primary" href="/tools/ai-json-repair/">AI Repair</a>
+              <details class="nav-menu">
+                <summary>Tools</summary>
+                <div class="nav-menu-panel">
+                  <a href="/tools/">All Tools</a>
+                  <a href="/ai-json-tools/">AI JSON Tools</a>
+                  <a href="/json-tools/">JSON Tools</a>
+                  <a href="/json-converter-tools/">Converters</a>
+                  <a href="/text-tools/">Text Tools</a>
+                  <a href="/developer-tools/">Developer Tools</a>
+                </div>
+              </details>
+              <details class="nav-menu">
+                <summary>Resources</summary>
+                <div class="nav-menu-panel">
+                  <a href="/directories/">Directories</a>
+                  <a href="/guides/">Guides</a>
+                  <a href="/languages/">Languages</a>
+                  <a href="/tools/ai-json-schema-generator/">AI Schema</a>
+                  <a href="/tools/ai-mock-json-generator/">Mock JSON</a>
+                  <a href="/tools/ai-regex-generator/">AI Regex</a>
+                </div>
+              </details>
+            </div>
+          </nav>
+        </header>
+        <main class="main">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>JSON Format Online</span></nav>
+          <section class="tool-intro">
+            <div class="eyebrow">JSON guide</div>
+            <h1>JSON Format Online</h1>
+            <p>Format JSON online into readable indentation and copy clean output for APIs, configs and docs.</p>
+            <p><a class="button primary" href="/tools/json-formatter/">Open JSON Formatter</a></p>
           </section>
-        <section class="content-band">
-            <h2>Indent options that matter in practice</h2>
-            <p>Most teams pick two-space indentation because it matches what you get from JSON.stringify(value, null, 2) in JavaScript and json.dumps(value, indent=2) in Python. That makes the formatted output easy to drop into a code review or docs without surprises. Tabs are uncommon in JSON but readable in some editors. Four-space indentation is heavier visually and rarely worth it for JSON specifically.</p>
-            <ul class="plain-list"><li>Two-space indent: matches JS/Python conventions, the default for code review.</li><li>Four-space indent: easier on small fonts, but takes more horizontal space for nested objects.</li><li>Tab indent: lets each reader pick their own width, but breaks JSON.stringify defaults.</li></ul>
+          <section class="content-band">
+            <h2>How to do it</h2>
+            <ol class="steps-list">
+              <li>Open JSON Formatter from any device — no download or install required.</li>
+              <li>Paste the JSON you got from an API client, log line or config file.</li>
+              <li>Format with two-space indentation and copy the result for review or sharing.</li>
+            </ol>
           </section>
-        <section class="content-band">
-            <h2>What &#039;online&#039; does not mean</h2>
-            <p>Online here does not mean &#039;uploaded to a server&#039;. The JSON Formatter on this site runs the format step entirely in your browser using JSON.parse plus a stringify pass. Your payload is not transmitted, not logged and not used for training. The only network calls on the page are static asset loads and Google Analytics for anonymous traffic stats.</p>
-            
-          </section>
-        <section class="content-band">
-          <h2>Examples</h2>
-          <div class="example-list">
-            <article class="example-item"><h3>Compact API response</h3><p class="example-label">Input</p><pre class="code-sample"><code>{&quot;id&quot;:42,&quot;customer&quot;:{&quot;name&quot;:&quot;Ada&quot;,&quot;plan&quot;:&quot;pro&quot;},&quot;items&quot;:[{&quot;sku&quot;:&quot;A1&quot;,&quot;qty&quot;:2},{&quot;sku&quot;:&quot;B7&quot;,&quot;qty&quot;:1}]}</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>{
-        &quot;id&quot;: 42,
-        &quot;customer&quot;: {
-          &quot;name&quot;: &quot;Ada&quot;,
-          &quot;plan&quot;: &quot;pro&quot;
-        },
-        &quot;items&quot;: [
-          {
-            &quot;sku&quot;: &quot;A1&quot;,
-            &quot;qty&quot;: 2
+          <section class="content-band">
+              <h2>Why format JSON in the browser</h2>
+              <p>Formatting JSON online removes the friction of reaching for a CLI. You do not need jq installed, you do not need to remember Python&#039;s json.tool flags, and you do not need to write a temporary file just to look at a payload. A browser-based formatter is the fastest path from &#039;I have a wall of unreadable JSON&#039; to &#039;I can see the structure&#039;.</p>
+              <p>It also works when you cannot install software — locked-down work laptops, freshly provisioned servers accessed through a jump host, or a tablet you happened to grab. The same URL works everywhere your browser does.</p>
+              
+            </section>
+          <section class="content-band">
+              <h2>Indent options that matter in practice</h2>
+              <p>Most teams pick two-space indentation because it matches what you get from JSON.stringify(value, null, 2) in JavaScript and json.dumps(value, indent=2) in Python. That makes the formatted output easy to drop into a code review or docs without surprises. Tabs are uncommon in JSON but readable in some editors. Four-space indentation is heavier visually and rarely worth it for JSON specifically.</p>
+              <ul class="plain-list"><li>Two-space indent: matches JS/Python conventions, the default for code review.</li><li>Four-space indent: easier on small fonts, but takes more horizontal space for nested objects.</li><li>Tab indent: lets each reader pick their own width, but breaks JSON.stringify defaults.</li></ul>
+            </section>
+          <section class="content-band">
+              <h2>What &#039;online&#039; does not mean</h2>
+              <p>Online here does not mean &#039;uploaded to a server&#039;. The JSON Formatter on this site runs the format step entirely in your browser using JSON.parse plus a stringify pass. Your payload is not transmitted, not logged and not used for training. The only network calls on the page are static asset loads and Google Analytics for anonymous traffic stats.</p>
+              
+            </section>
+          <section class="content-band">
+            <h2>Examples</h2>
+            <div class="example-list">
+              <article class="example-item"><h3>Compact API response</h3><p class="example-label">Input</p><pre class="code-sample"><code>{&quot;id&quot;:42,&quot;customer&quot;:{&quot;name&quot;:&quot;Ada&quot;,&quot;plan&quot;:&quot;pro&quot;},&quot;items&quot;:[{&quot;sku&quot;:&quot;A1&quot;,&quot;qty&quot;:2},{&quot;sku&quot;:&quot;B7&quot;,&quot;qty&quot;:1}]}</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>{
+          &quot;id&quot;: 42,
+          &quot;customer&quot;: {
+            &quot;name&quot;: &quot;Ada&quot;,
+            &quot;plan&quot;: &quot;pro&quot;
           },
-          {
-            &quot;sku&quot;: &quot;B7&quot;,
-            &quot;qty&quot;: 1
-          }
-        ]
-      }</code></pre><p>The structure is identical — only whitespace changes. Keys, values and order are preserved exactly.</p></article>
+          &quot;items&quot;: [
+            {
+              &quot;sku&quot;: &quot;A1&quot;,
+              &quot;qty&quot;: 2
+            },
+            {
+              &quot;sku&quot;: &quot;B7&quot;,
+              &quot;qty&quot;: 1
+            }
+          ]
+        }</code></pre><p>The structure is identical — only whitespace changes. Keys, values and order are preserved exactly.</p></article>
+            </div>
+          </section>
+          <section class="content-band">
+            <h2>Recommended tool</h2>
+            <div class="tool-grid"><a class="tool-card" href="/tools/json-formatter/"><span><h3>JSON Formatter</h3><p>Prettify JSON with readable indentation, validation and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a></div>
+          </section>
+          <section class="content-band">
+            <h2>Related guides</h2>
+            <div class="tool-grid">
+              <a class="tool-card" href="/fix-invalid-json/"><span><h3>Fix Invalid JSON Online</h3><p>Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/fix-json-trailing-comma/"><span><h3>Fix JSON Trailing Comma</h3><p>Remove trailing commas from JSON objects and arrays so strict JSON parsers can read the data.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/json-formatter-online-free/"><span><h3>JSON Formatter Online Free</h3><p>Use a free online JSON formatter with no signup for quick developer copy-and-paste workflows.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/json-beautifier/"><span><h3>JSON Beautifier</h3><p>Beautify minified JSON into readable, indented output for debugging and documentation.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/json-prettify/"><span><h3>Prettify JSON Online</h3><p>Prettify JSON online with clean indentation, validation feedback and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/json-lint-online/"><span><h3>JSON Lint Online</h3><p>Lint JSON online by validating syntax and identifying parse errors before using data in code.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+            </div>
+          </section>
+          <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What does JSON format online mean?</h3><p>It means prettifying JSON in the browser so nested data is easier to read, with no install, no upload and no signup.</p></article><article class="faq-item"><h3>Does formatting change values?</h3><p>No. Formatting only changes whitespace when the input is valid JSON. Numbers, strings and key order are preserved.</p></article><article class="faq-item"><h3>What if my JSON is invalid?</h3><p>Run AI JSON Repair first to clean syntax issues, then format the repaired result here.</p></article><article class="faq-item"><h3>Is there a size limit?</h3><p>Practically, the limit is your browser memory. Multi-megabyte payloads work but stay responsive only on a desktop browser.</p></article><article class="faq-item"><h3>Can I share the formatted JSON?</h3><p>Copy and paste anywhere. There is no upload-based sharing, which keeps the data private to you.</p></article></div></section>
+        </main>
+        <footer class="footer">
+          <div class="footer-inner">
+            <span>AI JSON Format provides free browser-based developer utilities.</span>
+            <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></span>
           </div>
-        </section>
-        <section class="content-band">
-          <h2>Recommended tool</h2>
-          <div class="tool-grid"><a class="tool-card" href="/tools/json-formatter/"><span><h3>JSON Formatter</h3><p>Prettify JSON with readable indentation, validation and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a></div>
-        </section>
-        <section class="content-band">
-          <h2>Related guides</h2>
-          <div class="tool-grid">
-            <a class="tool-card" href="/fix-invalid-json/"><span><h3>Fix Invalid JSON Online</h3><p>Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/fix-json-trailing-comma/"><span><h3>Fix JSON Trailing Comma</h3><p>Remove trailing commas from JSON objects and arrays so strict JSON parsers can read the data.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/json-formatter-online-free/"><span><h3>JSON Formatter Online Free</h3><p>Use a free online JSON formatter with no signup for quick developer copy-and-paste workflows.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/json-beautifier/"><span><h3>JSON Beautifier</h3><p>Beautify minified JSON into readable, indented output for debugging and documentation.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/json-prettify/"><span><h3>Prettify JSON Online</h3><p>Prettify JSON online with clean indentation, validation feedback and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/json-lint-online/"><span><h3>JSON Lint Online</h3><p>Lint JSON online by validating syntax and identifying parse errors before using data in code.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-          </div>
-        </section>
-        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What does JSON format online mean?</h3><p>It means prettifying JSON in the browser so nested data is easier to read, with no install, no upload and no signup.</p></article><article class="faq-item"><h3>Does formatting change values?</h3><p>No. Formatting only changes whitespace when the input is valid JSON. Numbers, strings and key order are preserved.</p></article><article class="faq-item"><h3>What if my JSON is invalid?</h3><p>Run AI JSON Repair first to clean syntax issues, then format the repaired result here.</p></article><article class="faq-item"><h3>Is there a size limit?</h3><p>Practically, the limit is your browser memory. Multi-megabyte payloads work but stay responsive only on a desktop browser.</p></article><article class="faq-item"><h3>Can I share the formatted JSON?</h3><p>Copy and paste anywhere. There is no upload-based sharing, which keeps the data private to you.</p></article></div></section>
-      </main>
+        </footer>
+      </div>
     </div>
-    <script src="/assets/app.js"></script>
+    <script>(function(){var seen=new Set();function pf(href){if(!href||seen.has(href))return;seen.add(href);try{var l=document.createElement('link');l.rel='prefetch';l.href=href;l.as='document';document.head.appendChild(l);}catch(e){}}function on(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');if(!u||u[0]!=='/'||u.indexOf('//')===0||u.indexOf('#')===0)return;if(a.host&&a.host!==location.host)return;pf(u);}document.addEventListener('mouseover',on,{passive:true});document.addEventListener('touchstart',on,{passive:true});})();</script>
   </body>
 </html>

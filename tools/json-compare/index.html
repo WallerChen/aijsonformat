@@ -25,42 +25,86 @@
   </head>
   <body>
     <div id="app" data-page="json-compare">
-      <main class="main">
-        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>JSON Compare</span></nav>
-        <section class="tool-intro">
-          <div class="eyebrow">JSON tool</div>
-          <h1>JSON Compare</h1>
-          <p>Compare two JSON values and list added, removed and changed paths.</p>
-          <p><a class="button primary" href="#tool-input">Use the tool</a></p>
-        </section>
-        <section class="content-band">
-          <h2>Common use cases</h2>
-          <ul class="plain-list">
-            <li>Format API responses for debugging.</li>
-            <li>Clean JSON before sharing it in docs.</li>
-            <li>Prepare examples for prompts, tests and frontend code.</li>
-          </ul>
-        </section>
-        <section class="content-band">
-          <h2>Example input</h2>
-          <pre class="code-sample"><code>{ &quot;name&quot;: &quot;AI JSON Format&quot;, &quot;version&quot;: 1, &quot;tools&quot;: [&quot;json&quot;] }
-      
-      { &quot;name&quot;: &quot;AI JSON Format&quot;, &quot;version&quot;: 2, &quot;tools&quot;: [&quot;json&quot;, &quot;text&quot;] }</code></pre>
-        </section>
-        <section class="content-band">
-          <h2>Related tools</h2>
-          <div class="tool-grid">
-            <a class="tool-card" href="/tools/ai-json-repair/"><span><h3>AI JSON Repair</h3><p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/json-formatter/"><span><h3>JSON Formatter</h3><p>Prettify JSON with readable indentation, validation and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/json-validator/"><span><h3>JSON Validator</h3><p>Validate JSON syntax and find parse errors before using it in code or APIs.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/json-minifier/"><span><h3>JSON Minifier</h3><p>Remove whitespace from JSON for compact API payloads and config snippets.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/json-to-csv/"><span><h3>JSON to CSV</h3><p>Convert JSON arrays and objects into CSV tables for spreadsheets and reports.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/csv-to-json/"><span><h3>CSV to JSON</h3><p>Convert CSV tables into JSON arrays with header-based object keys.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+      <div class="site-shell">
+        <header class="topbar">
+          <nav class="nav" aria-label="Primary">
+            <a class="brand" href="/">
+              <span class="brand-mark">{ }</span>
+              <span>AI JSON Format</span>
+            </a>
+            <div class="nav-links">
+              <a class="nav-primary" href="/tools/json-formatter/">Format JSON</a>
+              <a class="nav-primary" href="/tools/ai-json-repair/">AI Repair</a>
+              <details class="nav-menu">
+                <summary>Tools</summary>
+                <div class="nav-menu-panel">
+                  <a href="/tools/">All Tools</a>
+                  <a href="/ai-json-tools/">AI JSON Tools</a>
+                  <a href="/json-tools/">JSON Tools</a>
+                  <a href="/json-converter-tools/">Converters</a>
+                  <a href="/text-tools/">Text Tools</a>
+                  <a href="/developer-tools/">Developer Tools</a>
+                </div>
+              </details>
+              <details class="nav-menu">
+                <summary>Resources</summary>
+                <div class="nav-menu-panel">
+                  <a href="/directories/">Directories</a>
+                  <a href="/guides/">Guides</a>
+                  <a href="/languages/">Languages</a>
+                  <a href="/tools/ai-json-schema-generator/">AI Schema</a>
+                  <a href="/tools/ai-mock-json-generator/">Mock JSON</a>
+                  <a href="/tools/ai-regex-generator/">AI Regex</a>
+                </div>
+              </details>
+            </div>
+          </nav>
+        </header>
+        <main class="main">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>JSON Compare</span></nav>
+          <section class="tool-intro">
+            <div class="eyebrow">JSON tool</div>
+            <h1>JSON Compare</h1>
+            <p>Compare two JSON values and list added, removed and changed paths.</p>
+            <p><a class="button primary" href="#tool-mount">Use the tool</a></p>
+          </section>
+          <div id="tool-mount" data-tool-id="json-compare"></div>
+          <section class="content-band">
+            <h2>Common use cases</h2>
+            <ul class="plain-list">
+              <li>Format API responses for debugging.</li>
+              <li>Clean JSON before sharing it in docs.</li>
+              <li>Prepare examples for prompts, tests and frontend code.</li>
+            </ul>
+          </section>
+          <section class="content-band">
+            <h2>Example input</h2>
+            <pre class="code-sample"><code>{ &quot;name&quot;: &quot;AI JSON Format&quot;, &quot;version&quot;: 1, &quot;tools&quot;: [&quot;json&quot;] }
+        
+        { &quot;name&quot;: &quot;AI JSON Format&quot;, &quot;version&quot;: 2, &quot;tools&quot;: [&quot;json&quot;, &quot;text&quot;] }</code></pre>
+          </section>
+          <section class="content-band">
+            <h2>Related tools</h2>
+            <div class="tool-grid">
+              <a class="tool-card" href="/tools/ai-json-repair/"><span><h3>AI JSON Repair</h3><p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/json-formatter/"><span><h3>JSON Formatter</h3><p>Prettify JSON with readable indentation, validation and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/json-validator/"><span><h3>JSON Validator</h3><p>Validate JSON syntax and find parse errors before using it in code or APIs.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/json-minifier/"><span><h3>JSON Minifier</h3><p>Remove whitespace from JSON for compact API payloads and config snippets.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/json-to-csv/"><span><h3>JSON to CSV</h3><p>Convert JSON arrays and objects into CSV tables for spreadsheets and reports.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/csv-to-json/"><span><h3>CSV to JSON</h3><p>Convert CSV tables into JSON arrays with header-based object keys.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+            </div>
+          </section>
+          <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>How do I enter two JSON values?</h3><p>Paste the first JSON value, add a blank line, then paste the second JSON value.</p></article><article class="faq-item"><h3>What differences are shown?</h3><p>The tool lists added, removed and changed paths with old and new values.</p></article><article class="faq-item"><h3>Is this a visual diff?</h3><p>This version is a concise path-based diff designed for quick API and config checks.</p></article></div></section>
+        </main>
+        <footer class="footer">
+          <div class="footer-inner">
+            <span>AI JSON Format provides free browser-based developer utilities.</span>
+            <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></span>
           </div>
-        </section>
-        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>How do I enter two JSON values?</h3><p>Paste the first JSON value, add a blank line, then paste the second JSON value.</p></article><article class="faq-item"><h3>What differences are shown?</h3><p>The tool lists added, removed and changed paths with old and new values.</p></article><article class="faq-item"><h3>Is this a visual diff?</h3><p>This version is a concise path-based diff designed for quick API and config checks.</p></article></div></section>
-      </main>
+        </footer>
+      </div>
     </div>
-    <script src="/assets/app.js"></script>
+    <script>(function(){var seen=new Set();function pf(href){if(!href||seen.has(href))return;seen.add(href);try{var l=document.createElement('link');l.rel='prefetch';l.href=href;l.as='document';document.head.appendChild(l);}catch(e){}}function on(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');if(!u||u[0]!=='/'||u.indexOf('//')===0||u.indexOf('#')===0)return;if(a.host&&a.host!==location.host)return;pf(u);}document.addEventListener('mouseover',on,{passive:true});document.addEventListener('touchstart',on,{passive:true});})();</script>
+    <script defer src="/assets/app.js"></script>
   </body>
 </html>

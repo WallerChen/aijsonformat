@@ -126,7 +126,10 @@ function renderHead({ title, description, canonical, jsonLd, ogType = "website" 
   ].join("\n    ");
 }
 
-function renderShell({ lang = "en", head, pageId, body }) {
+function renderShell({ lang = "en", head, pageId, body, loadApp = false }) {
+  const script = loadApp
+    ? `\n    <script defer src="/assets/app.js"></script>`
+    : "";
   return `<!doctype html>
 <html lang="${lang}">
   <head>
@@ -134,12 +137,66 @@ function renderShell({ lang = "en", head, pageId, body }) {
   </head>
   <body>
     <div id="app" data-page="${escapeHtml(pageId)}">
-${indent(body, 6)}
+      <div class="site-shell">
+${indent(siteHeader(), 8)}
+${indent(body, 8)}
+${indent(siteFooter(), 8)}
+      </div>
     </div>
-    <script src="/assets/app.js"></script>
+    <script>${prefetchScript()}</script>${script}
   </body>
 </html>
 `;
+}
+
+function siteHeader() {
+  return `<header class="topbar">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="/">
+      <span class="brand-mark">{ }</span>
+      <span>AI JSON Format</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-primary" href="/tools/json-formatter/">Format JSON</a>
+      <a class="nav-primary" href="/tools/ai-json-repair/">AI Repair</a>
+      <details class="nav-menu">
+        <summary>Tools</summary>
+        <div class="nav-menu-panel">
+          <a href="/tools/">All Tools</a>
+          <a href="/ai-json-tools/">AI JSON Tools</a>
+          <a href="/json-tools/">JSON Tools</a>
+          <a href="/json-converter-tools/">Converters</a>
+          <a href="/text-tools/">Text Tools</a>
+          <a href="/developer-tools/">Developer Tools</a>
+        </div>
+      </details>
+      <details class="nav-menu">
+        <summary>Resources</summary>
+        <div class="nav-menu-panel">
+          <a href="/directories/">Directories</a>
+          <a href="/guides/">Guides</a>
+          <a href="/languages/">Languages</a>
+          <a href="/tools/ai-json-schema-generator/">AI Schema</a>
+          <a href="/tools/ai-mock-json-generator/">Mock JSON</a>
+          <a href="/tools/ai-regex-generator/">AI Regex</a>
+        </div>
+      </details>
+    </div>
+  </nav>
+</header>`;
+}
+
+function siteFooter() {
+  return `<footer class="footer">
+  <div class="footer-inner">
+    <span>AI JSON Format provides free browser-based developer utilities.</span>
+    <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></span>
+  </div>
+</footer>`;
+}
+
+function prefetchScript() {
+  return `(function(){var seen=new Set();function pf(href){if(!href||seen.has(href))return;seen.add(href);try{var l=document.createElement('link');l.rel='prefetch';l.href=href;l.as='document';document.head.appendChild(l);}catch(e){}}function on(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');if(!u||u[0]!=='/'||u.indexOf('//')===0||u.indexOf('#')===0)return;if(a.host&&a.host!==location.host)return;pf(u);}document.addEventListener('mouseover',on,{passive:true});document.addEventListener('touchstart',on,{passive:true});})();`;
 }
 
 function renderToolPage(tool, data) {
@@ -169,8 +226,9 @@ function renderToolPage(tool, data) {
     <div class="eyebrow">${escapeHtml(tool.category)} tool</div>
     <h1>${escapeHtml(tool.title)}</h1>
     <p>${escapeHtml(tool.description)}</p>
-    <p><a class="button primary" href="#tool-input">Use the tool</a></p>
+    <p><a class="button primary" href="#tool-mount">Use the tool</a></p>
   </section>
+  <div id="tool-mount" data-tool-id="${escapeHtml(tool.id)}"></div>
   <section class="content-band">
     <h2>Common use cases</h2>
     <ul class="plain-list">
@@ -197,7 +255,8 @@ function renderToolPage(tool, data) {
       jsonLd
     }),
     pageId: tool.id,
-    body
+    body,
+    loadApp: true
   });
 }
 
