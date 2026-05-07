@@ -6,6 +6,16 @@
     <title>Privacy Policy - AI JSON Format</title>
     <meta name="description" content="Privacy policy for AI JSON Format, a free ad-supported developer tools website." />
     <link rel="canonical" href="https://aijsonformat.com/privacy/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AI JSON Format" />
+    <meta property="og:title" content="Privacy Policy - AI JSON Format" />
+    <meta property="og:description" content="Privacy policy for AI JSON Format, a free ad-supported developer tools website." />
+    <meta property="og:url" content="https://aijsonformat.com/privacy/" />
+    <meta property="og:image" content="https://aijsonformat.com/assets/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Privacy Policy - AI JSON Format" />
+    <meta name="twitter:description" content="Privacy policy for AI JSON Format, a free ad-supported developer tools website." />
+    <meta name="twitter:image" content="https://aijsonformat.com/assets/og-default.png" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ2BSP5T08"></script>
@@ -34,9 +44,64 @@
         <section class="content-band">
           <div class="eyebrow">Policy</div>
           <h1>Privacy Policy</h1>
-          <p>AI JSON Format provides free developer tools. Most tools run locally in your browser, which means the text you paste into those tools is processed on your device.</p>
-          <p>We may use analytics and advertising services to understand traffic and support the site. These services may use cookies or similar technologies according to their own policies.</p>
-          <p>Do not paste secrets, passwords, private keys or sensitive production data into any online tool unless you are comfortable with the risk. Contact us if you have privacy questions.</p>
+          <p>AI JSON Format ("we", "us") provides free browser-based developer tools at aijsonformat.com. This policy explains what data the site processes, what stays on your device, and which third parties may see what.</p>
+        </section>
+        <section class="content-band">
+          <h2>Tools that run entirely in your browser</h2>
+          <p>Most utilities on this site — JSON formatting, validating, minifying, sorting, comparing, escaping, encoding, hashing (MD5, SHA-256), Base64, timestamps, UUIDs, JWT decoding, regex testing, text cleanup — run locally in your browser using JavaScript. The text or values you paste are not transmitted to our servers, not stored, and not used for training. When you close the tab, the data is gone.</p>
+        </section>
+        <section class="content-band">
+          <h2>Optional AI features</h2>
+          <p>A small number of tools (AI JSON Repair fallback, Text to JSON in AI mode, AI JSON Schema Generator, AI JSON Explainer, AI Mock JSON Generator, AI Regex Generator) can send your input to an upstream AI provider when you explicitly trigger them.</p>
+          <ul class="plain-list">
+            <li>Provider: Doubao (Volcengine Ark) by default. The site may also be configured for OpenAI.</li>
+            <li>What is sent: only the text you paste into the input box plus the locally repaired version (when applicable), together with a fixed system prompt.</li>
+            <li>What is not sent: cookies, analytics identifiers, IP from your end (the request originates from the Vercel function), browser history.</li>
+            <li>How it is used: to generate a single response that is returned to your browser. We do not log the request body. The provider applies its own data handling policy, which you can read on Doubao or OpenAI's site.</li>
+          </ul>
+          <p>Avoid pasting passwords, API keys, personal identification data or other secrets into any AI feature.</p>
+        </section>
+        <section class="content-band">
+          <h2>Analytics</h2>
+          <p>The site loads Google Analytics 4 (measurement ID G-GQ2BSP5T08) to count visits and understand which pages and tools are useful. Google Analytics may set cookies and process anonymized traffic data such as page URL, referrer, approximate location and device type. Google's data handling is governed by its own privacy policy at policies.google.com/privacy. You can opt out using browser-level Do Not Track signals or Google's opt-out browser add-on.</p>
+        </section>
+        <section class="content-band">
+          <h2>Advertising</h2>
+          <p>This site is supported by display advertising. We may serve ads through Google AdSense or other ad networks. These networks use cookies and similar technologies (including the DoubleClick DART cookie) to serve ads based on a user's previous visits to this site and other sites on the internet.</p>
+          <ul class="plain-list">
+            <li>Google's use of advertising cookies enables it and its partners to serve ads to users based on their visits to this site and other sites on the internet.</li>
+            <li>Users may opt out of personalized advertising at https://www.google.com/settings/ads.</li>
+            <li>Third-party vendors and ad networks may also serve ads on this site. They may use cookies, web beacons or similar technologies to measure ad effectiveness.</li>
+          </ul>
+          <p>The text you paste into tools is never used for ad targeting. Ads on this site are contextual to the page you are viewing, not to the data you process.</p>
+        </section>
+        <section class="content-band">
+          <h2>Server-side rate limiting</h2>
+          <p>To protect the site against abuse, the AI endpoint records a per-IP and per-user-agent counter for sixty seconds at a time. The counter is the number of requests in the current window only — no request bodies, no payload contents. It is stored in memory or in a managed key-value store (Upstash Redis) and expires automatically.</p>
+        </section>
+        <section class="content-band">
+          <h2>Cookies summary</h2>
+          <ul class="plain-list">
+            <li>Functional: none required by the site itself.</li>
+            <li>Analytics: Google Analytics cookies (_ga, _gid).</li>
+            <li>Advertising: cookies set by third-party ad networks when ads are displayed.</li>
+          </ul>
+        </section>
+        <section class="content-band">
+          <h2>Your choices</h2>
+          <p>You can block cookies in your browser, install a content blocker to suppress analytics and ads, or use a privacy-focused browser. The local tools continue to work in any of those configurations.</p>
+        </section>
+        <section class="content-band">
+          <h2>Children</h2>
+          <p>This site is intended for developers and is not directed at children under 13. We do not knowingly collect personal data from children.</p>
+        </section>
+        <section class="content-band">
+          <h2>Changes</h2>
+          <p>We may update this policy as the site evolves. The latest version is always at aijsonformat.com/privacy. Significant changes will be reflected on the home page or in the change log on GitHub.</p>
+        </section>
+        <section class="content-band">
+          <h2>Contact</h2>
+          <p>For privacy or advertising questions, see <a href="/contact/">/contact</a>.</p>
         </section>
       </main>
       <footer class="footer"><div class="footer-inner"><span>AI JSON Format</span><span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></span></div></footer>

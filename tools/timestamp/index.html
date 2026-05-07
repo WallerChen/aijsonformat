@@ -6,16 +6,19 @@
     <title>Timestamp Converter - Free Online Time Tool</title>
     <meta name="description" content="Convert Unix timestamps to dates and dates back to Unix time in seconds or milliseconds." />
     <link rel="canonical" href="https://aijsonformat.com/tools/timestamp/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AI JSON Format" />
+    <meta property="og:title" content="Timestamp Converter - Free Online Time Tool" />
+    <meta property="og:description" content="Convert Unix timestamps to dates and dates back to Unix time in seconds or milliseconds." />
+    <meta property="og:url" content="https://aijsonformat.com/tools/timestamp/" />
+    <meta property="og:image" content="https://aijsonformat.com/assets/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Timestamp Converter - Free Online Time Tool" />
+    <meta name="twitter:description" content="Convert Unix timestamps to dates and dates back to Unix time in seconds or milliseconds." />
+    <meta name="twitter:image" content="https://aijsonformat.com/assets/og-default.png" />
     <link rel="stylesheet" href="/assets/styles.css" />
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ2BSP5T08"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-GQ2BSP5T08');
-    </script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GQ2BSP5T08');</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aijsonformat.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://aijsonformat.com/tools/"},{"@type":"ListItem","position":3,"name":"Timestamp Converter","item":"https://aijsonformat.com/tools/timestamp/"}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Timestamp Converter","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://aijsonformat.com/tools/timestamp/","description":"Convert Unix timestamps to dates and dates back to Unix time in seconds or milliseconds.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a Unix timestamp?","acceptedAnswer":{"@type":"Answer","text":"It is the number of seconds since January 1, 1970 at 00:00:00 UTC."}},{"@type":"Question","name":"Does this support milliseconds?","acceptedAnswer":{"@type":"Answer","text":"Yes. 13-digit timestamps are treated as milliseconds."}},{"@type":"Question","name":"What timezone is shown?","acceptedAnswer":{"@type":"Answer","text":"The output includes both local time and UTC."}}]}</script>
@@ -23,87 +26,37 @@
   <body>
     <div id="app" data-page="timestamp">
       <main class="main">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>Timestamp Converter</span>
-      </nav>
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>Timestamp Converter</span></nav>
         <section class="tool-intro">
           <div class="eyebrow">Time tool</div>
           <h1>Timestamp Converter</h1>
           <p>Convert Unix timestamps to dates and dates back to Unix time in seconds or milliseconds.</p>
-          <p><a class="button primary" href="/tools/timestamp/">Open Timestamp Converter</a></p>
+          <p><a class="button primary" href="#tool-input">Use the tool</a></p>
         </section>
         <section class="content-band">
           <h2>Common use cases</h2>
           <ul class="plain-list">
-            <li>Convert timestamps while reading logs and API payloads.</li>
-            <li>Check local and UTC time without changing apps.</li>
-            <li>Copy seconds or milliseconds for databases and scripts.</li>
+            <li>Convert timestamps from logs and API payloads.</li>
+            <li>Copy seconds or milliseconds for scripts.</li>
+            <li>Compare local time and UTC quickly.</li>
           </ul>
         </section>
         <section class="content-band">
-          <h2>FAQ</h2>
-          <div class="faq">
-            <article class="faq-item">
-              <h3>What is a Unix timestamp?</h3>
-              <p>It is the number of seconds since January 1, 1970 at 00:00:00 UTC.</p>
-            </article>
-            <article class="faq-item">
-              <h3>Does this support milliseconds?</h3>
-              <p>Yes. 13-digit timestamps are treated as milliseconds.</p>
-            </article>
-            <article class="faq-item">
-              <h3>What timezone is shown?</h3>
-              <p>The output includes both local time and UTC.</p>
-            </article>
-          </div>
+          <h2>Example input</h2>
+          <pre class="code-sample"><code>1714857600</code></pre>
         </section>
         <section class="content-band">
           <h2>Related tools</h2>
           <div class="tool-grid">
-          <a class="tool-card" href="/tools/current-timestamp/">
-            <span>
-              <h3>Current Unix Timestamp</h3>
-              <p>Get the current Unix timestamp in seconds, milliseconds, local time and UTC.</p>
-            </span>
-            <span class="tag-row"><span class="tag">Time</span></span>
-          </a>
-          <a class="tool-card" href="/tools/cron-parser/">
-            <span>
-              <h3>Cron Parser</h3>
-              <p>Explain common 5-field cron expressions in plain English.</p>
-            </span>
-            <span class="tag-row"><span class="tag">Time</span></span>
-          </a>
-          <a class="tool-card" href="/tools/ai-json-repair/">
-            <span>
-              <h3>AI JSON Repair</h3>
-              <p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON</span></span>
-          </a>
-          <a class="tool-card" href="/tools/json-formatter/">
-            <span>
-              <h3>JSON Formatter</h3>
-              <p>Prettify JSON with readable indentation, validation and one-click copy.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON</span></span>
-          </a>
-          <a class="tool-card" href="/tools/json-validator/">
-            <span>
-              <h3>JSON Validator</h3>
-              <p>Validate JSON syntax and find parse errors before using it in code or APIs.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON</span></span>
-          </a>
-          <a class="tool-card" href="/tools/json-minifier/">
-            <span>
-              <h3>JSON Minifier</h3>
-              <p>Remove whitespace from JSON for compact API payloads and config snippets.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON</span></span>
-          </a>
+            <a class="tool-card" href="/tools/current-timestamp/"><span><h3>Current Unix Timestamp</h3><p>Get the current Unix timestamp in seconds, milliseconds, local time and UTC.</p></span><span class="tag-row"><span class="tag">Time</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/cron-parser/"><span><h3>Cron Parser</h3><p>Explain common 5-field cron expressions in plain English.</p></span><span class="tag-row"><span class="tag">Time</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/ai-json-repair/"><span><h3>AI JSON Repair</h3><p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/json-formatter/"><span><h3>JSON Formatter</h3><p>Prettify JSON with readable indentation, validation and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/json-validator/"><span><h3>JSON Validator</h3><p>Validate JSON syntax and find parse errors before using it in code or APIs.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/json-minifier/"><span><h3>JSON Minifier</h3><p>Remove whitespace from JSON for compact API payloads and config snippets.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
           </div>
         </section>
+        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What is a Unix timestamp?</h3><p>It is the number of seconds since January 1, 1970 at 00:00:00 UTC.</p></article><article class="faq-item"><h3>Does this support milliseconds?</h3><p>Yes. 13-digit timestamps are treated as milliseconds.</p></article><article class="faq-item"><h3>What timezone is shown?</h3><p>The output includes both local time and UTC.</p></article></div></section>
       </main>
     </div>
     <script src="/assets/app.js"></script>

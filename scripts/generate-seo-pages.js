@@ -100,13 +100,25 @@ function loadSiteData() {
   return context.window.__AI_JSON_FORMAT_DATA__;
 }
 
-function renderHead({ title, description, canonical, jsonLd }) {
+function renderHead({ title, description, canonical, jsonLd, ogType = "website" }) {
+  const url = `${SITE_URL}${canonical}`;
+  const image = `${SITE_URL}/assets/og-default.png`;
   return [
     '<meta charset="UTF-8" />',
     '<meta name="viewport" content="width=device-width, initial-scale=1.0" />',
     `<title>${escapeHtml(title)}</title>`,
     `<meta name="description" content="${escapeHtml(description)}" />`,
-    `<link rel="canonical" href="${SITE_URL}${canonical}" />`,
+    `<link rel="canonical" href="${url}" />`,
+    `<meta property="og:type" content="${escapeHtml(ogType)}" />`,
+    `<meta property="og:site_name" content="AI JSON Format" />`,
+    `<meta property="og:title" content="${escapeHtml(title)}" />`,
+    `<meta property="og:description" content="${escapeHtml(description)}" />`,
+    `<meta property="og:url" content="${url}" />`,
+    `<meta property="og:image" content="${image}" />`,
+    `<meta name="twitter:card" content="summary_large_image" />`,
+    `<meta name="twitter:title" content="${escapeHtml(title)}" />`,
+    `<meta name="twitter:description" content="${escapeHtml(description)}" />`,
+    `<meta name="twitter:image" content="${image}" />`,
     '<link rel="stylesheet" href="/assets/styles.css" />',
     '<script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ2BSP5T08"></script>',
     "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GQ2BSP5T08');</script>",
@@ -150,13 +162,14 @@ function renderToolPage(tool, data) {
     },
     faqLd(tool.faq)
   ];
+  const sample = tool.sample ? String(tool.sample) : "";
   const body = `<main class="main">
   ${breadcrumbHtml([["Home", "/"], ["Tools", "/tools/"], [tool.title]])}
   <section class="tool-intro">
     <div class="eyebrow">${escapeHtml(tool.category)} tool</div>
     <h1>${escapeHtml(tool.title)}</h1>
     <p>${escapeHtml(tool.description)}</p>
-    <p><a class="button primary" href="${tool.path}">Open ${escapeHtml(tool.title)}</a></p>
+    <p><a class="button primary" href="#tool-input">Use the tool</a></p>
   </section>
   <section class="content-band">
     <h2>Common use cases</h2>
@@ -164,6 +177,10 @@ function renderToolPage(tool, data) {
       ${toolUseCases(tool).map((item) => `<li>${escapeHtml(item)}</li>`).join("\n      ")}
     </ul>
   </section>
+  ${sample ? `<section class="content-band">
+    <h2>Example input</h2>
+    <pre class="code-sample"><code>${escapeHtml(sample)}</code></pre>
+  </section>` : ""}
   <section class="content-band">
     <h2>Related tools</h2>
     <div class="tool-grid">
@@ -187,6 +204,8 @@ function renderToolPage(tool, data) {
 function renderGuidePage(guide, data) {
   const tool = data.tools.find((item) => item.id === guide.primaryToolId) || data.tools[0];
   const related = relatedGuides(guide, data).slice(0, 6);
+  const detailsHtml = renderGuideDetails(guide.details);
+  const examplesHtml = renderGuideExamples(guide.examples);
   const body = `<main class="main">
   ${breadcrumbHtml([["Home", "/"], ["Guides", "/guides/"], [guide.title]])}
   <section class="tool-intro">
@@ -201,6 +220,8 @@ function renderGuidePage(guide, data) {
       ${guide.points.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n      ")}
     </ol>
   </section>
+  ${detailsHtml}
+  ${examplesHtml}
   <section class="content-band">
     <h2>Recommended tool</h2>
     <div class="tool-grid">${renderToolCard(tool)}</div>
@@ -218,6 +239,7 @@ function renderGuidePage(guide, data) {
       title: `${guide.title} - AI JSON Format`,
       description: guide.description,
       canonical: `/${guide.id}/`,
+      ogType: "article",
       jsonLd: [
         breadcrumbLd([["Home", "/"], ["Guides", "/guides/"], [guide.title, `/${guide.id}/`]]),
         {
@@ -233,6 +255,46 @@ function renderGuidePage(guide, data) {
     pageId: guide.id,
     body
   });
+}
+
+function renderGuideDetails(details) {
+  if (!Array.isArray(details) || !details.length) return "";
+  const sections = details.map((section) => {
+    const heading = section && section.heading ? `<h2>${escapeHtml(section.heading)}</h2>` : "";
+    const paragraphs = (section && Array.isArray(section.paragraphs) ? section.paragraphs : [])
+      .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+      .join("\n      ");
+    const list = section && Array.isArray(section.list) && section.list.length
+      ? `<ul class="plain-list">${section.list.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`
+      : "";
+    return `<section class="content-band">
+      ${heading}
+      ${paragraphs}
+      ${list}
+    </section>`;
+  });
+  return sections.join("\n  ");
+}
+
+function renderGuideExamples(examples) {
+  if (!Array.isArray(examples) || !examples.length) return "";
+  const blocks = examples.map((example) => {
+    const heading = example && example.heading ? `<h3>${escapeHtml(example.heading)}</h3>` : "";
+    const inputBlock = example && example.input
+      ? `<p class="example-label">Input</p><pre class="code-sample"><code>${escapeHtml(example.input)}</code></pre>`
+      : "";
+    const outputBlock = example && example.output
+      ? `<p class="example-label">Output</p><pre class="code-sample"><code>${escapeHtml(example.output)}</code></pre>`
+      : "";
+    const note = example && example.note ? `<p>${escapeHtml(example.note)}</p>` : "";
+    return `<article class="example-item">${heading}${inputBlock}${outputBlock}${note}</article>`;
+  }).join("\n      ");
+  return `<section class="content-band">
+    <h2>Examples</h2>
+    <div class="example-list">
+      ${blocks}
+    </div>
+  </section>`;
 }
 
 function renderDirectoryPage(directory, data) {

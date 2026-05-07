@@ -6,16 +6,19 @@
     <title>JSON Path Extractor - Free Online JSON Tool</title>
     <meta name="description" content="Extract a value from JSON with a simple path such as $.user.name or items[0].id." />
     <link rel="canonical" href="https://aijsonformat.com/tools/json-path/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AI JSON Format" />
+    <meta property="og:title" content="JSON Path Extractor - Free Online JSON Tool" />
+    <meta property="og:description" content="Extract a value from JSON with a simple path such as $.user.name or items[0].id." />
+    <meta property="og:url" content="https://aijsonformat.com/tools/json-path/" />
+    <meta property="og:image" content="https://aijsonformat.com/assets/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="JSON Path Extractor - Free Online JSON Tool" />
+    <meta name="twitter:description" content="Extract a value from JSON with a simple path such as $.user.name or items[0].id." />
+    <meta name="twitter:image" content="https://aijsonformat.com/assets/og-default.png" />
     <link rel="stylesheet" href="/assets/styles.css" />
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ2BSP5T08"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-GQ2BSP5T08');
-    </script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GQ2BSP5T08');</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aijsonformat.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://aijsonformat.com/tools/"},{"@type":"ListItem","position":3,"name":"JSON Path Extractor","item":"https://aijsonformat.com/tools/json-path/"}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"JSON Path Extractor","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://aijsonformat.com/tools/json-path/","description":"Extract a value from JSON with a simple path such as $.user.name or items[0].id.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What path syntax is supported?","acceptedAnswer":{"@type":"Answer","text":"Use simple dot paths and array indexes, such as $.user.name or $.items[0].id."}},{"@type":"Question","name":"Can this query multiple values?","acceptedAnswer":{"@type":"Answer","text":"This lightweight version extracts one path at a time."}},{"@type":"Question","name":"Is this full JSONPath?","acceptedAnswer":{"@type":"Answer","text":"No. It supports the common simple subset developers use for quick inspection."}}]}</script>
@@ -23,87 +26,42 @@
   <body>
     <div id="app" data-page="json-path">
       <main class="main">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>JSON Path Extractor</span>
-      </nav>
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>JSON Path Extractor</span></nav>
         <section class="tool-intro">
           <div class="eyebrow">JSON tool</div>
           <h1>JSON Path Extractor</h1>
           <p>Extract a value from JSON with a simple path such as $.user.name or items[0].id.</p>
-          <p><a class="button primary" href="/tools/json-path/">Open JSON Path Extractor</a></p>
+          <p><a class="button primary" href="#tool-input">Use the tool</a></p>
         </section>
         <section class="content-band">
           <h2>Common use cases</h2>
           <ul class="plain-list">
-            <li>Clean API responses before sharing them in documentation.</li>
-            <li>Debug parser errors from logs, webhooks and config files.</li>
-            <li>Prepare JSON examples for prompts, tests and frontend code.</li>
+            <li>Format API responses for debugging.</li>
+            <li>Clean JSON before sharing it in docs.</li>
+            <li>Prepare examples for prompts, tests and frontend code.</li>
           </ul>
         </section>
         <section class="content-band">
-          <h2>FAQ</h2>
-          <div class="faq">
-            <article class="faq-item">
-              <h3>What path syntax is supported?</h3>
-              <p>Use simple dot paths and array indexes, such as $.user.name or $.items[0].id.</p>
-            </article>
-            <article class="faq-item">
-              <h3>Can this query multiple values?</h3>
-              <p>This lightweight version extracts one path at a time.</p>
-            </article>
-            <article class="faq-item">
-              <h3>Is this full JSONPath?</h3>
-              <p>No. It supports the common simple subset developers use for quick inspection.</p>
-            </article>
-          </div>
+          <h2>Example input</h2>
+          <pre class="code-sample"><code>{
+        &quot;user&quot;: { &quot;name&quot;: &quot;AI JSON Format&quot;, &quot;active&quot;: true },
+        &quot;items&quot;: [{ &quot;id&quot;: 123 }]
+      }
+      
+      $.items[0].id</code></pre>
         </section>
         <section class="content-band">
           <h2>Related tools</h2>
           <div class="tool-grid">
-          <a class="tool-card" href="/tools/ai-json-repair/">
-            <span>
-              <h3>AI JSON Repair</h3>
-              <p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON</span></span>
-          </a>
-          <a class="tool-card" href="/tools/json-formatter/">
-            <span>
-              <h3>JSON Formatter</h3>
-              <p>Prettify JSON with readable indentation, validation and one-click copy.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON</span></span>
-          </a>
-          <a class="tool-card" href="/tools/json-validator/">
-            <span>
-              <h3>JSON Validator</h3>
-              <p>Validate JSON syntax and find parse errors before using it in code or APIs.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON</span></span>
-          </a>
-          <a class="tool-card" href="/tools/json-minifier/">
-            <span>
-              <h3>JSON Minifier</h3>
-              <p>Remove whitespace from JSON for compact API payloads and config snippets.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON</span></span>
-          </a>
-          <a class="tool-card" href="/tools/json-to-csv/">
-            <span>
-              <h3>JSON to CSV</h3>
-              <p>Convert JSON arrays and objects into CSV tables for spreadsheets and reports.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON</span></span>
-          </a>
-          <a class="tool-card" href="/tools/json-to-yaml/">
-            <span>
-              <h3>JSON to YAML</h3>
-              <p>Convert JSON into clean YAML for configs, docs and examples.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON</span></span>
-          </a>
+            <a class="tool-card" href="/tools/ai-json-repair/"><span><h3>AI JSON Repair</h3><p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/json-formatter/"><span><h3>JSON Formatter</h3><p>Prettify JSON with readable indentation, validation and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/json-validator/"><span><h3>JSON Validator</h3><p>Validate JSON syntax and find parse errors before using it in code or APIs.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/json-minifier/"><span><h3>JSON Minifier</h3><p>Remove whitespace from JSON for compact API payloads and config snippets.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/json-to-csv/"><span><h3>JSON to CSV</h3><p>Convert JSON arrays and objects into CSV tables for spreadsheets and reports.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/csv-to-json/"><span><h3>CSV to JSON</h3><p>Convert CSV tables into JSON arrays with header-based object keys.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
           </div>
         </section>
+        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What path syntax is supported?</h3><p>Use simple dot paths and array indexes, such as $.user.name or $.items[0].id.</p></article><article class="faq-item"><h3>Can this query multiple values?</h3><p>This lightweight version extracts one path at a time.</p></article><article class="faq-item"><h3>Is this full JSONPath?</h3><p>No. It supports the common simple subset developers use for quick inspection.</p></article></div></section>
       </main>
     </div>
     <script src="/assets/app.js"></script>

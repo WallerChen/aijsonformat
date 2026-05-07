@@ -8,6 +8,7 @@
   <url><loc>https://aijsonformat.com/tools/json-validator/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-minifier/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-to-csv/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/csv-to-json/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-to-yaml/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-to-typescript/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-to-schema/</loc></url>
@@ -15,6 +16,7 @@
   <url><loc>https://aijsonformat.com/tools/json-path/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-lines/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-to-markdown/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/json-compare/</loc></url>
   <url><loc>https://aijsonformat.com/tools/json-escape-unescape/</loc></url>
   <url><loc>https://aijsonformat.com/tools/base64/</loc></url>
   <url><loc>https://aijsonformat.com/tools/md5/</loc></url>
@@ -22,11 +24,19 @@
   <url><loc>https://aijsonformat.com/tools/timestamp/</loc></url>
   <url><loc>https://aijsonformat.com/tools/current-timestamp/</loc></url>
   <url><loc>https://aijsonformat.com/tools/url-encode/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/url-parser/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/query-string-to-json/</loc></url>
   <url><loc>https://aijsonformat.com/tools/html-entity/</loc></url>
   <url><loc>https://aijsonformat.com/tools/uuid/</loc></url>
   <url><loc>https://aijsonformat.com/tools/case-converter/</loc></url>
   <url><loc>https://aijsonformat.com/tools/slug-generator/</loc></url>
   <url><loc>https://aijsonformat.com/tools/word-counter/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/remove-whitespace/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/text-formatter/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/text-replace/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/regex-tester/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/line-sorter/</loc></url>
+  <url><loc>https://aijsonformat.com/tools/duplicate-line-remover/</loc></url>
   <url><loc>https://aijsonformat.com/tools/cron-parser/</loc></url>
   <url><loc>https://aijsonformat.com/tools/jwt-decoder/</loc></url>
   <url><loc>https://aijsonformat.com/tools/password-generator/</loc></url>
@@ -70,6 +80,7 @@
   <url><loc>https://aijsonformat.com/json-format-tools/</loc></url>
   <url><loc>https://aijsonformat.com/json-converter-tools/</loc></url>
   <url><loc>https://aijsonformat.com/developer-tools/</loc></url>
+  <url><loc>https://aijsonformat.com/text-tools/</loc></url>
   <url><loc>https://aijsonformat.com/privacy/</loc></url>
   <url><loc>https://aijsonformat.com/terms/</loc></url>
   <url><loc>https://aijsonformat.com/contact/</loc></url>
@@ -77,15 +88,4 @@
   <url><loc>https://aijsonformat.com/ja/</loc></url>
   <url><loc>https://aijsonformat.com/de/</loc></url>
   <url><loc>https://aijsonformat.com/es/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/remove-whitespace/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/text-formatter/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/text-replace/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/line-sorter/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/duplicate-line-remover/</loc></url>
-  <url><loc>https://aijsonformat.com/text-tools/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/csv-to-json/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/json-compare/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/url-parser/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/query-string-to-json/</loc></url>
-  <url><loc>https://aijsonformat.com/tools/regex-tester/</loc></url>
 </urlset>

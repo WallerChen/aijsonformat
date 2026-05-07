@@ -325,7 +325,7 @@
       inputLabel: "Timestamp or Date",
       outputLabel: "Converted Time",
       actionLabel: "Convert",
-      sample: String(Math.floor(Date.now() / 1000)),
+      sample: "1714857600",
       run: timestampTool,
       faq: [
         ["What is a Unix timestamp?", "It is the number of seconds since January 1, 1970 at 00:00:00 UTC."],
@@ -930,14 +930,61 @@
       description: "Format and repair AI-generated JSON from ChatGPT, APIs and automation tools with a practical AI JSON formatter workflow.",
       primaryToolId: "ai-json-repair",
       points: [
-        "Paste AI-generated JSON or JSON-like output into AI JSON Repair.",
-        "Let local repair clean common issues such as code fences, single quotes and trailing commas.",
-        "Use the AI fallback when the structure is too broken for local repair."
+        "Paste the raw AI response, including any prose or code fences, into AI JSON Repair.",
+        "Let local repair strip code fences, comments, single quotes and trailing commas.",
+        "Format the cleaned JSON for review, or send it to JSON Validator before parsing in production code.",
+        "Use the AI fallback only when local rules cannot rebuild the broken structure."
+      ],
+      details: [
+        {
+          heading: "Why AI JSON output needs its own formatter",
+          paragraphs: [
+            "Large language models almost never return strict JSON on the first try. ChatGPT, Claude and Doubao routinely wrap output in triple-backtick code fences, add a sentence of explanation before or after the payload, use JavaScript-style single quotes, leave a trailing comma after the last array item, or insert // and /* */ comments for clarity. A traditional JSON formatter assumes valid input and fails on the first quirky character.",
+            "An AI JSON formatter is a workflow rather than a single button. It repairs the response first, then prettifies the cleaned data, then validates the result. Skipping the repair step is the most common reason developers get stuck in a loop of SyntaxError messages when integrating model output into a typed system."
+          ]
+        },
+        {
+          heading: "What this workflow handles automatically",
+          paragraphs: [
+            "AI JSON Repair on this site is tuned for the patterns we see most often in production prompts, tool calls and structured-output endpoints."
+          ],
+          list: [
+            "Triple-backtick markdown fences with or without the json language label.",
+            "Single quotes around keys and string values from copied JavaScript objects.",
+            "Trailing commas after the last item in arrays and objects.",
+            "Inline // and /* */ comments left over from sample code.",
+            "Smart quotes (curly quotes) pasted from chat UIs and rich text editors.",
+            "Leading or trailing prose such as 'Here is the JSON you asked for'."
+          ]
+        },
+        {
+          heading: "Difference from a plain JSON formatter",
+          paragraphs: [
+            "A plain JSON formatter requires a valid JSON value as input. If you feed it raw model output, you usually see Unexpected token at the first non-JSON character. The AI workflow accepts messy text, runs deterministic local repair first, and only falls back to a model when the structure is too broken for rules to recover.",
+            "If you already have clean JSON, use the JSON Formatter directly. AI JSON Repair returns the same output for clean input but adds an extra step you do not need."
+          ]
+        }
+      ],
+      examples: [
+        {
+          heading: "Markdown-fenced response with comments and trailing comma",
+          input: "Here is the JSON you asked for:\n\n```json\n{\n  \"name\": \"Ada\",\n  // primary contact\n  \"emails\": [\"ada@example.com\",],\n}\n```",
+          output: "{\n  \"name\": \"Ada\",\n  \"emails\": [\n    \"ada@example.com\"\n  ]\n}",
+          note: "Local repair strips the prose, the code fence and the inline comment, and removes the trailing comma before the closing bracket."
+        },
+        {
+          heading: "Smart quotes from a chat UI",
+          input: "{\n  “model”: “doubao”,\n  “temperature”: 0,\n}",
+          output: "{\n  \"model\": \"doubao\",\n  \"temperature\": 0\n}",
+          note: "Curly quotes are normalized to standard ASCII double quotes so JSON.parse accepts the result on the first try."
+        }
       ],
       faq: [
-        ["What is an AI JSON formatter?", "It is a formatter designed for JSON-like output from AI tools, where responses often include markdown or small syntax mistakes."],
-        ["Is it different from a normal JSON formatter?", "Yes. A normal formatter requires valid JSON first. AI JSON formatting often needs repair before prettifying."],
-        ["Can it handle ChatGPT JSON?", "Yes. The repair workflow is designed for model output, copied API examples and automation snippets."]
+        ["What is an AI JSON formatter?", "It is a formatter designed for JSON-like output from AI tools, where responses often include markdown, prose, or small syntax mistakes that strict JSON parsers reject."],
+        ["Is it different from a normal JSON formatter?", "Yes. A normal formatter requires valid JSON first. AI JSON formatting almost always needs a repair pass before the prettify step."],
+        ["Can it handle ChatGPT JSON?", "Yes. The repair workflow is built for ChatGPT, Claude, Doubao and other LLM responses, including tool-call payloads and structured outputs."],
+        ["Will my data go to a model?", "Local repair runs entirely in your browser. The optional AI fallback only sends data to the configured provider when local rules cannot finish the job."],
+        ["Is this safe to use on production payloads?", "Avoid pasting secrets or private user data into any online tool. The repair logic itself does not require uploading anything for the local path."]
       ]
     },
     {
@@ -947,14 +994,51 @@
       description: "Clean, format and validate JSON for AI workflows, structured prompts and model responses.",
       primaryToolId: "ai-json-repair",
       points: [
-        "Use AI JSON Repair when model output is not strict JSON.",
-        "Use JSON Formatter after repair to make the output readable.",
-        "Use JSON Validator before sending the data to an API or parser."
+        "Repair first: send any AI response into AI JSON Repair to remove fences, prose and JS-style syntax.",
+        "Format second: feed the repaired text into JSON Formatter for readable indentation.",
+        "Validate third: run JSON Validator before parsing the output in your service.",
+        "Type fourth (optional): use JSON to TypeScript or JSON to Schema to lock the contract once the data is clean."
+      ],
+      details: [
+        {
+          heading: "Three stages of an AI JSON formatting pipeline",
+          paragraphs: [
+            "Treat AI JSON formatting as a pipeline, not a one-click action. The repair stage is permissive and tolerates broken input. The format stage assumes valid JSON and enforces consistent indentation. The validate stage rejects anything that would crash JSON.parse in your service. Splitting the work this way gives you clearer error messages when something goes wrong, because each stage only owns one type of failure.",
+            "Keeping the stages separate also makes it easy to swap any single piece. If you switch from Doubao to a different model, only the repair stage needs to learn new quirks. The formatter and validator stay the same."
+          ]
+        },
+        {
+          heading: "When to use AI fallback vs local repair",
+          paragraphs: [
+            "Local repair handles the long tail of LLM output mistakes deterministically. It is fast, free and never sends your data anywhere. Reach for the AI fallback when the structure is so broken that no rule-based pass can recover the original intent — for example, when the model returned a paragraph of natural language that needs to be reshaped into a JSON object based on its meaning."
+          ],
+          list: [
+            "Use local repair for: code fences, single quotes, trailing commas, comments, smart quotes, leading prose.",
+            "Use AI fallback for: deeply nested broken arrays, model output that mixes prose and JSON, messy text-to-JSON conversions.",
+            "Skip the AI fallback entirely if the input is already valid JSON or only needs whitespace cleanup."
+          ]
+        },
+        {
+          heading: "Integrating the workflow into a service",
+          paragraphs: [
+            "If you build on top of structured outputs from Doubao or OpenAI, run repair as a defensive middleware before JSON.parse. Surface the repair logs so you can spot drifting patterns in model output, then feed those patterns back into your prompt or schema. This site mirrors the same pipeline so you can sanity-check responses by hand without writing throwaway code."
+          ]
+        }
+      ],
+      examples: [
+        {
+          heading: "Tool-call payload with prose wrapper",
+          input: "Sure! Here is the function call:\n\n{ name: 'create_invoice', arguments: { 'amount': 99.5, 'currency': 'USD' }, }",
+          output: "{\n  \"name\": \"create_invoice\",\n  \"arguments\": {\n    \"amount\": 99.5,\n    \"currency\": \"USD\"\n  }\n}",
+          note: "Repair removes the prose, quotes the unquoted key, normalizes single quotes and drops the trailing comma."
+        }
       ],
       faq: [
         ["Why does AI JSON need formatting?", "AI output may include explanations, markdown fences or JSON-like syntax that strict parsers reject."],
-        ["Can I use this for structured outputs?", "Yes. It is useful for checking and cleaning structured AI responses before integration."],
-        ["Should I validate after formatting?", "Yes. Validation catches syntax issues before production use."]
+        ["Can I use this for structured outputs?", "Yes. It is useful for verifying and cleaning structured outputs before they hit your downstream code."],
+        ["Should I validate after formatting?", "Yes. Validation catches subtle issues like accidentally string-quoted numbers, unmatched brackets or duplicate keys."],
+        ["Does this replace prompt engineering?", "No. Strict prompts and JSON Schema constraints are still the cheapest fix. The pipeline is a safety net, not a substitute."],
+        ["Is the result safe to send to JSON.parse?", "After validate passes, yes. The pipeline is designed to produce parser-ready output."]
       ]
     },
     {
@@ -964,14 +1048,50 @@
       description: "Format JSON online into readable indentation and copy clean output for APIs, configs and docs.",
       primaryToolId: "json-formatter",
       points: [
-        "Paste valid JSON into the JSON Formatter.",
-        "Click Format JSON to prettify objects and arrays.",
-        "Copy the formatted result into code, docs or API clients."
+        "Open JSON Formatter from any device — no download or install required.",
+        "Paste the JSON you got from an API client, log line or config file.",
+        "Format with two-space indentation and copy the result for review or sharing."
+      ],
+      details: [
+        {
+          heading: "Why format JSON in the browser",
+          paragraphs: [
+            "Formatting JSON online removes the friction of reaching for a CLI. You do not need jq installed, you do not need to remember Python's json.tool flags, and you do not need to write a temporary file just to look at a payload. A browser-based formatter is the fastest path from 'I have a wall of unreadable JSON' to 'I can see the structure'.",
+            "It also works when you cannot install software — locked-down work laptops, freshly provisioned servers accessed through a jump host, or a tablet you happened to grab. The same URL works everywhere your browser does."
+          ]
+        },
+        {
+          heading: "Indent options that matter in practice",
+          paragraphs: [
+            "Most teams pick two-space indentation because it matches what you get from JSON.stringify(value, null, 2) in JavaScript and json.dumps(value, indent=2) in Python. That makes the formatted output easy to drop into a code review or docs without surprises. Tabs are uncommon in JSON but readable in some editors. Four-space indentation is heavier visually and rarely worth it for JSON specifically."
+          ],
+          list: [
+            "Two-space indent: matches JS/Python conventions, the default for code review.",
+            "Four-space indent: easier on small fonts, but takes more horizontal space for nested objects.",
+            "Tab indent: lets each reader pick their own width, but breaks JSON.stringify defaults."
+          ]
+        },
+        {
+          heading: "What 'online' does not mean",
+          paragraphs: [
+            "Online here does not mean 'uploaded to a server'. The JSON Formatter on this site runs the format step entirely in your browser using JSON.parse plus a stringify pass. Your payload is not transmitted, not logged and not used for training. The only network calls on the page are static asset loads and Google Analytics for anonymous traffic stats."
+          ]
+        }
+      ],
+      examples: [
+        {
+          heading: "Compact API response",
+          input: "{\"id\":42,\"customer\":{\"name\":\"Ada\",\"plan\":\"pro\"},\"items\":[{\"sku\":\"A1\",\"qty\":2},{\"sku\":\"B7\",\"qty\":1}]}",
+          output: "{\n  \"id\": 42,\n  \"customer\": {\n    \"name\": \"Ada\",\n    \"plan\": \"pro\"\n  },\n  \"items\": [\n    {\n      \"sku\": \"A1\",\n      \"qty\": 2\n    },\n    {\n      \"sku\": \"B7\",\n      \"qty\": 1\n    }\n  ]\n}",
+          note: "The structure is identical — only whitespace changes. Keys, values and order are preserved exactly."
+        }
       ],
       faq: [
-        ["What does JSON format online mean?", "It means prettifying JSON in the browser so nested data is easier to read."],
-        ["Does formatting change values?", "No. It only changes whitespace when the input is valid JSON."],
-        ["What if my JSON is invalid?", "Use AI JSON Repair first, then format the repaired result."]
+        ["What does JSON format online mean?", "It means prettifying JSON in the browser so nested data is easier to read, with no install, no upload and no signup."],
+        ["Does formatting change values?", "No. Formatting only changes whitespace when the input is valid JSON. Numbers, strings and key order are preserved."],
+        ["What if my JSON is invalid?", "Run AI JSON Repair first to clean syntax issues, then format the repaired result here."],
+        ["Is there a size limit?", "Practically, the limit is your browser memory. Multi-megabyte payloads work but stay responsive only on a desktop browser."],
+        ["Can I share the formatted JSON?", "Copy and paste anywhere. There is no upload-based sharing, which keeps the data private to you."]
       ]
     },
     {
@@ -981,14 +1101,51 @@
       description: "Use a free online JSON formatter with no signup for quick developer copy-and-paste workflows.",
       primaryToolId: "json-formatter",
       points: [
-        "Open the JSON Formatter tool.",
-        "Paste JSON from an API response, config file or log.",
-        "Format, copy and reuse the cleaned output."
+        "Open the JSON Formatter without creating an account.",
+        "Paste JSON from a webhook, response viewer or test fixture.",
+        "Format, copy and close the tab — nothing is saved on a server."
+      ],
+      details: [
+        {
+          heading: "What 'free' actually means here",
+          paragraphs: [
+            "Free in this context means three concrete things: no account is required, the format step runs locally in your browser, and there is no paywalled tier with extra features hidden behind a subscription. The site is supported by display advertising rather than subscriptions. You get the same formatter, validator and converter behavior whether you visit once a month or a hundred times a day.",
+            "Some online formatters require sign-up to unlock larger payloads, theming or export. None of that is gated here. The trade-off is that there is no cloud history of past payloads — copy what you need before you close the tab."
+          ]
+        },
+        {
+          heading: "Privacy expectations for a free tool",
+          paragraphs: [
+            "When a tool is free, it is reasonable to ask 'so what's the catch?'. The catch on this site is contextual ads and standard analytics. The JSON you paste is not part of either. Format, validate, minify, sort and convert all run on the JavaScript engine in your browser. The only payloads that leave your device are the ones explicitly sent through the AI fallback button, which is clearly labeled and only used when local repair cannot finish the job."
+          ],
+          list: [
+            "No login, no tokens, no quotas.",
+            "Formatting and validation happen in your browser, not on a server.",
+            "Ads are contextual; the payload itself is never used to target ads.",
+            "AI fallback is opt-in, with a different button and a clear status indicator."
+          ]
+        },
+        {
+          heading: "Comparison with desktop tools",
+          paragraphs: [
+            "Desktop apps like Visual Studio Code's JSON formatter are excellent when you already have the editor open. A web tool wins for quick one-off formatting, for sharing a URL with a colleague who does not have the editor configured, and for environments where installing software is restricted. Use the right tool for the moment — there is no need to pick one."
+          ]
+        }
+      ],
+      examples: [
+        {
+          heading: "Webhook payload",
+          input: "{\"event\":\"user.signup\",\"timestamp\":1714857600,\"data\":{\"id\":\"u_42\",\"plan\":\"trial\"}}",
+          output: "{\n  \"event\": \"user.signup\",\n  \"timestamp\": 1714857600,\n  \"data\": {\n    \"id\": \"u_42\",\n    \"plan\": \"trial\"\n  }\n}",
+          note: "Typical inbound webhook shape. Format, eyeball the keys, then drop into your handler test."
+        }
       ],
       faq: [
-        ["Is the JSON formatter free?", "Yes. The formatter is free and does not require an account."],
-        ["Can I use it for API responses?", "Yes. It is useful for formatting API responses, webhook payloads and config data."],
-        ["Does it run locally?", "The formatter runs in your browser."]
+        ["Is the JSON formatter free?", "Yes. The formatter is free and does not require an account, login or trial."],
+        ["Will I see ads?", "The site shows contextual display ads to fund hosting. The JSON you paste is never used for ad targeting."],
+        ["Does it run locally?", "Yes. The format, validate, minify and convert steps all run in your browser using the standard JSON parser."],
+        ["Is there a paid version?", "There is no paid tier today. If specific features get added later that need infrastructure, the free formatter stays free."],
+        ["Can I use it at work?", "Most teams allow it because nothing is uploaded for the local workflow. Check your own policy if you handle regulated data."]
       ]
     },
     {
@@ -998,14 +1155,52 @@
       description: "Beautify minified JSON into readable, indented output for debugging and documentation.",
       primaryToolId: "json-formatter",
       points: [
-        "Paste minified or compact JSON.",
-        "Run the JSON Formatter to beautify it.",
-        "Copy the indented output for review or documentation."
+        "Paste minified JSON copied from a network tab, a log line or an API response.",
+        "Run JSON Formatter to add line breaks and consistent indentation.",
+        "Use the beautified output in code review, bug reports or runbook documentation."
+      ],
+      details: [
+        {
+          heading: "Beautify, format, prettify — same thing for JSON",
+          paragraphs: [
+            "In the JSON ecosystem, 'beautify', 'format' and 'prettify' all describe the same operation: parse the input, then re-emit it with line breaks and indentation so the structure becomes visible to a human. The terms come from different tooling traditions — beautifiers came from minified JavaScript culture, formatters from IDE conventions, prettifiers from code-formatting libraries — but for JSON they collapse to one behavior.",
+            "The beautify framing is most natural when the starting point is heavily minified. If you opened a network response and saw one giant line of nested braces, beautify is what makes the response legible."
+          ]
+        },
+        {
+          heading: "When beautify earns its keep",
+          paragraphs: [
+            "Beautifying matters most for the moments when you need to read JSON, not when you need to send it. A few common scenarios:"
+          ],
+          list: [
+            "Reviewing an API response that returned compact JSON to save bytes.",
+            "Pasting JSON evidence into a bug report or pull request.",
+            "Sharing a config snippet in documentation where readability beats payload size.",
+            "Comparing two API responses by eye before reaching for a diff tool."
+          ]
+        },
+        {
+          heading: "Beautify and minify are reversible",
+          paragraphs: [
+            "Beautifying does not destroy any data. The structure stays intact and you can re-minify the output at any time using JSON Minifier. Treat beautify and minify as opposite ends of a slider — beautify when you need to think, minify when you need to ship.",
+            "If the input is invalid JSON to start with, the parser will throw before beautifying. That is correct behavior: a beautifier should refuse to invent meaning. Use AI JSON Repair first to clean up the syntax, then beautify the repaired output."
+          ]
+        }
+      ],
+      examples: [
+        {
+          heading: "From minified to beautified",
+          input: "{\"order\":{\"id\":1001,\"items\":[{\"sku\":\"A\",\"qty\":3},{\"sku\":\"B\",\"qty\":1}],\"total\":42.5}}",
+          output: "{\n  \"order\": {\n    \"id\": 1001,\n    \"items\": [\n      {\n        \"sku\": \"A\",\n        \"qty\": 3\n      },\n      {\n        \"sku\": \"B\",\n        \"qty\": 1\n      }\n    ],\n    \"total\": 42.5\n  }\n}",
+          note: "The beautified version makes the order/items relationship visible at a glance and is much easier to scan during a review."
+        }
       ],
       faq: [
-        ["Is beautify the same as format?", "For JSON tools, beautify and format usually mean the same thing: readable indentation."],
-        ["Can it beautify invalid JSON?", "Invalid JSON must be repaired first."],
-        ["Can I minify it again?", "Yes. Use JSON Minifier to compact the formatted output."]
+        ["Is beautify the same as format?", "Yes. For JSON tools, beautify, format and prettify all mean producing the same readable, indented output."],
+        ["Can it beautify invalid JSON?", "No, the beautifier will not guess. Use AI JSON Repair first to fix syntax, then beautify the repaired output."],
+        ["Can I minify it again?", "Yes. JSON Minifier reverses the beautify step and produces the original compact form."],
+        ["Does beautifying change the data?", "No. The keys, values and order are preserved exactly. Only whitespace changes."],
+        ["Why is my JSON minified by default?", "APIs minify responses to save bandwidth. Beautifying is a viewing-time concern, not a transport concern."]
       ]
     },
     {
@@ -1015,14 +1210,50 @@
       description: "Prettify JSON online with clean indentation, validation feedback and one-click copy.",
       primaryToolId: "json-formatter",
       points: [
-        "Paste your JSON into the formatter.",
-        "Click Format JSON.",
-        "Review indentation and copy the prettified result."
+        "Paste a single JSON value (object, array, string, number, boolean or null).",
+        "Click Format JSON to prettify with two-space indentation.",
+        "Copy the result, or pipe it into JSON Validator and JSON Sorter for further cleanup."
+      ],
+      details: [
+        {
+          heading: "Prettify in JavaScript and Python terms",
+          paragraphs: [
+            "If you have ever written JSON.stringify(value, null, 2) in JavaScript or json.dumps(data, indent=2) in Python, you have used the prettify operation in code. This online tool is the same idea moved into the browser so you can prettify ad-hoc JSON without writing a script. Internally it parses with the standard JSON parser and re-serializes with a fixed indent, exactly how the language built-ins behave."
+          ]
+        },
+        {
+          heading: "Prettify, then sort, then diff",
+          paragraphs: [
+            "Prettifying is usually the first step in a longer cleanup. After prettifying, sorting object keys with JSON Sorter makes diffs deterministic — two responses with the same content but different key order will look identical, which is the behavior you want when a flaky API shuffles keys between requests.",
+            "If you are comparing two responses, prettify both, sort both, then paste them into JSON Compare to see only the structural differences."
+          ],
+          list: [
+            "Prettify: produce readable output.",
+            "Sort: stabilize key order so diffs are signal-only.",
+            "Compare: show added, removed and changed fields between two payloads."
+          ]
+        },
+        {
+          heading: "Prettify vs jq",
+          paragraphs: [
+            "If jq is already in your terminal, jq '.' is a great prettifier. The browser tool wins when you want to share a URL with someone, when you need to prettify a single payload without leaving your browser, or when the input is broken JSON that would make jq fail. AI JSON Repair plus the prettifier on this site handle messy input that jq refuses to parse."
+          ]
+        }
+      ],
+      examples: [
+        {
+          heading: "Prettify a log-line JSON entry",
+          input: "{\"level\":\"info\",\"msg\":\"request handled\",\"ctx\":{\"path\":\"/users\",\"status\":200,\"ms\":42}}",
+          output: "{\n  \"level\": \"info\",\n  \"msg\": \"request handled\",\n  \"ctx\": {\n    \"path\": \"/users\",\n    \"status\": 200,\n    \"ms\": 42\n  }\n}",
+          note: "Logs typically print JSON on one line. Prettifying turns each request into something you can scan in a review."
+        }
       ],
       faq: [
-        ["What is prettified JSON?", "Prettified JSON is JSON printed with line breaks and indentation."],
-        ["Why prettify JSON?", "It makes nested data easier to inspect and debug."],
-        ["Can I prettify JSON from logs?", "Yes, as long as the JSON portion is valid or repaired first."]
+        ["What is prettified JSON?", "Prettified JSON is JSON printed with line breaks and indentation so nested structure is visible to a human."],
+        ["Why prettify JSON?", "It makes nested data easier to inspect, easier to share in a code review, and easier to compare against another response."],
+        ["Can I prettify JSON from logs?", "Yes, as long as the JSON portion is extracted and is valid (or repaired first with AI JSON Repair)."],
+        ["Is prettify the same as JSON.stringify(value, null, 2)?", "Yes. The output matches the standard library behavior for two-space indentation."],
+        ["Can I pick the indent width?", "The default is two spaces, which matches JS and Python convention. Different indent widths can be added later."]
       ]
     },
     {
@@ -1032,14 +1263,63 @@
       description: "Lint JSON online by validating syntax and identifying parse errors before using data in code.",
       primaryToolId: "json-validator",
       points: [
-        "Paste JSON into the JSON Validator.",
-        "Run validation to check parser compatibility.",
-        "Repair invalid JSON if the validator reports an error."
+        "Paste JSON suspected of having a parser error into JSON Validator.",
+        "Read the error message and the position it points to.",
+        "Fix the issue manually, or send the input through AI JSON Repair to handle the long tail of common mistakes."
+      ],
+      details: [
+        {
+          heading: "What linting catches and what it doesn't",
+          paragraphs: [
+            "JSON linting checks one thing: does the input parse as valid JSON under the strict spec. It does not check business rules, field meaning, expected types, or whether your numbers are within an allowed range. Those are schema checks, handled by JSON Schema or JSON to Schema. Treat linting as the syntax pass — if it fails, no other check will run reliably."
+          ],
+          list: [
+            "Lint = syntax: would JSON.parse accept this string?",
+            "Validate against schema = semantics: do the fields and types match what the API expects?",
+            "Format = readability: does the indentation make the structure visible?"
+          ]
+        },
+        {
+          heading: "The most common JSON lint errors",
+          paragraphs: [
+            "Roughly 90% of lint failures we see fall into a handful of patterns. Knowing them by sight saves you a trip back to the documentation."
+          ],
+          list: [
+            "Trailing comma — a comma after the last item in [] or {}.",
+            "Single quotes — JSON strings must use double quotes only.",
+            "Unquoted keys — every object key needs to be a quoted string.",
+            "Comments — // and /* */ are JavaScript syntax, not JSON.",
+            "Mismatched brackets — extra or missing { } or [ ].",
+            "Bad escapes — backslashes inside strings need to be paired with a valid escape character."
+          ]
+        },
+        {
+          heading: "From lint failure to working JSON",
+          paragraphs: [
+            "If the validator reports a position, jump there in your editor and look at the character before it — the parser usually flags the next character after the actual mistake. If you cannot spot it, paste into AI JSON Repair, run repair, then run lint again on the cleaned output. Once the validator returns OK, the JSON is safe to feed into a typed parser, JSON.parse or your service's JSON middleware."
+          ]
+        }
+      ],
+      examples: [
+        {
+          heading: "Trailing comma",
+          input: "{\n  \"name\": \"Ada\",\n  \"role\": \"admin\",\n}",
+          output: "Error: Unexpected token } at line 4 column 1.",
+          note: "The trailing comma after \"admin\" is the actual culprit, but most parsers report the next character."
+        },
+        {
+          heading: "Single quotes",
+          input: "{ 'host': 'localhost', 'port': 3000 }",
+          output: "Error: Unexpected token ' at line 1 column 3.",
+          note: "JSON strings must use double quotes. Single quotes are valid JavaScript but invalid JSON."
+        }
       ],
       faq: [
-        ["What is JSON linting?", "JSON linting checks whether JSON syntax is valid and parser-ready."],
-        ["Does linting format JSON?", "Validation checks syntax. Use JSON Formatter when you also want pretty output."],
-        ["What should I do with an error?", "Use the error message to locate the issue or open AI JSON Repair."]
+        ["What is JSON linting?", "JSON linting is a syntax check that confirms whether the input is valid under the strict JSON spec."],
+        ["Does linting format JSON?", "No. Linting only validates. Use JSON Formatter when you also want readable output."],
+        ["What should I do with an error?", "Read the line and column, fix the character at that position, and re-run. If you cannot spot the issue, run AI JSON Repair."],
+        ["Is JSON Lint the same as ajv?", "ajv validates against a JSON Schema, which is a stricter check on top of the syntax pass. Linting here means just the syntax pass."],
+        ["Can I lint JSONL?", "Lint each line individually, or use JSON Lines to JSON to convert it into an array first."]
       ]
     },
     {
@@ -1049,14 +1329,58 @@
       description: "Parse JSON online to confirm whether a value is a valid object, array, string, number, boolean or null.",
       primaryToolId: "json-validator",
       points: [
-        "Paste the JSON value into JSON Validator.",
-        "Run validation to parse the value.",
-        "Use the result summary to understand the top-level JSON type."
+        "Paste any JSON value (object, array, scalar) into JSON Validator.",
+        "Run validation — the validator parses your input behind the scenes.",
+        "Read the result summary to confirm the top-level type and whether parsing succeeded."
+      ],
+      details: [
+        {
+          heading: "What a JSON parser actually does",
+          paragraphs: [
+            "A JSON parser reads a string of characters and produces structured data — an object tree your code can index into. The parser walks token by token, validating each one against the JSON grammar. If anything is out of place, parsing stops and the parser reports an error pointing to the offending token. JSON Validator on this site uses the browser's built-in JSON.parse, which is the same parser used by every JavaScript runtime."
+          ]
+        },
+        {
+          heading: "Top-level JSON values you can paste",
+          paragraphs: [
+            "JSON is more permissive than people remember. The top-level value does not have to be an object. Any of these are valid JSON documents:"
+          ],
+          list: [
+            "Object: {\"key\": \"value\"}",
+            "Array: [1, 2, 3]",
+            "String: \"hello\"",
+            "Number: 42",
+            "Boolean: true or false",
+            "Null: null"
+          ]
+        },
+        {
+          heading: "Why parsing fails",
+          paragraphs: [
+            "Parser failures fall into three buckets: syntax mistakes (trailing commas, single quotes, unquoted keys), encoding issues (smart quotes copied from a chat app, mismatched escape sequences) and structural mistakes (mismatched brackets, missing closing quote on a string). The parser reports the position of the unexpected token, which is usually one character past the actual mistake. If the input came from an LLM, run AI JSON Repair before parsing — it handles the long tail of LLM-specific issues automatically."
+          ]
+        }
+      ],
+      examples: [
+        {
+          heading: "Top-level array parses fine",
+          input: "[\"alpha\", \"beta\", \"gamma\"]",
+          output: "Valid JSON. Top-level type: array (3 items).",
+          note: "A standalone array is a valid JSON document — you do not need to wrap it in an object."
+        },
+        {
+          heading: "Top-level scalar also parses",
+          input: "true",
+          output: "Valid JSON. Top-level type: boolean.",
+          note: "Booleans, numbers, strings and null are all valid top-level JSON values."
+        }
       ],
       faq: [
-        ["Can JSON be an array?", "Yes. A valid JSON document can be an object, array, string, number, boolean or null."],
-        ["What does a JSON parser do?", "It reads JSON text and converts it into structured data."],
-        ["Why does parsing fail?", "Parsing fails when syntax is not strict JSON."]
+        ["Can JSON be an array?", "Yes. A valid JSON document can be an object, array, string, number, boolean or null at the top level."],
+        ["What does a JSON parser do?", "It reads JSON text and converts it into structured data your code can navigate."],
+        ["Why does parsing fail?", "Parsing fails when syntax does not match the strict JSON grammar — usually trailing commas, comments, single quotes or mismatched brackets."],
+        ["Is the parser online or local?", "The parser runs in your browser. Nothing is sent to a server when you click validate."],
+        ["Can I parse very large payloads?", "Browser parsers handle multi-megabyte inputs but slow down on very large files. For huge payloads, parse in a Node script or use streaming JSON."]
       ]
     },
     {
@@ -1066,14 +1390,54 @@
       description: "Clean JSON-like text by removing comments, trailing commas, code fences and other parser-breaking syntax.",
       primaryToolId: "ai-json-repair",
       points: [
-        "Paste JSON-like text into AI JSON Repair.",
-        "Clean syntax issues with local repair.",
-        "Validate and format the cleaned JSON."
+        "Paste JSON-like text — copied from a JS file, an AI response, a config or a log.",
+        "Run AI JSON Repair to remove comments, fences, trailing commas and similar noise.",
+        "Validate the cleaned output, then format it with JSON Formatter."
+      ],
+      details: [
+        {
+          heading: "What JSON cleaning means in practice",
+          paragraphs: [
+            "Cleaning JSON is a wider operation than formatting. A formatter assumes the input already parses; a cleaner accepts JSON-flavoured text and tries to make it parseable. The two are complements — clean first, format second.",
+            "Common sources of dirty JSON are JavaScript files where someone copied an object literal, configuration files written by hand, model output with markdown fences and prose, and log lines where multiple JSON fragments got concatenated."
+          ]
+        },
+        {
+          heading: "Things the cleaner removes or rewrites",
+          paragraphs: [
+            "AI JSON Repair handles the patterns that make JSON.parse throw."
+          ],
+          list: [
+            "// line comments and /* block comments */ left over from JS sources.",
+            "Trailing commas after the last item in arrays and objects.",
+            "Single-quoted keys and string values from JS object literals.",
+            "Unquoted keys (still valid in JS, never valid in JSON).",
+            "Markdown code fences such as ```json and the closing ```.",
+            "Surrounding prose like 'Here is the JSON:' or 'Result:'."
+          ]
+        },
+        {
+          heading: "What cleaning will not do",
+          paragraphs: [
+            "Cleaning is a syntactic pass, not a semantic one. It will not invent missing fields, fix a wrong type, or guess what a field should be when the value is corrupted beyond recognition. If the original input is so broken that there is no clear original intent, the cleaner returns the best parseable version it can and you should review the result before trusting it.",
+            "For data with semantic constraints (required fields, enum values, value ranges), pair cleaning with JSON Schema validation. Run cleaner first to make the input parseable, then validate against your schema to confirm it is also correct."
+          ]
+        }
+      ],
+      examples: [
+        {
+          heading: "JavaScript object literal",
+          input: "// from src/config.js\nconst config = {\n  host: 'localhost',\n  port: 3000,\n  features: ['ssr', 'edge',],\n}",
+          output: "{\n  \"host\": \"localhost\",\n  \"port\": 3000,\n  \"features\": [\n    \"ssr\",\n    \"edge\"\n  ]\n}",
+          note: "The cleaner strips the comment, the variable declaration, removes the trailing commas and quotes the keys."
+        }
       ],
       faq: [
-        ["What can a JSON cleaner fix?", "It can often fix comments, single quotes, trailing commas, unquoted keys and markdown fences."],
-        ["Is cleaned JSON always correct?", "Review important data after cleaning, especially when the original text is badly broken."],
-        ["Can it clean API examples?", "Yes. It is useful for copied examples that look like JavaScript objects instead of strict JSON."]
+        ["What can a JSON cleaner fix?", "Comments, single quotes, trailing commas, unquoted keys, markdown fences and surrounding prose."],
+        ["Is cleaned JSON always correct?", "Cleaning fixes syntax, not meaning. Review business-critical data after cleaning, especially when the original text is badly broken."],
+        ["Can it clean API examples?", "Yes. It is useful for copied examples that look like JavaScript objects instead of strict JSON."],
+        ["What if the cleaner cannot recover the input?", "Use the AI fallback for badly broken structures, then verify the result against your schema."],
+        ["Can I run cleaning on JSONL?", "Clean each line individually, or use JSON Lines to JSON to combine them into an array first."]
       ]
     },
     {
@@ -2161,7 +2525,7 @@
       const parsed = JSON.parse(value);
       return result(JSON.stringify(parsed, null, spaces), spaces === 0 ? "JSON minified." : "JSON formatted.", "ok");
     } catch (error) {
-      return result("", humanJsonError(error), "error");
+      return result("", humanJsonError(error, value), "error");
     }
   }
 
@@ -2175,7 +2539,8 @@
           : `Valid JSON ${typeof parsed}.`;
       return result(summary, summary, "ok");
     } catch (error) {
-      return result(humanJsonError(error), humanJsonError(error), "error");
+      const friendly = humanJsonError(error, value);
+      return result(friendly, friendly.split("\n")[0], "error");
     }
   }
 
@@ -2187,7 +2552,7 @@
     } catch (error) {
       const aiResult = await callAiJson("repair", value, repaired);
       if (aiResult) return aiResult;
-      return result(repaired, `Best effort repair created, but JSON still has an error: ${humanJsonError(error)}`, "warn");
+      return result(repaired, `Best effort repair created, but JSON still has an error: ${humanJsonError(error, repaired)}`, "warn");
     }
   }
 
@@ -2698,7 +3063,7 @@
         const parsed = JSON.parse(repaired);
         return result(formatLocalJsonExplanation(parsed), "Repaired JSON locally and generated a structure summary.", "warn");
       } catch {
-        return result("", aiResult?.error || humanJsonError(error), "error");
+        return result("", aiResult?.error || humanJsonError(error, value), "error");
       }
     }
   }
@@ -2930,7 +3295,7 @@
       ];
       return result(csvRows.join("\n"), `Converted ${rows.length} row${rows.length === 1 ? "" : "s"} to CSV.`, "ok");
     } catch (error) {
-      return result("", humanJsonError(error), "error");
+      return result("", humanJsonError(error, value), "error");
     }
   }
 
@@ -2953,7 +3318,7 @@
       const parsed = JSON.parse(value);
       return result(toYaml(parsed), "Converted JSON to YAML.", "ok");
     } catch (error) {
-      return result("", humanJsonError(error), "error");
+      return result("", humanJsonError(error, value), "error");
     }
   }
 
@@ -2969,7 +3334,7 @@
       }
       return result(`type RootObject = ${typeScriptShape(parsed, 0)};`, "Generated TypeScript type.", "ok");
     } catch (error) {
-      return result("", humanJsonError(error), "error");
+      return result("", humanJsonError(error, value), "error");
     }
   }
 
@@ -2982,22 +3347,61 @@
       };
       return result(JSON.stringify(schema, null, 2), "Generated JSON Schema.", "ok");
     } catch (error) {
-      return result("", humanJsonError(error), "error");
+      return result("", humanJsonError(error, value), "error");
     }
   }
 
   function jsonCompareTool(value) {
+    let first;
+    let second;
     try {
-      const { first, second } = splitTwoInputs(value, "Paste the first JSON, a blank line, then the second JSON.");
-      const left = JSON.parse(first);
-      const right = JSON.parse(second);
-      const changes = [];
-      compareJsonValues(left, right, "$", changes);
-      if (!changes.length) return result("No differences found.", "JSON values are equal.", "ok");
-      return result(changes.join("\n"), `Found ${changes.length} difference${changes.length === 1 ? "" : "s"}.`, "warn");
+      ({ first, second } = splitTwoInputs(value, "Paste the first JSON, a blank line, then the second JSON."));
     } catch (error) {
-      return result("", error.message || humanJsonError(error), "error");
+      return result("", error.message, "error");
     }
+    let left;
+    try {
+      left = JSON.parse(first);
+    } catch (error) {
+      return result("", `First JSON: ${humanJsonError(error, first)}`, "error");
+    }
+    let right;
+    try {
+      right = JSON.parse(second);
+    } catch (error) {
+      return result("", `Second JSON: ${humanJsonError(error, second)}`, "error");
+    }
+    const changes = [];
+    compareJsonValues(left, right, "$", changes);
+    if (!changes.length) return result("No differences found.", "JSON values are equal.", "ok");
+    const summary = summarizeJsonDiffs(changes);
+    const formatted = formatJsonDiffs(changes);
+    return result(formatted, summary, "warn");
+  }
+
+  function summarizeJsonDiffs(changes) {
+    let added = 0;
+    let removed = 0;
+    let changed = 0;
+    for (const line of changes) {
+      if (line.startsWith("Added ")) added += 1;
+      else if (line.startsWith("Removed ")) removed += 1;
+      else changed += 1;
+    }
+    const parts = [];
+    if (added) parts.push(`${added} added`);
+    if (removed) parts.push(`${removed} removed`);
+    if (changed) parts.push(`${changed} changed`);
+    return parts.length ? parts.join(", ") : `${changes.length} differences`;
+  }
+
+  function formatJsonDiffs(changes) {
+    return changes.map((line) => {
+      if (line.startsWith("Added ")) return `+ ${line.slice(6)}`;
+      if (line.startsWith("Removed ")) return `- ${line.slice(8)}`;
+      if (line.startsWith("Changed ")) return `~ ${line.slice(8)}`;
+      return line;
+    }).join("\n");
   }
 
   function jsonSorterTool(value) {
@@ -3005,7 +3409,7 @@
       const parsed = JSON.parse(value);
       return result(JSON.stringify(sortJsonValue(parsed), null, 2), "JSON object keys sorted recursively.", "ok");
     } catch (error) {
-      return result("", humanJsonError(error), "error");
+      return result("", humanJsonError(error, value), "error");
     }
   }
 
@@ -3030,7 +3434,7 @@
       const extracted = readSimpleJsonPath(parsed, path);
       return result(formatJsonValue(extracted), `Extracted value at ${path}.`, "ok");
     } catch (error) {
-      return result("", error.message || humanJsonError(error), "error");
+      return result("", humanJsonError(error, jsonText), "error");
     }
   }
 
@@ -3096,7 +3500,7 @@
         try {
           return JSON.parse(line);
         } catch (error) {
-          throw new Error(`Line ${index + 1}: ${humanJsonError(error)}`);
+          throw new Error(`Line ${index + 1}: ${humanJsonError(error, line)}`);
         }
       });
       return result(JSON.stringify(parsed, null, 2), `Converted ${parsed.length} JSONL row${parsed.length === 1 ? "" : "s"} to a JSON array.`, "ok");
@@ -3111,7 +3515,7 @@
       if (!Array.isArray(parsed)) return result("", "Input must be a JSON array.", "error");
       return result(parsed.map((item) => JSON.stringify(item)).join("\n"), `Converted ${parsed.length} array item${parsed.length === 1 ? "" : "s"} to JSON Lines.`, "ok");
     } catch (error) {
-      return result("", humanJsonError(error), "error");
+      return result("", humanJsonError(error, value), "error");
     }
   }
 
@@ -3131,7 +3535,7 @@
       ];
       return result(table.join("\n"), `Converted ${rows.length} row${rows.length === 1 ? "" : "s"} to a Markdown table.`, "ok");
     } catch (error) {
-      return result("", humanJsonError(error), "error");
+      return result("", humanJsonError(error, value), "error");
     }
   }
 
@@ -3340,8 +3744,95 @@
     return { type: typeof value };
   }
 
-  function humanJsonError(error) {
-    return error && error.message ? error.message : "Invalid JSON.";
+  function humanJsonError(error, source) {
+    const message = error && error.message ? String(error.message) : "Invalid JSON.";
+    if (typeof source !== "string" || !source) return message;
+    const position = extractJsonErrorPosition(message, source);
+    if (position == null) return message;
+    const { line, column } = positionToLineColumn(source, position);
+    const snippet = formatErrorSnippet(source, line, column);
+    const cleaned = message
+      .replace(/\s+at position \d+/i, "")
+      .replace(/\s+\(line \d+ column \d+\)/i, "")
+      .replace(/\s+in JSON\b/i, "")
+      .trim();
+    return `${cleaned} (line ${line}, column ${column})\n${snippet}`;
+  }
+
+  function extractJsonErrorPosition(message, source) {
+    const positionMatch = message.match(/position\s+(\d+)/i);
+    if (positionMatch) return Math.min(Number(positionMatch[1]), source.length);
+    const lineColMatch = message.match(/line\s+(\d+)\s+column\s+(\d+)/i);
+    if (lineColMatch) {
+      const line = Number(lineColMatch[1]);
+      const column = Number(lineColMatch[2]);
+      return lineColumnToPosition(source, line, column);
+    }
+    const snippetMatch = message.match(/\.\.\."([\s\S]*?)"\s+is\s+not\s+valid\s+JSON/i);
+    if (snippetMatch) {
+      const snippet = unescapeJsonErrorSnippet(snippetMatch[1]);
+      const head = snippet.slice(0, 30);
+      if (head) {
+        const idx = source.indexOf(head);
+        if (idx !== -1) return idx;
+      }
+    }
+    const tokenMatch = message.match(/Unexpected token\s+'?([^']{1,3})'?/i);
+    if (tokenMatch && tokenMatch[1]) {
+      const idx = source.indexOf(tokenMatch[1]);
+      if (idx !== -1) return idx;
+    }
+    return null;
+  }
+
+  function unescapeJsonErrorSnippet(text) {
+    return String(text)
+      .replace(/\\n/g, "\n")
+      .replace(/\\r/g, "\r")
+      .replace(/\\t/g, "\t")
+      .replace(/\\"/g, '"')
+      .replace(/\\\\/g, "\\");
+  }
+
+  function positionToLineColumn(source, position) {
+    let line = 1;
+    let column = 1;
+    for (let index = 0; index < position && index < source.length; index += 1) {
+      if (source.charCodeAt(index) === 10) {
+        line += 1;
+        column = 1;
+      } else {
+        column += 1;
+      }
+    }
+    return { line, column };
+  }
+
+  function lineColumnToPosition(source, line, column) {
+    let currentLine = 1;
+    for (let index = 0; index < source.length; index += 1) {
+      if (currentLine === line) return Math.min(index + column - 1, source.length);
+      if (source.charCodeAt(index) === 10) currentLine += 1;
+    }
+    return source.length;
+  }
+
+  function formatErrorSnippet(source, line, column) {
+    const lines = source.split("\n");
+    const start = Math.max(1, line - 2);
+    const end = Math.min(lines.length, line + 2);
+    const width = String(end).length;
+    const out = [];
+    for (let index = start; index <= end; index += 1) {
+      const prefix = String(index).padStart(width, " ");
+      const marker = index === line ? ">" : " ";
+      out.push(`${marker} ${prefix} | ${lines[index - 1] || ""}`);
+      if (index === line) {
+        const caret = " ".repeat(column - 1) + "^";
+        out.push(`  ${" ".repeat(width)} | ${caret}`);
+      }
+    }
+    return out.join("\n");
   }
 
   function base64UrlDecode(value) {
