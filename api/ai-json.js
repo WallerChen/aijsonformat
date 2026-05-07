@@ -2,6 +2,8 @@ const MAX_INPUT_CHARS = 12000;
 const RATE_LIMIT_WINDOW_MS = Number(process.env.AI_RATE_LIMIT_WINDOW_MS || 60_000);
 const RATE_LIMIT_MAX_REQUESTS = Number(process.env.AI_RATE_LIMIT_MAX_REQUESTS || 12);
 const RATE_LIMIT_BUCKETS = new Map();
+const UPSTASH_URL = (process.env.UPSTASH_REDIS_REST_URL || "").replace(/\/+$/, "");
+const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || "";
 
 module.exports = async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
@@ -11,7 +13,7 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed." });
   }
 
-  const rateLimit = checkRateLimit(getClientKey(req));
+  const rateLimit = await applyRateLimit(getClientKey(req));
   res.setHeader("X-RateLimit-Limit", String(RATE_LIMIT_MAX_REQUESTS));
   res.setHeader("X-RateLimit-Remaining", String(rateLimit.remaining));
   res.setHeader("X-RateLimit-Reset", String(Math.ceil(rateLimit.resetAt / 1000)));
@@ -41,7 +43,7 @@ module.exports = async function handler(req, res) {
 
   const config = getProviderConfig();
   if (!config.apiKey) {
-    return res.status(501).json({ error: "AI is not configured. Set AI_API_KEY, ARK_API_KEY, or OPENAI_API_KEY in Vercel." });
+    return res.status(501).json({ error: "AI is not configured. Set ARK_API_KEY (Doubao) in Vercel." });
   }
 
   const prompt = promptForMode(mode);
@@ -67,6 +69,56 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: error.message || "AI JSON processing failed." });
   }
 };
+
+async function applyRateLimit(key) {
+  if (UPSTASH_URL && UPSTASH_TOKEN) {
+    try {
+      return await applyUpstashRateLimit(key);
+    } catch (error) {
+      console.error("upstash rate limit failed, falling back to memory:", error.message);
+    }
+  }
+  return checkRateLimit(key);
+}
+
+async function applyUpstashRateLimit(key) {
+  const ttlSeconds = Math.ceil(RATE_LIMIT_WINDOW_MS / 1000);
+  const redisKey = `ratelimit:ai-json:${key}`;
+  const response = await fetch(`${UPSTASH_URL}/pipeline`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${UPSTASH_TOKEN}`
+    },
+    body: JSON.stringify([
+      ["INCR", redisKey],
+      ["EXPIRE", redisKey, String(ttlSeconds), "NX"],
+      ["PTTL", redisKey]
+    ])
+  });
+  if (!response.ok) {
+    throw new Error(`upstash ${response.status}`);
+  }
+  const data = await response.json();
+  const count = Number(data?.[0]?.result || 0);
+  let pttl = Number(data?.[2]?.result || 0);
+  if (!pttl || pttl < 0) pttl = RATE_LIMIT_WINDOW_MS;
+  const resetAt = Date.now() + pttl;
+  if (count > RATE_LIMIT_MAX_REQUESTS) {
+    return {
+      allowed: false,
+      remaining: 0,
+      resetAt,
+      retryAfterMs: pttl
+    };
+  }
+  return {
+    allowed: true,
+    remaining: Math.max(0, RATE_LIMIT_MAX_REQUESTS - count),
+    resetAt,
+    retryAfterMs: 0
+  };
+}
 
 function checkRateLimit(key) {
   const now = Date.now();
@@ -191,14 +243,17 @@ function normalizeRegexOutput(jsonText, input) {
 }
 
 function getProviderConfig() {
-  const provider = (process.env.AI_PROVIDER || process.env.LLM_PROVIDER || "openai").toLowerCase();
-  const isDoubao = provider === "doubao" || provider === "ark" || provider === "volcengine";
-  const baseUrl = (process.env.AI_BASE_URL || process.env.ARK_BASE_URL || process.env.OPENAI_BASE_URL || (isDoubao ? "https://ark.cn-beijing.volces.com/api/v3" : "https://api.openai.com/v1")).replace(/\/+$/, "");
-  const apiKey = process.env.AI_API_KEY || process.env.ARK_API_KEY || process.env.OPENAI_API_KEY;
-  const model = process.env.AI_MODEL || process.env.DOUBAO_CHAT_MODEL || process.env.OPENAI_MODEL || (isDoubao ? "doubao-seed-1-6-251015" : "gpt-5.5");
+  const provider = (process.env.AI_PROVIDER || process.env.LLM_PROVIDER || "doubao").toLowerCase();
+  const isOpenAI = provider === "openai";
+  const isDoubao = !isOpenAI;
+  const defaultBaseUrl = isOpenAI ? "https://api.openai.com/v1" : "https://ark.cn-beijing.volces.com/api/v3";
+  const baseUrl = (process.env.AI_BASE_URL || process.env.ARK_BASE_URL || process.env.OPENAI_BASE_URL || defaultBaseUrl).replace(/\/+$/, "");
+  const apiKey = process.env.ARK_API_KEY || process.env.AI_API_KEY || process.env.OPENAI_API_KEY;
+  const defaultModel = isOpenAI ? "gpt-4o-mini" : "doubao-seed-1-6-251015";
+  const model = process.env.DOUBAO_CHAT_MODEL || process.env.AI_MODEL || process.env.OPENAI_MODEL || defaultModel;
   return {
-    provider,
-    isOpenAIResponses: !isDoubao && baseUrl === "https://api.openai.com/v1",
+    provider: isOpenAI ? "openai" : "doubao",
+    isOpenAIResponses: isOpenAI && baseUrl === "https://api.openai.com/v1",
     baseUrl,
     apiKey,
     model

@@ -6,16 +6,19 @@
     <title>Text Formatter - Free Online Text Tool</title>
     <meta name="description" content="Format plain text by trimming lines, normalizing blank lines and cleaning repeated spaces." />
     <link rel="canonical" href="https://aijsonformat.com/tools/text-formatter/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AI JSON Format" />
+    <meta property="og:title" content="Text Formatter - Free Online Text Tool" />
+    <meta property="og:description" content="Format plain text by trimming lines, normalizing blank lines and cleaning repeated spaces." />
+    <meta property="og:url" content="https://aijsonformat.com/tools/text-formatter/" />
+    <meta property="og:image" content="https://aijsonformat.com/assets/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Text Formatter - Free Online Text Tool" />
+    <meta name="twitter:description" content="Format plain text by trimming lines, normalizing blank lines and cleaning repeated spaces." />
+    <meta name="twitter:image" content="https://aijsonformat.com/assets/og-default.png" />
     <link rel="stylesheet" href="/assets/styles.css" />
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ2BSP5T08"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-GQ2BSP5T08');
-    </script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GQ2BSP5T08');</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aijsonformat.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://aijsonformat.com/tools/"},{"@type":"ListItem","position":3,"name":"Text Formatter","item":"https://aijsonformat.com/tools/text-formatter/"}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Text Formatter","applicationCategory":"DeveloperApplication","operatingSystem":"Any","url":"https://aijsonformat.com/tools/text-formatter/","description":"Format plain text by trimming lines, normalizing blank lines and cleaning repeated spaces.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does text formatting change?","acceptedAnswer":{"@type":"Answer","text":"It trims each line, normalizes repeated spaces and collapses multiple blank lines."}},{"@type":"Question","name":"Does it rewrite the words?","acceptedAnswer":{"@type":"Answer","text":"No. It only cleans spacing and line breaks."}},{"@type":"Question","name":"Can I use it for copied docs?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is useful for cleaning copied emails, notes, prompts and documentation snippets."}}]}</script>
@@ -24,19 +27,40 @@
     <div id="app" data-page="text-formatter">
       <main class="main">
         <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>Text Formatter</span></nav>
-        <section class="tool-intro"><div class="eyebrow">Text tool</div><h1>Text Formatter</h1><p>Format plain text by trimming lines, normalizing blank lines and cleaning repeated spaces.</p><p><a class="button primary" href="/tools/text-formatter/">Open Text Formatter</a></p></section>
-        <section class="content-band"><h2>How this text tool helps</h2><ul class="plain-list"><li>Clean copied notes, prompts, docs and list data before pasting elsewhere.</li><li>Run the transformation locally in your browser without an account.</li><li>Copy the result into JSON tools, docs, spreadsheets, code editors or CMS fields.</li></ul></section>
-        <section class="content-band"><h2>FAQ</h2><div class="faq">
-          <article class="faq-item"><h3>What does text formatting change?</h3><p>It trims each line, normalizes repeated spaces and collapses multiple blank lines.</p></article>
-          <article class="faq-item"><h3>Does it rewrite the words?</h3><p>No. It only cleans spacing and line breaks.</p></article>
-          <article class="faq-item"><h3>Can I use it for copied docs?</h3><p>Yes. It is useful for cleaning copied emails, notes, prompts and documentation snippets.</p></article>
-        </div></section>
-        <section class="content-band"><h2>Related text tools</h2><div class="tool-grid">
-          <a class="tool-card" href="/tools/remove-whitespace/"><span><h3>Remove Whitespace</h3><p>Remove spaces, tabs, line breaks or normalize repeated whitespace in text.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
-          <a class="tool-card" href="/tools/text-replace/"><span><h3>Find and Replace Text</h3><p>Find and replace text online with plain text or regex-style replacement.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
-          <a class="tool-card" href="/tools/line-sorter/"><span><h3>Line Sorter</h3><p>Sort lines alphabetically, reverse line order and clean line-based lists.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
-          <a class="tool-card" href="/tools/duplicate-line-remover/"><span><h3>Duplicate Line Remover</h3><p>Remove duplicate lines from lists while preserving the first occurrence order.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
-        </div></section>
+        <section class="tool-intro">
+          <div class="eyebrow">Text tool</div>
+          <h1>Text Formatter</h1>
+          <p>Format plain text by trimming lines, normalizing blank lines and cleaning repeated spaces.</p>
+          <p><a class="button primary" href="#tool-input">Use the tool</a></p>
+        </section>
+        <section class="content-band">
+          <h2>Common use cases</h2>
+          <ul class="plain-list">
+            <li>Clean copied notes and prompts.</li>
+            <li>Sort, replace and deduplicate text lists.</li>
+            <li>Prepare content for docs and development tasks.</li>
+          </ul>
+        </section>
+        <section class="content-band">
+          <h2>Example input</h2>
+          <pre class="code-sample"><code>  First line with   extra spaces.  
+      
+      
+        Second line.  
+      Third    line.</code></pre>
+        </section>
+        <section class="content-band">
+          <h2>Related tools</h2>
+          <div class="tool-grid">
+            <a class="tool-card" href="/tools/case-converter/"><span><h3>Case Converter</h3><p>Convert text into camelCase, PascalCase, snake_case, kebab-case, uppercase and lowercase.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/slug-generator/"><span><h3>Slug Generator</h3><p>Generate clean URL slugs from titles, headings and article names.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/word-counter/"><span><h3>Word Counter</h3><p>Count words, characters, lines and paragraphs in plain text.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/remove-whitespace/"><span><h3>Remove Whitespace</h3><p>Remove spaces, tabs, line breaks or normalize repeated whitespace in text.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/text-replace/"><span><h3>Find and Replace Text</h3><p>Find and replace text online with plain text or regex-style replacement.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+            <a class="tool-card" href="/tools/regex-tester/"><span><h3>Regex Tester</h3><p>Test regular expressions against text and inspect matches, groups and indexes.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+          </div>
+        </section>
+        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What does text formatting change?</h3><p>It trims each line, normalizes repeated spaces and collapses multiple blank lines.</p></article><article class="faq-item"><h3>Does it rewrite the words?</h3><p>No. It only cleans spacing and line breaks.</p></article><article class="faq-item"><h3>Can I use it for copied docs?</h3><p>Yes. It is useful for cleaning copied emails, notes, prompts and documentation snippets.</p></article></div></section>
       </main>
     </div>
     <script src="/assets/app.js"></script>

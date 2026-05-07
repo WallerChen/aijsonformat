@@ -95,26 +95,21 @@ node scripts/generate-seo-pages.js --write
 
 The site works without AI keys. Local tools remain available even when AI is not configured.
 
-To enable AI fallback for JSON repair and AI mode for Text to JSON, set provider environment variables in Vercel.
-
-OpenAI:
+To enable AI fallback for JSON repair and AI mode for Text to JSON, set Doubao (Volcengine Ark) credentials in Vercel:
 
 ```text
-AI_PROVIDER=openai
-OPENAI_API_KEY=your_api_key
-OPENAI_MODEL=gpt-5.5
-```
-
-Doubao / Volcengine Ark:
-
-```text
-AI_PROVIDER=doubao
 ARK_API_KEY=your_ark_api_key
-ARK_BASE_URL=https://ark.cn-beijing.volces.com/api/v3
 DOUBAO_CHAT_MODEL=your_doubao_model_or_endpoint_id
 ```
 
-`AI_BASE_URL` and `AI_MODEL` also work as generic aliases, but the Ark-specific names above are preferred for Doubao.
+Optional overrides:
+
+```text
+ARK_BASE_URL=https://ark.cn-beijing.volces.com/api/v3
+AI_PROVIDER=doubao
+```
+
+`AI_API_KEY` and `AI_MODEL` are accepted as generic aliases. Doubao is the default provider; switching to OpenAI requires `AI_PROVIDER=openai` plus `OPENAI_API_KEY` and `OPENAI_MODEL`.
 
 AI request protection is enabled in the Vercel function. Optional limits:
 
@@ -122,6 +117,15 @@ AI request protection is enabled in the Vercel function. Optional limits:
 AI_RATE_LIMIT_WINDOW_MS=60000
 AI_RATE_LIMIT_MAX_REQUESTS=12
 ```
+
+For production traffic, set Upstash Redis REST credentials. The handler uses Upstash automatically when both variables are present and falls back to in-process counting otherwise:
+
+```text
+UPSTASH_REDIS_REST_URL=https://your-database.upstash.io
+UPSTASH_REDIS_REST_TOKEN=your_rest_token
+```
+
+Without Upstash, the in-process limiter resets on Vercel cold starts and is not safe under real production traffic.
 
 ## Next SEO pages
 

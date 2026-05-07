@@ -6,26 +6,27 @@
     <title>AI JSON Formatter - AI JSON Format</title>
     <meta name="description" content="Format and repair AI-generated JSON from ChatGPT, APIs and automation tools with a practical AI JSON formatter workflow." />
     <link rel="canonical" href="https://aijsonformat.com/ai-json-formatter/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="AI JSON Format" />
+    <meta property="og:title" content="AI JSON Formatter - AI JSON Format" />
+    <meta property="og:description" content="Format and repair AI-generated JSON from ChatGPT, APIs and automation tools with a practical AI JSON formatter workflow." />
+    <meta property="og:url" content="https://aijsonformat.com/ai-json-formatter/" />
+    <meta property="og:image" content="https://aijsonformat.com/assets/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AI JSON Formatter - AI JSON Format" />
+    <meta name="twitter:description" content="Format and repair AI-generated JSON from ChatGPT, APIs and automation tools with a practical AI JSON formatter workflow." />
+    <meta name="twitter:image" content="https://aijsonformat.com/assets/og-default.png" />
     <link rel="stylesheet" href="/assets/styles.css" />
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ2BSP5T08"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-GQ2BSP5T08');
-    </script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GQ2BSP5T08');</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aijsonformat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://aijsonformat.com/guides/"},{"@type":"ListItem","position":3,"name":"AI JSON Formatter","item":"https://aijsonformat.com/ai-json-formatter/"}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AI JSON Formatter","description":"Format and repair AI-generated JSON from ChatGPT, APIs and automation tools with a practical AI JSON formatter workflow.","mainEntityOfPage":"https://aijsonformat.com/ai-json-formatter/"}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an AI JSON formatter?","acceptedAnswer":{"@type":"Answer","text":"It is a formatter designed for JSON-like output from AI tools, where responses often include markdown or small syntax mistakes."}},{"@type":"Question","name":"Is it different from a normal JSON formatter?","acceptedAnswer":{"@type":"Answer","text":"Yes. A normal formatter requires valid JSON first. AI JSON formatting often needs repair before prettifying."}},{"@type":"Question","name":"Can it handle ChatGPT JSON?","acceptedAnswer":{"@type":"Answer","text":"Yes. The repair workflow is designed for model output, copied API examples and automation snippets."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is an AI JSON formatter?","acceptedAnswer":{"@type":"Answer","text":"It is a formatter designed for JSON-like output from AI tools, where responses often include markdown, prose, or small syntax mistakes that strict JSON parsers reject."}},{"@type":"Question","name":"Is it different from a normal JSON formatter?","acceptedAnswer":{"@type":"Answer","text":"Yes. A normal formatter requires valid JSON first. AI JSON formatting almost always needs a repair pass before the prettify step."}},{"@type":"Question","name":"Can it handle ChatGPT JSON?","acceptedAnswer":{"@type":"Answer","text":"Yes. The repair workflow is built for ChatGPT, Claude, Doubao and other LLM responses, including tool-call payloads and structured outputs."}},{"@type":"Question","name":"Will my data go to a model?","acceptedAnswer":{"@type":"Answer","text":"Local repair runs entirely in your browser. The optional AI fallback only sends data to the configured provider when local rules cannot finish the job."}},{"@type":"Question","name":"Is this safe to use on production payloads?","acceptedAnswer":{"@type":"Answer","text":"Avoid pasting secrets or private user data into any online tool. The repair logic itself does not require uploading anything for the local path."}}]}</script>
   </head>
   <body>
     <div id="app" data-page="ai-json-formatter">
       <main class="main">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>AI JSON Formatter</span>
-      </nav>
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>AI JSON Formatter</span></nav>
         <section class="tool-intro">
           <div class="eyebrow">AI JSON guide</div>
           <h1>AI JSON Formatter</h1>
@@ -35,87 +36,71 @@
         <section class="content-band">
           <h2>How to do it</h2>
           <ol class="steps-list">
-            <li>Paste AI-generated JSON or JSON-like output into AI JSON Repair.</li>
-            <li>Let local repair clean common issues such as code fences, single quotes and trailing commas.</li>
-            <li>Use the AI fallback when the structure is too broken for local repair.</li>
+            <li>Paste the raw AI response, including any prose or code fences, into AI JSON Repair.</li>
+            <li>Let local repair strip code fences, comments, single quotes and trailing commas.</li>
+            <li>Format the cleaned JSON for review, or send it to JSON Validator before parsing in production code.</li>
+            <li>Use the AI fallback only when local rules cannot rebuild the broken structure.</li>
           </ol>
         </section>
         <section class="content-band">
-          <h2>Recommended tool</h2>
-          <div class="tool-grid">
-          <a class="tool-card" href="/tools/ai-json-repair/">
-            <span>
-              <h3>AI JSON Repair</h3>
-              <p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON</span></span>
-          </a>
+            <h2>Why AI JSON output needs its own formatter</h2>
+            <p>Large language models almost never return strict JSON on the first try. ChatGPT, Claude and Doubao routinely wrap output in triple-backtick code fences, add a sentence of explanation before or after the payload, use JavaScript-style single quotes, leave a trailing comma after the last array item, or insert // and /* */ comments for clarity. A traditional JSON formatter assumes valid input and fails on the first quirky character.</p>
+            <p>An AI JSON formatter is a workflow rather than a single button. It repairs the response first, then prettifies the cleaned data, then validates the result. Skipping the repair step is the most common reason developers get stuck in a loop of SyntaxError messages when integrating model output into a typed system.</p>
+            
+          </section>
+        <section class="content-band">
+            <h2>What this workflow handles automatically</h2>
+            <p>AI JSON Repair on this site is tuned for the patterns we see most often in production prompts, tool calls and structured-output endpoints.</p>
+            <ul class="plain-list"><li>Triple-backtick markdown fences with or without the json language label.</li><li>Single quotes around keys and string values from copied JavaScript objects.</li><li>Trailing commas after the last item in arrays and objects.</li><li>Inline // and /* */ comments left over from sample code.</li><li>Smart quotes (curly quotes) pasted from chat UIs and rich text editors.</li><li>Leading or trailing prose such as &#039;Here is the JSON you asked for&#039;.</li></ul>
+          </section>
+        <section class="content-band">
+            <h2>Difference from a plain JSON formatter</h2>
+            <p>A plain JSON formatter requires a valid JSON value as input. If you feed it raw model output, you usually see Unexpected token at the first non-JSON character. The AI workflow accepts messy text, runs deterministic local repair first, and only falls back to a model when the structure is too broken for rules to recover.</p>
+            <p>If you already have clean JSON, use the JSON Formatter directly. AI JSON Repair returns the same output for clean input but adds an extra step you do not need.</p>
+            
+          </section>
+        <section class="content-band">
+          <h2>Examples</h2>
+          <div class="example-list">
+            <article class="example-item"><h3>Markdown-fenced response with comments and trailing comma</h3><p class="example-label">Input</p><pre class="code-sample"><code>Here is the JSON you asked for:
+      
+      ```json
+      {
+        &quot;name&quot;: &quot;Ada&quot;,
+        // primary contact
+        &quot;emails&quot;: [&quot;ada@example.com&quot;,],
+      }
+      ```</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>{
+        &quot;name&quot;: &quot;Ada&quot;,
+        &quot;emails&quot;: [
+          &quot;ada@example.com&quot;
+        ]
+      }</code></pre><p>Local repair strips the prose, the code fence and the inline comment, and removes the trailing comma before the closing bracket.</p></article>
+            <article class="example-item"><h3>Smart quotes from a chat UI</h3><p class="example-label">Input</p><pre class="code-sample"><code>{
+        “model”: “doubao”,
+        “temperature”: 0,
+      }</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>{
+        &quot;model&quot;: &quot;doubao&quot;,
+        &quot;temperature&quot;: 0
+      }</code></pre><p>Curly quotes are normalized to standard ASCII double quotes so JSON.parse accepts the result on the first try.</p></article>
           </div>
         </section>
         <section class="content-band">
-          <h2>FAQ</h2>
-          <div class="faq">
-            <article class="faq-item">
-              <h3>What is an AI JSON formatter?</h3>
-              <p>It is a formatter designed for JSON-like output from AI tools, where responses often include markdown or small syntax mistakes.</p>
-            </article>
-            <article class="faq-item">
-              <h3>Is it different from a normal JSON formatter?</h3>
-              <p>Yes. A normal formatter requires valid JSON first. AI JSON formatting often needs repair before prettifying.</p>
-            </article>
-            <article class="faq-item">
-              <h3>Can it handle ChatGPT JSON?</h3>
-              <p>Yes. The repair workflow is designed for model output, copied API examples and automation snippets.</p>
-            </article>
-          </div>
+          <h2>Recommended tool</h2>
+          <div class="tool-grid"><a class="tool-card" href="/tools/ai-json-repair/"><span><h3>AI JSON Repair</h3><p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a></div>
         </section>
         <section class="content-band">
           <h2>Related guides</h2>
           <div class="tool-grid">
-          <a class="tool-card" href="/ai-json-format/">
-            <span>
-              <h3>AI JSON Format</h3>
-              <p>Clean, format and validate JSON for AI workflows, structured prompts and model responses.</p>
-            </span>
-            <span class="tag-row"><span class="tag">AI JSON guide</span></span>
-          </a>
-          <a class="tool-card" href="/ai-json-generator/">
-            <span>
-              <h3>AI JSON Generator</h3>
-              <p>Generate structured JSON from text, requirements or simple notes using the Text to JSON workflow.</p>
-            </span>
-            <span class="tag-row"><span class="tag">AI JSON guide</span></span>
-          </a>
-          <a class="tool-card" href="/ai-json-to-typescript/">
-            <span>
-              <h3>AI JSON to TypeScript</h3>
-              <p>Clean AI JSON output and turn it into TypeScript interfaces for frontend and API development.</p>
-            </span>
-            <span class="tag-row"><span class="tag">AI JSON guide</span></span>
-          </a>
-          <a class="tool-card" href="/json-format-for-ai/">
-            <span>
-              <h3>JSON Format for AI</h3>
-              <p>Prepare clean JSON for AI prompts, structured outputs, agents and automation workflows.</p>
-            </span>
-            <span class="tag-row"><span class="tag">AI JSON guide</span></span>
-          </a>
-          <a class="tool-card" href="/json-format-for-openai-response/">
-            <span>
-              <h3>JSON Format for OpenAI Response</h3>
-              <p>Format and repair JSON-like responses from OpenAI-style APIs and structured AI outputs.</p>
-            </span>
-            <span class="tag-row"><span class="tag">AI JSON guide</span></span>
-          </a>
-          <a class="tool-card" href="/fix-invalid-json/">
-            <span>
-              <h3>Fix Invalid JSON Online</h3>
-              <p>Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON guide</span></span>
-          </a>
+            <a class="tool-card" href="/fix-invalid-json/"><span><h3>Fix Invalid JSON Online</h3><p>Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+            <a class="tool-card" href="/fix-json-from-chatgpt/"><span><h3>Fix JSON from ChatGPT</h3><p>Clean up JSON returned by ChatGPT or other AI tools when the response includes markdown fences, comments or invalid syntax.</p></span><span class="tag-row"><span class="tag">AI guide</span><span class="tag">Guide</span></span></a>
+            <a class="tool-card" href="/fix-json-trailing-comma/"><span><h3>Fix JSON Trailing Comma</h3><p>Remove trailing commas from JSON objects and arrays so strict JSON parsers can read the data.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+            <a class="tool-card" href="/ai-json-format/"><span><h3>AI JSON Format</h3><p>Clean, format and validate JSON for AI workflows, structured prompts and model responses.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
+            <a class="tool-card" href="/json-cleaner/"><span><h3>JSON Cleaner</h3><p>Clean JSON-like text by removing comments, trailing commas, code fences and other parser-breaking syntax.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+            <a class="tool-card" href="/ai-json-generator/"><span><h3>AI JSON Generator</h3><p>Generate structured JSON from text, requirements or simple notes using the Text to JSON workflow.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
           </div>
         </section>
+        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What is an AI JSON formatter?</h3><p>It is a formatter designed for JSON-like output from AI tools, where responses often include markdown, prose, or small syntax mistakes that strict JSON parsers reject.</p></article><article class="faq-item"><h3>Is it different from a normal JSON formatter?</h3><p>Yes. A normal formatter requires valid JSON first. AI JSON formatting almost always needs a repair pass before the prettify step.</p></article><article class="faq-item"><h3>Can it handle ChatGPT JSON?</h3><p>Yes. The repair workflow is built for ChatGPT, Claude, Doubao and other LLM responses, including tool-call payloads and structured outputs.</p></article><article class="faq-item"><h3>Will my data go to a model?</h3><p>Local repair runs entirely in your browser. The optional AI fallback only sends data to the configured provider when local rules cannot finish the job.</p></article><article class="faq-item"><h3>Is this safe to use on production payloads?</h3><p>Avoid pasting secrets or private user data into any online tool. The repair logic itself does not require uploading anything for the local path.</p></article></div></section>
       </main>
     </div>
     <script src="/assets/app.js"></script>

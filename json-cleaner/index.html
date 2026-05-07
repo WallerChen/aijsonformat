@@ -6,26 +6,27 @@
     <title>JSON Cleaner - AI JSON Format</title>
     <meta name="description" content="Clean JSON-like text by removing comments, trailing commas, code fences and other parser-breaking syntax." />
     <link rel="canonical" href="https://aijsonformat.com/json-cleaner/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="AI JSON Format" />
+    <meta property="og:title" content="JSON Cleaner - AI JSON Format" />
+    <meta property="og:description" content="Clean JSON-like text by removing comments, trailing commas, code fences and other parser-breaking syntax." />
+    <meta property="og:url" content="https://aijsonformat.com/json-cleaner/" />
+    <meta property="og:image" content="https://aijsonformat.com/assets/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="JSON Cleaner - AI JSON Format" />
+    <meta name="twitter:description" content="Clean JSON-like text by removing comments, trailing commas, code fences and other parser-breaking syntax." />
+    <meta name="twitter:image" content="https://aijsonformat.com/assets/og-default.png" />
     <link rel="stylesheet" href="/assets/styles.css" />
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ2BSP5T08"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-GQ2BSP5T08');
-    </script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GQ2BSP5T08');</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aijsonformat.com/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://aijsonformat.com/guides/"},{"@type":"ListItem","position":3,"name":"JSON Cleaner","item":"https://aijsonformat.com/json-cleaner/"}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"JSON Cleaner","description":"Clean JSON-like text by removing comments, trailing commas, code fences and other parser-breaking syntax.","mainEntityOfPage":"https://aijsonformat.com/json-cleaner/"}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What can a JSON cleaner fix?","acceptedAnswer":{"@type":"Answer","text":"It can often fix comments, single quotes, trailing commas, unquoted keys and markdown fences."}},{"@type":"Question","name":"Is cleaned JSON always correct?","acceptedAnswer":{"@type":"Answer","text":"Review important data after cleaning, especially when the original text is badly broken."}},{"@type":"Question","name":"Can it clean API examples?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is useful for copied examples that look like JavaScript objects instead of strict JSON."}}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What can a JSON cleaner fix?","acceptedAnswer":{"@type":"Answer","text":"Comments, single quotes, trailing commas, unquoted keys, markdown fences and surrounding prose."}},{"@type":"Question","name":"Is cleaned JSON always correct?","acceptedAnswer":{"@type":"Answer","text":"Cleaning fixes syntax, not meaning. Review business-critical data after cleaning, especially when the original text is badly broken."}},{"@type":"Question","name":"Can it clean API examples?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is useful for copied examples that look like JavaScript objects instead of strict JSON."}},{"@type":"Question","name":"What if the cleaner cannot recover the input?","acceptedAnswer":{"@type":"Answer","text":"Use the AI fallback for badly broken structures, then verify the result against your schema."}},{"@type":"Question","name":"Can I run cleaning on JSONL?","acceptedAnswer":{"@type":"Answer","text":"Clean each line individually, or use JSON Lines to JSON to combine them into an array first."}}]}</script>
   </head>
   <body>
     <div id="app" data-page="json-cleaner">
       <main class="main">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>JSON Cleaner</span>
-      </nav>
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>JSON Cleaner</span></nav>
         <section class="tool-intro">
           <div class="eyebrow">JSON guide</div>
           <h1>JSON Cleaner</h1>
@@ -35,87 +36,62 @@
         <section class="content-band">
           <h2>How to do it</h2>
           <ol class="steps-list">
-            <li>Paste JSON-like text into AI JSON Repair.</li>
-            <li>Clean syntax issues with local repair.</li>
-            <li>Validate and format the cleaned JSON.</li>
+            <li>Paste JSON-like text — copied from a JS file, an AI response, a config or a log.</li>
+            <li>Run AI JSON Repair to remove comments, fences, trailing commas and similar noise.</li>
+            <li>Validate the cleaned output, then format it with JSON Formatter.</li>
           </ol>
         </section>
         <section class="content-band">
-          <h2>Recommended tool</h2>
-          <div class="tool-grid">
-          <a class="tool-card" href="/tools/ai-json-repair/">
-            <span>
-              <h3>AI JSON Repair</h3>
-              <p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON</span></span>
-          </a>
+            <h2>What JSON cleaning means in practice</h2>
+            <p>Cleaning JSON is a wider operation than formatting. A formatter assumes the input already parses; a cleaner accepts JSON-flavoured text and tries to make it parseable. The two are complements — clean first, format second.</p>
+            <p>Common sources of dirty JSON are JavaScript files where someone copied an object literal, configuration files written by hand, model output with markdown fences and prose, and log lines where multiple JSON fragments got concatenated.</p>
+            
+          </section>
+        <section class="content-band">
+            <h2>Things the cleaner removes or rewrites</h2>
+            <p>AI JSON Repair handles the patterns that make JSON.parse throw.</p>
+            <ul class="plain-list"><li>// line comments and /* block comments */ left over from JS sources.</li><li>Trailing commas after the last item in arrays and objects.</li><li>Single-quoted keys and string values from JS object literals.</li><li>Unquoted keys (still valid in JS, never valid in JSON).</li><li>Markdown code fences such as ```json and the closing ```.</li><li>Surrounding prose like &#039;Here is the JSON:&#039; or &#039;Result:&#039;.</li></ul>
+          </section>
+        <section class="content-band">
+            <h2>What cleaning will not do</h2>
+            <p>Cleaning is a syntactic pass, not a semantic one. It will not invent missing fields, fix a wrong type, or guess what a field should be when the value is corrupted beyond recognition. If the original input is so broken that there is no clear original intent, the cleaner returns the best parseable version it can and you should review the result before trusting it.</p>
+            <p>For data with semantic constraints (required fields, enum values, value ranges), pair cleaning with JSON Schema validation. Run cleaner first to make the input parseable, then validate against your schema to confirm it is also correct.</p>
+            
+          </section>
+        <section class="content-band">
+          <h2>Examples</h2>
+          <div class="example-list">
+            <article class="example-item"><h3>JavaScript object literal</h3><p class="example-label">Input</p><pre class="code-sample"><code>// from src/config.js
+      const config = {
+        host: &#039;localhost&#039;,
+        port: 3000,
+        features: [&#039;ssr&#039;, &#039;edge&#039;,],
+      }</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>{
+        &quot;host&quot;: &quot;localhost&quot;,
+        &quot;port&quot;: 3000,
+        &quot;features&quot;: [
+          &quot;ssr&quot;,
+          &quot;edge&quot;
+        ]
+      }</code></pre><p>The cleaner strips the comment, the variable declaration, removes the trailing commas and quotes the keys.</p></article>
           </div>
         </section>
         <section class="content-band">
-          <h2>FAQ</h2>
-          <div class="faq">
-            <article class="faq-item">
-              <h3>What can a JSON cleaner fix?</h3>
-              <p>It can often fix comments, single quotes, trailing commas, unquoted keys and markdown fences.</p>
-            </article>
-            <article class="faq-item">
-              <h3>Is cleaned JSON always correct?</h3>
-              <p>Review important data after cleaning, especially when the original text is badly broken.</p>
-            </article>
-            <article class="faq-item">
-              <h3>Can it clean API examples?</h3>
-              <p>Yes. It is useful for copied examples that look like JavaScript objects instead of strict JSON.</p>
-            </article>
-          </div>
+          <h2>Recommended tool</h2>
+          <div class="tool-grid"><a class="tool-card" href="/tools/ai-json-repair/"><span><h3>AI JSON Repair</h3><p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a></div>
         </section>
         <section class="content-band">
           <h2>Related guides</h2>
           <div class="tool-grid">
-          <a class="tool-card" href="/fix-invalid-json/">
-            <span>
-              <h3>Fix Invalid JSON Online</h3>
-              <p>Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON guide</span></span>
-          </a>
-          <a class="tool-card" href="/fix-json-trailing-comma/">
-            <span>
-              <h3>Fix JSON Trailing Comma</h3>
-              <p>Remove trailing commas from JSON objects and arrays so strict JSON parsers can read the data.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON guide</span></span>
-          </a>
-          <a class="tool-card" href="/json-format-online/">
-            <span>
-              <h3>JSON Format Online</h3>
-              <p>Format JSON online into readable indentation and copy clean output for APIs, configs and docs.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON guide</span></span>
-          </a>
-          <a class="tool-card" href="/json-formatter-online-free/">
-            <span>
-              <h3>JSON Formatter Online Free</h3>
-              <p>Use a free online JSON formatter with no signup for quick developer copy-and-paste workflows.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON guide</span></span>
-          </a>
-          <a class="tool-card" href="/json-beautifier/">
-            <span>
-              <h3>JSON Beautifier</h3>
-              <p>Beautify minified JSON into readable, indented output for debugging and documentation.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON guide</span></span>
-          </a>
-          <a class="tool-card" href="/json-prettify/">
-            <span>
-              <h3>Prettify JSON Online</h3>
-              <p>Prettify JSON online with clean indentation, validation feedback and one-click copy.</p>
-            </span>
-            <span class="tag-row"><span class="tag">JSON guide</span></span>
-          </a>
+            <a class="tool-card" href="/fix-invalid-json/"><span><h3>Fix Invalid JSON Online</h3><p>Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+            <a class="tool-card" href="/fix-json-from-chatgpt/"><span><h3>Fix JSON from ChatGPT</h3><p>Clean up JSON returned by ChatGPT or other AI tools when the response includes markdown fences, comments or invalid syntax.</p></span><span class="tag-row"><span class="tag">AI guide</span><span class="tag">Guide</span></span></a>
+            <a class="tool-card" href="/fix-json-trailing-comma/"><span><h3>Fix JSON Trailing Comma</h3><p>Remove trailing commas from JSON objects and arrays so strict JSON parsers can read the data.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+            <a class="tool-card" href="/ai-json-formatter/"><span><h3>AI JSON Formatter</h3><p>Format and repair AI-generated JSON from ChatGPT, APIs and automation tools with a practical AI JSON formatter workflow.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
+            <a class="tool-card" href="/ai-json-format/"><span><h3>AI JSON Format</h3><p>Clean, format and validate JSON for AI workflows, structured prompts and model responses.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
+            <a class="tool-card" href="/json-format-online/"><span><h3>JSON Format Online</h3><p>Format JSON online into readable indentation and copy clean output for APIs, configs and docs.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
           </div>
         </section>
+        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What can a JSON cleaner fix?</h3><p>Comments, single quotes, trailing commas, unquoted keys, markdown fences and surrounding prose.</p></article><article class="faq-item"><h3>Is cleaned JSON always correct?</h3><p>Cleaning fixes syntax, not meaning. Review business-critical data after cleaning, especially when the original text is badly broken.</p></article><article class="faq-item"><h3>Can it clean API examples?</h3><p>Yes. It is useful for copied examples that look like JavaScript objects instead of strict JSON.</p></article><article class="faq-item"><h3>What if the cleaner cannot recover the input?</h3><p>Use the AI fallback for badly broken structures, then verify the result against your schema.</p></article><article class="faq-item"><h3>Can I run cleaning on JSONL?</h3><p>Clean each line individually, or use JSON Lines to JSON to combine them into an array first.</p></article></div></section>
       </main>
     </div>
     <script src="/assets/app.js"></script>
