@@ -25,65 +25,107 @@
   </head>
   <body>
     <div id="app" data-page="json-lint-online">
-      <main class="main">
-        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>JSON Lint Online</span></nav>
-        <section class="tool-intro">
-          <div class="eyebrow">JSON guide</div>
-          <h1>JSON Lint Online</h1>
-          <p>Lint JSON online by validating syntax and identifying parse errors before using data in code.</p>
-          <p><a class="button primary" href="/tools/json-validator/">Open JSON Validator</a></p>
-        </section>
-        <section class="content-band">
-          <h2>How to do it</h2>
-          <ol class="steps-list">
-            <li>Paste JSON suspected of having a parser error into JSON Validator.</li>
-            <li>Read the error message and the position it points to.</li>
-            <li>Fix the issue manually, or send the input through AI JSON Repair to handle the long tail of common mistakes.</li>
-          </ol>
-        </section>
-        <section class="content-band">
-            <h2>What linting catches and what it doesn&#039;t</h2>
-            <p>JSON linting checks one thing: does the input parse as valid JSON under the strict spec. It does not check business rules, field meaning, expected types, or whether your numbers are within an allowed range. Those are schema checks, handled by JSON Schema or JSON to Schema. Treat linting as the syntax pass — if it fails, no other check will run reliably.</p>
-            <ul class="plain-list"><li>Lint = syntax: would JSON.parse accept this string?</li><li>Validate against schema = semantics: do the fields and types match what the API expects?</li><li>Format = readability: does the indentation make the structure visible?</li></ul>
+      <div class="site-shell">
+        <header class="topbar">
+          <nav class="nav" aria-label="Primary">
+            <a class="brand" href="/">
+              <span class="brand-mark">{ }</span>
+              <span>AI JSON Format</span>
+            </a>
+            <div class="nav-links">
+              <a class="nav-primary" href="/tools/json-formatter/">Format JSON</a>
+              <a class="nav-primary" href="/tools/ai-json-repair/">AI Repair</a>
+              <details class="nav-menu">
+                <summary>Tools</summary>
+                <div class="nav-menu-panel">
+                  <a href="/tools/">All Tools</a>
+                  <a href="/ai-json-tools/">AI JSON Tools</a>
+                  <a href="/json-tools/">JSON Tools</a>
+                  <a href="/json-converter-tools/">Converters</a>
+                  <a href="/text-tools/">Text Tools</a>
+                  <a href="/developer-tools/">Developer Tools</a>
+                </div>
+              </details>
+              <details class="nav-menu">
+                <summary>Resources</summary>
+                <div class="nav-menu-panel">
+                  <a href="/directories/">Directories</a>
+                  <a href="/guides/">Guides</a>
+                  <a href="/languages/">Languages</a>
+                  <a href="/tools/ai-json-schema-generator/">AI Schema</a>
+                  <a href="/tools/ai-mock-json-generator/">Mock JSON</a>
+                  <a href="/tools/ai-regex-generator/">AI Regex</a>
+                </div>
+              </details>
+            </div>
+          </nav>
+        </header>
+        <main class="main">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>JSON Lint Online</span></nav>
+          <section class="tool-intro">
+            <div class="eyebrow">JSON guide</div>
+            <h1>JSON Lint Online</h1>
+            <p>Lint JSON online by validating syntax and identifying parse errors before using data in code.</p>
+            <p><a class="button primary" href="/tools/json-validator/">Open JSON Validator</a></p>
           </section>
-        <section class="content-band">
-            <h2>The most common JSON lint errors</h2>
-            <p>Roughly 90% of lint failures we see fall into a handful of patterns. Knowing them by sight saves you a trip back to the documentation.</p>
-            <ul class="plain-list"><li>Trailing comma — a comma after the last item in [] or {}.</li><li>Single quotes — JSON strings must use double quotes only.</li><li>Unquoted keys — every object key needs to be a quoted string.</li><li>Comments — // and /* */ are JavaScript syntax, not JSON.</li><li>Mismatched brackets — extra or missing { } or [ ].</li><li>Bad escapes — backslashes inside strings need to be paired with a valid escape character.</li></ul>
+          <section class="content-band">
+            <h2>How to do it</h2>
+            <ol class="steps-list">
+              <li>Paste JSON suspected of having a parser error into JSON Validator.</li>
+              <li>Read the error message and the position it points to.</li>
+              <li>Fix the issue manually, or send the input through AI JSON Repair to handle the long tail of common mistakes.</li>
+            </ol>
           </section>
-        <section class="content-band">
-            <h2>From lint failure to working JSON</h2>
-            <p>If the validator reports a position, jump there in your editor and look at the character before it — the parser usually flags the next character after the actual mistake. If you cannot spot it, paste into AI JSON Repair, run repair, then run lint again on the cleaned output. Once the validator returns OK, the JSON is safe to feed into a typed parser, JSON.parse or your service&#039;s JSON middleware.</p>
-            
+          <section class="content-band">
+              <h2>What linting catches and what it doesn&#039;t</h2>
+              <p>JSON linting checks one thing: does the input parse as valid JSON under the strict spec. It does not check business rules, field meaning, expected types, or whether your numbers are within an allowed range. Those are schema checks, handled by JSON Schema or JSON to Schema. Treat linting as the syntax pass — if it fails, no other check will run reliably.</p>
+              <ul class="plain-list"><li>Lint = syntax: would JSON.parse accept this string?</li><li>Validate against schema = semantics: do the fields and types match what the API expects?</li><li>Format = readability: does the indentation make the structure visible?</li></ul>
+            </section>
+          <section class="content-band">
+              <h2>The most common JSON lint errors</h2>
+              <p>Roughly 90% of lint failures we see fall into a handful of patterns. Knowing them by sight saves you a trip back to the documentation.</p>
+              <ul class="plain-list"><li>Trailing comma — a comma after the last item in [] or {}.</li><li>Single quotes — JSON strings must use double quotes only.</li><li>Unquoted keys — every object key needs to be a quoted string.</li><li>Comments — // and /* */ are JavaScript syntax, not JSON.</li><li>Mismatched brackets — extra or missing { } or [ ].</li><li>Bad escapes — backslashes inside strings need to be paired with a valid escape character.</li></ul>
+            </section>
+          <section class="content-band">
+              <h2>From lint failure to working JSON</h2>
+              <p>If the validator reports a position, jump there in your editor and look at the character before it — the parser usually flags the next character after the actual mistake. If you cannot spot it, paste into AI JSON Repair, run repair, then run lint again on the cleaned output. Once the validator returns OK, the JSON is safe to feed into a typed parser, JSON.parse or your service&#039;s JSON middleware.</p>
+              
+            </section>
+          <section class="content-band">
+            <h2>Examples</h2>
+            <div class="example-list">
+              <article class="example-item"><h3>Trailing comma</h3><p class="example-label">Input</p><pre class="code-sample"><code>{
+          &quot;name&quot;: &quot;Ada&quot;,
+          &quot;role&quot;: &quot;admin&quot;,
+        }</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>Error: Unexpected token } at line 4 column 1.</code></pre><p>The trailing comma after &quot;admin&quot; is the actual culprit, but most parsers report the next character.</p></article>
+              <article class="example-item"><h3>Single quotes</h3><p class="example-label">Input</p><pre class="code-sample"><code>{ &#039;host&#039;: &#039;localhost&#039;, &#039;port&#039;: 3000 }</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>Error: Unexpected token &#039; at line 1 column 3.</code></pre><p>JSON strings must use double quotes. Single quotes are valid JavaScript but invalid JSON.</p></article>
+            </div>
           </section>
-        <section class="content-band">
-          <h2>Examples</h2>
-          <div class="example-list">
-            <article class="example-item"><h3>Trailing comma</h3><p class="example-label">Input</p><pre class="code-sample"><code>{
-        &quot;name&quot;: &quot;Ada&quot;,
-        &quot;role&quot;: &quot;admin&quot;,
-      }</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>Error: Unexpected token } at line 4 column 1.</code></pre><p>The trailing comma after &quot;admin&quot; is the actual culprit, but most parsers report the next character.</p></article>
-            <article class="example-item"><h3>Single quotes</h3><p class="example-label">Input</p><pre class="code-sample"><code>{ &#039;host&#039;: &#039;localhost&#039;, &#039;port&#039;: 3000 }</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>Error: Unexpected token &#039; at line 1 column 3.</code></pre><p>JSON strings must use double quotes. Single quotes are valid JavaScript but invalid JSON.</p></article>
+          <section class="content-band">
+            <h2>Recommended tool</h2>
+            <div class="tool-grid"><a class="tool-card" href="/tools/json-validator/"><span><h3>JSON Validator</h3><p>Validate JSON syntax and find parse errors before using it in code or APIs.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a></div>
+          </section>
+          <section class="content-band">
+            <h2>Related guides</h2>
+            <div class="tool-grid">
+              <a class="tool-card" href="/fix-invalid-json/"><span><h3>Fix Invalid JSON Online</h3><p>Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/fix-json-trailing-comma/"><span><h3>Fix JSON Trailing Comma</h3><p>Remove trailing commas from JSON objects and arrays so strict JSON parsers can read the data.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/json-format-online/"><span><h3>JSON Format Online</h3><p>Format JSON online into readable indentation and copy clean output for APIs, configs and docs.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/json-formatter-online-free/"><span><h3>JSON Formatter Online Free</h3><p>Use a free online JSON formatter with no signup for quick developer copy-and-paste workflows.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/json-beautifier/"><span><h3>JSON Beautifier</h3><p>Beautify minified JSON into readable, indented output for debugging and documentation.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/json-prettify/"><span><h3>Prettify JSON Online</h3><p>Prettify JSON online with clean indentation, validation feedback and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+            </div>
+          </section>
+          <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What is JSON linting?</h3><p>JSON linting is a syntax check that confirms whether the input is valid under the strict JSON spec.</p></article><article class="faq-item"><h3>Does linting format JSON?</h3><p>No. Linting only validates. Use JSON Formatter when you also want readable output.</p></article><article class="faq-item"><h3>What should I do with an error?</h3><p>Read the line and column, fix the character at that position, and re-run. If you cannot spot the issue, run AI JSON Repair.</p></article><article class="faq-item"><h3>Is JSON Lint the same as ajv?</h3><p>ajv validates against a JSON Schema, which is a stricter check on top of the syntax pass. Linting here means just the syntax pass.</p></article><article class="faq-item"><h3>Can I lint JSONL?</h3><p>Lint each line individually, or use JSON Lines to JSON to convert it into an array first.</p></article></div></section>
+        </main>
+        <footer class="footer">
+          <div class="footer-inner">
+            <span>AI JSON Format provides free browser-based developer utilities.</span>
+            <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></span>
           </div>
-        </section>
-        <section class="content-band">
-          <h2>Recommended tool</h2>
-          <div class="tool-grid"><a class="tool-card" href="/tools/json-validator/"><span><h3>JSON Validator</h3><p>Validate JSON syntax and find parse errors before using it in code or APIs.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a></div>
-        </section>
-        <section class="content-band">
-          <h2>Related guides</h2>
-          <div class="tool-grid">
-            <a class="tool-card" href="/fix-invalid-json/"><span><h3>Fix Invalid JSON Online</h3><p>Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/fix-json-trailing-comma/"><span><h3>Fix JSON Trailing Comma</h3><p>Remove trailing commas from JSON objects and arrays so strict JSON parsers can read the data.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/json-format-online/"><span><h3>JSON Format Online</h3><p>Format JSON online into readable indentation and copy clean output for APIs, configs and docs.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/json-formatter-online-free/"><span><h3>JSON Formatter Online Free</h3><p>Use a free online JSON formatter with no signup for quick developer copy-and-paste workflows.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/json-beautifier/"><span><h3>JSON Beautifier</h3><p>Beautify minified JSON into readable, indented output for debugging and documentation.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/json-prettify/"><span><h3>Prettify JSON Online</h3><p>Prettify JSON online with clean indentation, validation feedback and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-          </div>
-        </section>
-        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What is JSON linting?</h3><p>JSON linting is a syntax check that confirms whether the input is valid under the strict JSON spec.</p></article><article class="faq-item"><h3>Does linting format JSON?</h3><p>No. Linting only validates. Use JSON Formatter when you also want readable output.</p></article><article class="faq-item"><h3>What should I do with an error?</h3><p>Read the line and column, fix the character at that position, and re-run. If you cannot spot the issue, run AI JSON Repair.</p></article><article class="faq-item"><h3>Is JSON Lint the same as ajv?</h3><p>ajv validates against a JSON Schema, which is a stricter check on top of the syntax pass. Linting here means just the syntax pass.</p></article><article class="faq-item"><h3>Can I lint JSONL?</h3><p>Lint each line individually, or use JSON Lines to JSON to convert it into an array first.</p></article></div></section>
-      </main>
+        </footer>
+      </div>
     </div>
-    <script src="/assets/app.js"></script>
+    <script>(function(){var seen=new Set();function pf(href){if(!href||seen.has(href))return;seen.add(href);try{var l=document.createElement('link');l.rel='prefetch';l.href=href;l.as='document';document.head.appendChild(l);}catch(e){}}function on(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');if(!u||u[0]!=='/'||u.indexOf('//')===0||u.indexOf('#')===0)return;if(a.host&&a.host!==location.host)return;pf(u);}document.addEventListener('mouseover',on,{passive:true});document.addEventListener('touchstart',on,{passive:true});})();</script>
   </body>
 </html>

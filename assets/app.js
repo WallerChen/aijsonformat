@@ -1738,8 +1738,19 @@
 
   const app = document.getElementById("app");
   const pageId = app.dataset.page || pageFromPath();
+  const toolMount = document.getElementById("tool-mount");
+  const isRealMount = toolMount && typeof toolMount.outerHTML === "string";
 
-  renderShell(pageId);
+  if (isRealMount) {
+    const toolId = toolMount.dataset.toolId || pageId;
+    const tool = byId[toolId];
+    if (tool) {
+      toolMount.outerHTML = renderToolPanel(tool);
+      bindTool(tool);
+    }
+  } else {
+    renderShell(pageId);
+  }
 
   function renderShell(id) {
     const isHome = id === "home";
@@ -1913,6 +1924,37 @@
     `;
   }
 
+  function renderToolPanel(tool) {
+    return `<section class="tool-panel" aria-label="${escapeHtml(tool.title)}">
+      <div class="tool-layout">
+        <div class="tool-io">
+          <div class="io-label">
+            <span>${escapeHtml(tool.inputLabel)}</span>
+            <button class="button" id="sample-button" type="button">Sample</button>
+          </div>
+          <textarea id="tool-input" spellcheck="false">${escapeHtml(tool.sample || "")}</textarea>
+        </div>
+        <div class="tool-io">
+          <div class="io-label">
+            <span>${escapeHtml(tool.outputLabel)}</span>
+            <button class="button" id="copy-button" type="button">Copy</button>
+          </div>
+          <textarea id="tool-output" spellcheck="false" readonly></textarea>
+        </div>
+      </div>
+      <div class="tool-actions">
+        <button class="button primary" id="run-button" type="button">${escapeHtml(tool.actionLabel)}</button>
+        ${
+          tool.secondaryRun
+            ? `<button class="button" id="secondary-button" type="button">${escapeHtml(tool.secondaryActionLabel)}</button>`
+            : ""
+        }
+        <button class="button" id="clear-button" type="button">Clear</button>
+      </div>
+      <div class="tool-message" id="tool-message">Ready.</div>
+    </section>`;
+  }
+
   function renderToolPage(tool) {
     return `
       <main class="main">
@@ -1924,34 +1966,7 @@
               <h1>${escapeHtml(tool.title)}</h1>
               <p>${escapeHtml(tool.description)}</p>
             </section>
-            <section class="tool-panel" aria-label="${escapeHtml(tool.title)}">
-              <div class="tool-layout">
-                <div class="tool-io">
-                  <div class="io-label">
-                    <span>${escapeHtml(tool.inputLabel)}</span>
-                    <button class="button" id="sample-button" type="button">Sample</button>
-                  </div>
-                  <textarea id="tool-input" spellcheck="false">${escapeHtml(tool.sample || "")}</textarea>
-                </div>
-                <div class="tool-io">
-                  <div class="io-label">
-                    <span>${escapeHtml(tool.outputLabel)}</span>
-                    <button class="button" id="copy-button" type="button">Copy</button>
-                  </div>
-                  <textarea id="tool-output" spellcheck="false" readonly></textarea>
-                </div>
-              </div>
-              <div class="tool-actions">
-                <button class="button primary" id="run-button" type="button">${escapeHtml(tool.actionLabel)}</button>
-                ${
-                  tool.secondaryRun
-                    ? `<button class="button" id="secondary-button" type="button">${escapeHtml(tool.secondaryActionLabel)}</button>`
-                    : ""
-                }
-                <button class="button" id="clear-button" type="button">Clear</button>
-              </div>
-              <div class="tool-message" id="tool-message">Ready.</div>
-            </section>
+            ${renderToolPanel(tool)}
             <section class="content-band">
               <h2>About this tool</h2>
               <p>${escapeHtml(tool.description)} It is designed for fast copy-and-paste workflows and does not require a login.</p>

@@ -25,40 +25,84 @@
   </head>
   <body>
     <div id="app" data-page="cron-parser">
-      <main class="main">
-        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>Cron Parser</span></nav>
-        <section class="tool-intro">
-          <div class="eyebrow">Time tool</div>
-          <h1>Cron Parser</h1>
-          <p>Explain common 5-field cron expressions in plain English.</p>
-          <p><a class="button primary" href="#tool-input">Use the tool</a></p>
-        </section>
-        <section class="content-band">
-          <h2>Common use cases</h2>
-          <ul class="plain-list">
-            <li>Convert timestamps from logs and API payloads.</li>
-            <li>Copy seconds or milliseconds for scripts.</li>
-            <li>Compare local time and UTC quickly.</li>
-          </ul>
-        </section>
-        <section class="content-band">
-          <h2>Example input</h2>
-          <pre class="code-sample"><code>*/15 9-17 * * 1-5</code></pre>
-        </section>
-        <section class="content-band">
-          <h2>Related tools</h2>
-          <div class="tool-grid">
-            <a class="tool-card" href="/tools/timestamp/"><span><h3>Timestamp Converter</h3><p>Convert Unix timestamps to dates and dates back to Unix time in seconds or milliseconds.</p></span><span class="tag-row"><span class="tag">Time</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/current-timestamp/"><span><h3>Current Unix Timestamp</h3><p>Get the current Unix timestamp in seconds, milliseconds, local time and UTC.</p></span><span class="tag-row"><span class="tag">Time</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/ai-json-repair/"><span><h3>AI JSON Repair</h3><p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/json-formatter/"><span><h3>JSON Formatter</h3><p>Prettify JSON with readable indentation, validation and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/json-validator/"><span><h3>JSON Validator</h3><p>Validate JSON syntax and find parse errors before using it in code or APIs.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/json-minifier/"><span><h3>JSON Minifier</h3><p>Remove whitespace from JSON for compact API payloads and config snippets.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+      <div class="site-shell">
+        <header class="topbar">
+          <nav class="nav" aria-label="Primary">
+            <a class="brand" href="/">
+              <span class="brand-mark">{ }</span>
+              <span>AI JSON Format</span>
+            </a>
+            <div class="nav-links">
+              <a class="nav-primary" href="/tools/json-formatter/">Format JSON</a>
+              <a class="nav-primary" href="/tools/ai-json-repair/">AI Repair</a>
+              <details class="nav-menu">
+                <summary>Tools</summary>
+                <div class="nav-menu-panel">
+                  <a href="/tools/">All Tools</a>
+                  <a href="/ai-json-tools/">AI JSON Tools</a>
+                  <a href="/json-tools/">JSON Tools</a>
+                  <a href="/json-converter-tools/">Converters</a>
+                  <a href="/text-tools/">Text Tools</a>
+                  <a href="/developer-tools/">Developer Tools</a>
+                </div>
+              </details>
+              <details class="nav-menu">
+                <summary>Resources</summary>
+                <div class="nav-menu-panel">
+                  <a href="/directories/">Directories</a>
+                  <a href="/guides/">Guides</a>
+                  <a href="/languages/">Languages</a>
+                  <a href="/tools/ai-json-schema-generator/">AI Schema</a>
+                  <a href="/tools/ai-mock-json-generator/">Mock JSON</a>
+                  <a href="/tools/ai-regex-generator/">AI Regex</a>
+                </div>
+              </details>
+            </div>
+          </nav>
+        </header>
+        <main class="main">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>Cron Parser</span></nav>
+          <section class="tool-intro">
+            <div class="eyebrow">Time tool</div>
+            <h1>Cron Parser</h1>
+            <p>Explain common 5-field cron expressions in plain English.</p>
+            <p><a class="button primary" href="#tool-mount">Use the tool</a></p>
+          </section>
+          <div id="tool-mount" data-tool-id="cron-parser"></div>
+          <section class="content-band">
+            <h2>Common use cases</h2>
+            <ul class="plain-list">
+              <li>Convert timestamps from logs and API payloads.</li>
+              <li>Copy seconds or milliseconds for scripts.</li>
+              <li>Compare local time and UTC quickly.</li>
+            </ul>
+          </section>
+          <section class="content-band">
+            <h2>Example input</h2>
+            <pre class="code-sample"><code>*/15 9-17 * * 1-5</code></pre>
+          </section>
+          <section class="content-band">
+            <h2>Related tools</h2>
+            <div class="tool-grid">
+              <a class="tool-card" href="/tools/timestamp/"><span><h3>Timestamp Converter</h3><p>Convert Unix timestamps to dates and dates back to Unix time in seconds or milliseconds.</p></span><span class="tag-row"><span class="tag">Time</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/current-timestamp/"><span><h3>Current Unix Timestamp</h3><p>Get the current Unix timestamp in seconds, milliseconds, local time and UTC.</p></span><span class="tag-row"><span class="tag">Time</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/ai-json-repair/"><span><h3>AI JSON Repair</h3><p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/json-formatter/"><span><h3>JSON Formatter</h3><p>Prettify JSON with readable indentation, validation and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/json-validator/"><span><h3>JSON Validator</h3><p>Validate JSON syntax and find parse errors before using it in code or APIs.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/json-minifier/"><span><h3>JSON Minifier</h3><p>Remove whitespace from JSON for compact API payloads and config snippets.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+            </div>
+          </section>
+          <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What cron format is supported?</h3><p>This tool explains common five-field cron expressions: minute, hour, day of month, month and day of week.</p></article><article class="faq-item"><h3>Does it calculate future runs?</h3><p>This first version explains the schedule in plain English rather than listing future run times.</p></article><article class="faq-item"><h3>Are names like MON supported?</h3><p>Yes. Common month and weekday names are supported in explanations.</p></article></div></section>
+        </main>
+        <footer class="footer">
+          <div class="footer-inner">
+            <span>AI JSON Format provides free browser-based developer utilities.</span>
+            <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></span>
           </div>
-        </section>
-        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What cron format is supported?</h3><p>This tool explains common five-field cron expressions: minute, hour, day of month, month and day of week.</p></article><article class="faq-item"><h3>Does it calculate future runs?</h3><p>This first version explains the schedule in plain English rather than listing future run times.</p></article><article class="faq-item"><h3>Are names like MON supported?</h3><p>Yes. Common month and weekday names are supported in explanations.</p></article></div></section>
-      </main>
+        </footer>
+      </div>
     </div>
-    <script src="/assets/app.js"></script>
+    <script>(function(){var seen=new Set();function pf(href){if(!href||seen.has(href))return;seen.add(href);try{var l=document.createElement('link');l.rel='prefetch';l.href=href;l.as='document';document.head.appendChild(l);}catch(e){}}function on(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');if(!u||u[0]!=='/'||u.indexOf('//')===0||u.indexOf('#')===0)return;if(a.host&&a.host!==location.host)return;pf(u);}document.addEventListener('mouseover',on,{passive:true});document.addEventListener('touchstart',on,{passive:true});})();</script>
+    <script defer src="/assets/app.js"></script>
   </body>
 </html>

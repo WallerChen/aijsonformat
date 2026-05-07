@@ -25,42 +25,84 @@
   </head>
   <body>
     <div id="app" data-page="ai-json-explainer">
-      <main class="main">
-        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>AI JSON Explainer</span></nav>
-        <section class="tool-intro">
-          <div class="eyebrow">AI JSON guide</div>
-          <h1>AI JSON Explainer</h1>
-          <p>Explain JSON structure, important fields and likely cleanup steps for unfamiliar API responses or AI output.</p>
-          <p><a class="button primary" href="/tools/ai-json-explainer/">Open AI JSON Explainer</a></p>
-        </section>
-        <section class="content-band">
-          <h2>How to do it</h2>
-          <ol class="steps-list">
-            <li>Paste the JSON payload or model output you want to understand.</li>
-            <li>Run the explainer to get a concise structure summary and important fields.</li>
-            <li>Use the suggested next steps to validate, format or convert the data.</li>
-          </ol>
-        </section>
-        
-        
-        <section class="content-band">
-          <h2>Recommended tool</h2>
-          <div class="tool-grid"><a class="tool-card" href="/tools/ai-json-explainer/"><span><h3>AI JSON Explainer</h3><p>Explain JSON structure, important fields and likely issues in plain language.</p></span><span class="tag-row"><span class="tag">AI</span><span class="tag">Free</span></span></a></div>
-        </section>
-        <section class="content-band">
-          <h2>Related guides</h2>
-          <div class="tool-grid">
-            <a class="tool-card" href="/ai-json-formatter/"><span><h3>AI JSON Formatter</h3><p>Format and repair AI-generated JSON from ChatGPT, APIs and automation tools with a practical AI JSON formatter workflow.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/ai-json-format/"><span><h3>AI JSON Format</h3><p>Clean, format and validate JSON for AI workflows, structured prompts and model responses.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/ai-json-generator/"><span><h3>AI JSON Generator</h3><p>Generate structured JSON from text, requirements or simple notes using the Text to JSON workflow.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/ai-json-schema-generator/"><span><h3>AI JSON Schema Generator</h3><p>Create JSON Schema from sample JSON, API notes or plain-English requirements for validation and documentation.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/ai-mock-json-generator/"><span><h3>AI Mock JSON Generator</h3><p>Generate mock JSON examples for API docs, prototypes, frontend states and test fixtures.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/ai-json-to-typescript/"><span><h3>AI JSON to TypeScript</h3><p>Clean AI JSON output and turn it into TypeScript interfaces for frontend and API development.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
+      <div class="site-shell">
+        <header class="topbar">
+          <nav class="nav" aria-label="Primary">
+            <a class="brand" href="/">
+              <span class="brand-mark">{ }</span>
+              <span>AI JSON Format</span>
+            </a>
+            <div class="nav-links">
+              <a class="nav-primary" href="/tools/json-formatter/">Format JSON</a>
+              <a class="nav-primary" href="/tools/ai-json-repair/">AI Repair</a>
+              <details class="nav-menu">
+                <summary>Tools</summary>
+                <div class="nav-menu-panel">
+                  <a href="/tools/">All Tools</a>
+                  <a href="/ai-json-tools/">AI JSON Tools</a>
+                  <a href="/json-tools/">JSON Tools</a>
+                  <a href="/json-converter-tools/">Converters</a>
+                  <a href="/text-tools/">Text Tools</a>
+                  <a href="/developer-tools/">Developer Tools</a>
+                </div>
+              </details>
+              <details class="nav-menu">
+                <summary>Resources</summary>
+                <div class="nav-menu-panel">
+                  <a href="/directories/">Directories</a>
+                  <a href="/guides/">Guides</a>
+                  <a href="/languages/">Languages</a>
+                  <a href="/tools/ai-json-schema-generator/">AI Schema</a>
+                  <a href="/tools/ai-mock-json-generator/">Mock JSON</a>
+                  <a href="/tools/ai-regex-generator/">AI Regex</a>
+                </div>
+              </details>
+            </div>
+          </nav>
+        </header>
+        <main class="main">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>AI JSON Explainer</span></nav>
+          <section class="tool-intro">
+            <div class="eyebrow">AI JSON guide</div>
+            <h1>AI JSON Explainer</h1>
+            <p>Explain JSON structure, important fields and likely cleanup steps for unfamiliar API responses or AI output.</p>
+            <p><a class="button primary" href="/tools/ai-json-explainer/">Open AI JSON Explainer</a></p>
+          </section>
+          <section class="content-band">
+            <h2>How to do it</h2>
+            <ol class="steps-list">
+              <li>Paste the JSON payload or model output you want to understand.</li>
+              <li>Run the explainer to get a concise structure summary and important fields.</li>
+              <li>Use the suggested next steps to validate, format or convert the data.</li>
+            </ol>
+          </section>
+          
+          
+          <section class="content-band">
+            <h2>Recommended tool</h2>
+            <div class="tool-grid"><a class="tool-card" href="/tools/ai-json-explainer/"><span><h3>AI JSON Explainer</h3><p>Explain JSON structure, important fields and likely issues in plain language.</p></span><span class="tag-row"><span class="tag">AI</span><span class="tag">Free</span></span></a></div>
+          </section>
+          <section class="content-band">
+            <h2>Related guides</h2>
+            <div class="tool-grid">
+              <a class="tool-card" href="/ai-json-formatter/"><span><h3>AI JSON Formatter</h3><p>Format and repair AI-generated JSON from ChatGPT, APIs and automation tools with a practical AI JSON formatter workflow.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/ai-json-format/"><span><h3>AI JSON Format</h3><p>Clean, format and validate JSON for AI workflows, structured prompts and model responses.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/ai-json-generator/"><span><h3>AI JSON Generator</h3><p>Generate structured JSON from text, requirements or simple notes using the Text to JSON workflow.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/ai-json-schema-generator/"><span><h3>AI JSON Schema Generator</h3><p>Create JSON Schema from sample JSON, API notes or plain-English requirements for validation and documentation.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/ai-mock-json-generator/"><span><h3>AI Mock JSON Generator</h3><p>Generate mock JSON examples for API docs, prototypes, frontend states and test fixtures.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/ai-json-to-typescript/"><span><h3>AI JSON to TypeScript</h3><p>Clean AI JSON output and turn it into TypeScript interfaces for frontend and API development.</p></span><span class="tag-row"><span class="tag">AI JSON guide</span><span class="tag">Guide</span></span></a>
+            </div>
+          </section>
+          <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>Why explain JSON with AI?</h3><p>AI can summarize field meaning and likely issues faster than manually scanning a large payload.</p></article><article class="faq-item"><h3>Can it explain nested JSON?</h3><p>Yes. It can highlight nested fields and top-level structure.</p></article><article class="faq-item"><h3>Should I paste private data?</h3><p>Avoid secrets and sensitive production data in any AI-powered online tool.</p></article></div></section>
+        </main>
+        <footer class="footer">
+          <div class="footer-inner">
+            <span>AI JSON Format provides free browser-based developer utilities.</span>
+            <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></span>
           </div>
-        </section>
-        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>Why explain JSON with AI?</h3><p>AI can summarize field meaning and likely issues faster than manually scanning a large payload.</p></article><article class="faq-item"><h3>Can it explain nested JSON?</h3><p>Yes. It can highlight nested fields and top-level structure.</p></article><article class="faq-item"><h3>Should I paste private data?</h3><p>Avoid secrets and sensitive production data in any AI-powered online tool.</p></article></div></section>
-      </main>
+        </footer>
+      </div>
     </div>
-    <script src="/assets/app.js"></script>
+    <script>(function(){var seen=new Set();function pf(href){if(!href||seen.has(href))return;seen.add(href);try{var l=document.createElement('link');l.rel='prefetch';l.href=href;l.as='document';document.head.appendChild(l);}catch(e){}}function on(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');if(!u||u[0]!=='/'||u.indexOf('//')===0||u.indexOf('#')===0)return;if(a.host&&a.host!==location.host)return;pf(u);}document.addEventListener('mouseover',on,{passive:true});document.addEventListener('touchstart',on,{passive:true});})();</script>
   </body>
 </html>

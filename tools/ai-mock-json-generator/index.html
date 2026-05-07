@@ -25,40 +25,84 @@
   </head>
   <body>
     <div id="app" data-page="ai-mock-json-generator">
-      <main class="main">
-        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>AI Mock JSON Generator</span></nav>
-        <section class="tool-intro">
-          <div class="eyebrow">AI tool</div>
-          <h1>AI Mock JSON Generator</h1>
-          <p>Generate realistic mock JSON from a schema, field list or plain-English data description.</p>
-          <p><a class="button primary" href="#tool-input">Use the tool</a></p>
-        </section>
-        <section class="content-band">
-          <h2>Common use cases</h2>
-          <ul class="plain-list">
-            <li>Turn rough notes or model output into structured data.</li>
-            <li>Review AI-generated JSON before using it.</li>
-            <li>Create schemas, mock data and regex drafts faster.</li>
-          </ul>
-        </section>
-        <section class="content-band">
-          <h2>Example input</h2>
-          <pre class="code-sample"><code>Create 3 product review objects with id, rating, reviewer, title, body, tags and createdAt.</code></pre>
-        </section>
-        <section class="content-band">
-          <h2>Related tools</h2>
-          <div class="tool-grid">
-            <a class="tool-card" href="/tools/ai-json-schema-generator/"><span><h3>AI JSON Schema Generator</h3><p>Generate JSON Schema from sample JSON, field notes or plain-English API requirements.</p></span><span class="tag-row"><span class="tag">AI</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/ai-json-explainer/"><span><h3>AI JSON Explainer</h3><p>Explain JSON structure, important fields and likely issues in plain language.</p></span><span class="tag-row"><span class="tag">AI</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/ai-regex-generator/"><span><h3>AI Regex Generator</h3><p>Generate a regular expression from a plain-English matching requirement.</p></span><span class="tag-row"><span class="tag">AI</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/text-to-json/"><span><h3>Text to JSON</h3><p>Convert simple key-value text, lists and tables into clean JSON.</p></span><span class="tag-row"><span class="tag">AI</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/ai-json-repair/"><span><h3>AI JSON Repair</h3><p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/json-formatter/"><span><h3>JSON Formatter</h3><p>Prettify JSON with readable indentation, validation and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+      <div class="site-shell">
+        <header class="topbar">
+          <nav class="nav" aria-label="Primary">
+            <a class="brand" href="/">
+              <span class="brand-mark">{ }</span>
+              <span>AI JSON Format</span>
+            </a>
+            <div class="nav-links">
+              <a class="nav-primary" href="/tools/json-formatter/">Format JSON</a>
+              <a class="nav-primary" href="/tools/ai-json-repair/">AI Repair</a>
+              <details class="nav-menu">
+                <summary>Tools</summary>
+                <div class="nav-menu-panel">
+                  <a href="/tools/">All Tools</a>
+                  <a href="/ai-json-tools/">AI JSON Tools</a>
+                  <a href="/json-tools/">JSON Tools</a>
+                  <a href="/json-converter-tools/">Converters</a>
+                  <a href="/text-tools/">Text Tools</a>
+                  <a href="/developer-tools/">Developer Tools</a>
+                </div>
+              </details>
+              <details class="nav-menu">
+                <summary>Resources</summary>
+                <div class="nav-menu-panel">
+                  <a href="/directories/">Directories</a>
+                  <a href="/guides/">Guides</a>
+                  <a href="/languages/">Languages</a>
+                  <a href="/tools/ai-json-schema-generator/">AI Schema</a>
+                  <a href="/tools/ai-mock-json-generator/">Mock JSON</a>
+                  <a href="/tools/ai-regex-generator/">AI Regex</a>
+                </div>
+              </details>
+            </div>
+          </nav>
+        </header>
+        <main class="main">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>AI Mock JSON Generator</span></nav>
+          <section class="tool-intro">
+            <div class="eyebrow">AI tool</div>
+            <h1>AI Mock JSON Generator</h1>
+            <p>Generate realistic mock JSON from a schema, field list or plain-English data description.</p>
+            <p><a class="button primary" href="#tool-mount">Use the tool</a></p>
+          </section>
+          <div id="tool-mount" data-tool-id="ai-mock-json-generator"></div>
+          <section class="content-band">
+            <h2>Common use cases</h2>
+            <ul class="plain-list">
+              <li>Turn rough notes or model output into structured data.</li>
+              <li>Review AI-generated JSON before using it.</li>
+              <li>Create schemas, mock data and regex drafts faster.</li>
+            </ul>
+          </section>
+          <section class="content-band">
+            <h2>Example input</h2>
+            <pre class="code-sample"><code>Create 3 product review objects with id, rating, reviewer, title, body, tags and createdAt.</code></pre>
+          </section>
+          <section class="content-band">
+            <h2>Related tools</h2>
+            <div class="tool-grid">
+              <a class="tool-card" href="/tools/ai-json-schema-generator/"><span><h3>AI JSON Schema Generator</h3><p>Generate JSON Schema from sample JSON, field notes or plain-English API requirements.</p></span><span class="tag-row"><span class="tag">AI</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/ai-json-explainer/"><span><h3>AI JSON Explainer</h3><p>Explain JSON structure, important fields and likely issues in plain language.</p></span><span class="tag-row"><span class="tag">AI</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/ai-regex-generator/"><span><h3>AI Regex Generator</h3><p>Generate a regular expression from a plain-English matching requirement.</p></span><span class="tag-row"><span class="tag">AI</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/text-to-json/"><span><h3>Text to JSON</h3><p>Convert simple key-value text, lists and tables into clean JSON.</p></span><span class="tag-row"><span class="tag">AI</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/ai-json-repair/"><span><h3>AI JSON Repair</h3><p>Fix broken JSON from ChatGPT, APIs, logs and config files with local repair and optional AI fallback.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/json-formatter/"><span><h3>JSON Formatter</h3><p>Prettify JSON with readable indentation, validation and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a>
+            </div>
+          </section>
+          <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What is mock JSON useful for?</h3><p>Use it for prototypes, API docs, fixtures, demos and frontend states before the backend is ready.</p></article><article class="faq-item"><h3>Can I paste JSON Schema?</h3><p>Yes. Pasting a schema usually produces more consistent mock data.</p></article><article class="faq-item"><h3>Should mock data include secrets?</h3><p>No. Use fake emails, IDs and values only.</p></article></div></section>
+        </main>
+        <footer class="footer">
+          <div class="footer-inner">
+            <span>AI JSON Format provides free browser-based developer utilities.</span>
+            <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></span>
           </div>
-        </section>
-        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What is mock JSON useful for?</h3><p>Use it for prototypes, API docs, fixtures, demos and frontend states before the backend is ready.</p></article><article class="faq-item"><h3>Can I paste JSON Schema?</h3><p>Yes. Pasting a schema usually produces more consistent mock data.</p></article><article class="faq-item"><h3>Should mock data include secrets?</h3><p>No. Use fake emails, IDs and values only.</p></article></div></section>
-      </main>
+        </footer>
+      </div>
     </div>
-    <script src="/assets/app.js"></script>
+    <script>(function(){var seen=new Set();function pf(href){if(!href||seen.has(href))return;seen.add(href);try{var l=document.createElement('link');l.rel='prefetch';l.href=href;l.as='document';document.head.appendChild(l);}catch(e){}}function on(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');if(!u||u[0]!=='/'||u.indexOf('//')===0||u.indexOf('#')===0)return;if(a.host&&a.host!==location.host)return;pf(u);}document.addEventListener('mouseover',on,{passive:true});document.addEventListener('touchstart',on,{passive:true});})();</script>
+    <script defer src="/assets/app.js"></script>
   </body>
 </html>

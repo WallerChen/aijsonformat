@@ -25,62 +25,104 @@
   </head>
   <body>
     <div id="app" data-page="json-parser-online">
-      <main class="main">
-        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>JSON Parser Online</span></nav>
-        <section class="tool-intro">
-          <div class="eyebrow">JSON guide</div>
-          <h1>JSON Parser Online</h1>
-          <p>Parse JSON online to confirm whether a value is a valid object, array, string, number, boolean or null.</p>
-          <p><a class="button primary" href="/tools/json-validator/">Open JSON Validator</a></p>
-        </section>
-        <section class="content-band">
-          <h2>How to do it</h2>
-          <ol class="steps-list">
-            <li>Paste any JSON value (object, array, scalar) into JSON Validator.</li>
-            <li>Run validation — the validator parses your input behind the scenes.</li>
-            <li>Read the result summary to confirm the top-level type and whether parsing succeeded.</li>
-          </ol>
-        </section>
-        <section class="content-band">
-            <h2>What a JSON parser actually does</h2>
-            <p>A JSON parser reads a string of characters and produces structured data — an object tree your code can index into. The parser walks token by token, validating each one against the JSON grammar. If anything is out of place, parsing stops and the parser reports an error pointing to the offending token. JSON Validator on this site uses the browser&#039;s built-in JSON.parse, which is the same parser used by every JavaScript runtime.</p>
-            
+      <div class="site-shell">
+        <header class="topbar">
+          <nav class="nav" aria-label="Primary">
+            <a class="brand" href="/">
+              <span class="brand-mark">{ }</span>
+              <span>AI JSON Format</span>
+            </a>
+            <div class="nav-links">
+              <a class="nav-primary" href="/tools/json-formatter/">Format JSON</a>
+              <a class="nav-primary" href="/tools/ai-json-repair/">AI Repair</a>
+              <details class="nav-menu">
+                <summary>Tools</summary>
+                <div class="nav-menu-panel">
+                  <a href="/tools/">All Tools</a>
+                  <a href="/ai-json-tools/">AI JSON Tools</a>
+                  <a href="/json-tools/">JSON Tools</a>
+                  <a href="/json-converter-tools/">Converters</a>
+                  <a href="/text-tools/">Text Tools</a>
+                  <a href="/developer-tools/">Developer Tools</a>
+                </div>
+              </details>
+              <details class="nav-menu">
+                <summary>Resources</summary>
+                <div class="nav-menu-panel">
+                  <a href="/directories/">Directories</a>
+                  <a href="/guides/">Guides</a>
+                  <a href="/languages/">Languages</a>
+                  <a href="/tools/ai-json-schema-generator/">AI Schema</a>
+                  <a href="/tools/ai-mock-json-generator/">Mock JSON</a>
+                  <a href="/tools/ai-regex-generator/">AI Regex</a>
+                </div>
+              </details>
+            </div>
+          </nav>
+        </header>
+        <main class="main">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/guides/">Guides</a><span>/</span><span>JSON Parser Online</span></nav>
+          <section class="tool-intro">
+            <div class="eyebrow">JSON guide</div>
+            <h1>JSON Parser Online</h1>
+            <p>Parse JSON online to confirm whether a value is a valid object, array, string, number, boolean or null.</p>
+            <p><a class="button primary" href="/tools/json-validator/">Open JSON Validator</a></p>
           </section>
-        <section class="content-band">
-            <h2>Top-level JSON values you can paste</h2>
-            <p>JSON is more permissive than people remember. The top-level value does not have to be an object. Any of these are valid JSON documents:</p>
-            <ul class="plain-list"><li>Object: {&quot;key&quot;: &quot;value&quot;}</li><li>Array: [1, 2, 3]</li><li>String: &quot;hello&quot;</li><li>Number: 42</li><li>Boolean: true or false</li><li>Null: null</li></ul>
+          <section class="content-band">
+            <h2>How to do it</h2>
+            <ol class="steps-list">
+              <li>Paste any JSON value (object, array, scalar) into JSON Validator.</li>
+              <li>Run validation — the validator parses your input behind the scenes.</li>
+              <li>Read the result summary to confirm the top-level type and whether parsing succeeded.</li>
+            </ol>
           </section>
-        <section class="content-band">
-            <h2>Why parsing fails</h2>
-            <p>Parser failures fall into three buckets: syntax mistakes (trailing commas, single quotes, unquoted keys), encoding issues (smart quotes copied from a chat app, mismatched escape sequences) and structural mistakes (mismatched brackets, missing closing quote on a string). The parser reports the position of the unexpected token, which is usually one character past the actual mistake. If the input came from an LLM, run AI JSON Repair before parsing — it handles the long tail of LLM-specific issues automatically.</p>
-            
+          <section class="content-band">
+              <h2>What a JSON parser actually does</h2>
+              <p>A JSON parser reads a string of characters and produces structured data — an object tree your code can index into. The parser walks token by token, validating each one against the JSON grammar. If anything is out of place, parsing stops and the parser reports an error pointing to the offending token. JSON Validator on this site uses the browser&#039;s built-in JSON.parse, which is the same parser used by every JavaScript runtime.</p>
+              
+            </section>
+          <section class="content-band">
+              <h2>Top-level JSON values you can paste</h2>
+              <p>JSON is more permissive than people remember. The top-level value does not have to be an object. Any of these are valid JSON documents:</p>
+              <ul class="plain-list"><li>Object: {&quot;key&quot;: &quot;value&quot;}</li><li>Array: [1, 2, 3]</li><li>String: &quot;hello&quot;</li><li>Number: 42</li><li>Boolean: true or false</li><li>Null: null</li></ul>
+            </section>
+          <section class="content-band">
+              <h2>Why parsing fails</h2>
+              <p>Parser failures fall into three buckets: syntax mistakes (trailing commas, single quotes, unquoted keys), encoding issues (smart quotes copied from a chat app, mismatched escape sequences) and structural mistakes (mismatched brackets, missing closing quote on a string). The parser reports the position of the unexpected token, which is usually one character past the actual mistake. If the input came from an LLM, run AI JSON Repair before parsing — it handles the long tail of LLM-specific issues automatically.</p>
+              
+            </section>
+          <section class="content-band">
+            <h2>Examples</h2>
+            <div class="example-list">
+              <article class="example-item"><h3>Top-level array parses fine</h3><p class="example-label">Input</p><pre class="code-sample"><code>[&quot;alpha&quot;, &quot;beta&quot;, &quot;gamma&quot;]</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>Valid JSON. Top-level type: array (3 items).</code></pre><p>A standalone array is a valid JSON document — you do not need to wrap it in an object.</p></article>
+              <article class="example-item"><h3>Top-level scalar also parses</h3><p class="example-label">Input</p><pre class="code-sample"><code>true</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>Valid JSON. Top-level type: boolean.</code></pre><p>Booleans, numbers, strings and null are all valid top-level JSON values.</p></article>
+            </div>
           </section>
-        <section class="content-band">
-          <h2>Examples</h2>
-          <div class="example-list">
-            <article class="example-item"><h3>Top-level array parses fine</h3><p class="example-label">Input</p><pre class="code-sample"><code>[&quot;alpha&quot;, &quot;beta&quot;, &quot;gamma&quot;]</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>Valid JSON. Top-level type: array (3 items).</code></pre><p>A standalone array is a valid JSON document — you do not need to wrap it in an object.</p></article>
-            <article class="example-item"><h3>Top-level scalar also parses</h3><p class="example-label">Input</p><pre class="code-sample"><code>true</code></pre><p class="example-label">Output</p><pre class="code-sample"><code>Valid JSON. Top-level type: boolean.</code></pre><p>Booleans, numbers, strings and null are all valid top-level JSON values.</p></article>
+          <section class="content-band">
+            <h2>Recommended tool</h2>
+            <div class="tool-grid"><a class="tool-card" href="/tools/json-validator/"><span><h3>JSON Validator</h3><p>Validate JSON syntax and find parse errors before using it in code or APIs.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a></div>
+          </section>
+          <section class="content-band">
+            <h2>Related guides</h2>
+            <div class="tool-grid">
+              <a class="tool-card" href="/fix-invalid-json/"><span><h3>Fix Invalid JSON Online</h3><p>Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/fix-json-trailing-comma/"><span><h3>Fix JSON Trailing Comma</h3><p>Remove trailing commas from JSON objects and arrays so strict JSON parsers can read the data.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/json-format-online/"><span><h3>JSON Format Online</h3><p>Format JSON online into readable indentation and copy clean output for APIs, configs and docs.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/json-formatter-online-free/"><span><h3>JSON Formatter Online Free</h3><p>Use a free online JSON formatter with no signup for quick developer copy-and-paste workflows.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/json-beautifier/"><span><h3>JSON Beautifier</h3><p>Beautify minified JSON into readable, indented output for debugging and documentation.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+              <a class="tool-card" href="/json-prettify/"><span><h3>Prettify JSON Online</h3><p>Prettify JSON online with clean indentation, validation feedback and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
+            </div>
+          </section>
+          <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>Can JSON be an array?</h3><p>Yes. A valid JSON document can be an object, array, string, number, boolean or null at the top level.</p></article><article class="faq-item"><h3>What does a JSON parser do?</h3><p>It reads JSON text and converts it into structured data your code can navigate.</p></article><article class="faq-item"><h3>Why does parsing fail?</h3><p>Parsing fails when syntax does not match the strict JSON grammar — usually trailing commas, comments, single quotes or mismatched brackets.</p></article><article class="faq-item"><h3>Is the parser online or local?</h3><p>The parser runs in your browser. Nothing is sent to a server when you click validate.</p></article><article class="faq-item"><h3>Can I parse very large payloads?</h3><p>Browser parsers handle multi-megabyte inputs but slow down on very large files. For huge payloads, parse in a Node script or use streaming JSON.</p></article></div></section>
+        </main>
+        <footer class="footer">
+          <div class="footer-inner">
+            <span>AI JSON Format provides free browser-based developer utilities.</span>
+            <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></span>
           </div>
-        </section>
-        <section class="content-band">
-          <h2>Recommended tool</h2>
-          <div class="tool-grid"><a class="tool-card" href="/tools/json-validator/"><span><h3>JSON Validator</h3><p>Validate JSON syntax and find parse errors before using it in code or APIs.</p></span><span class="tag-row"><span class="tag">JSON</span><span class="tag">Free</span></span></a></div>
-        </section>
-        <section class="content-band">
-          <h2>Related guides</h2>
-          <div class="tool-grid">
-            <a class="tool-card" href="/fix-invalid-json/"><span><h3>Fix Invalid JSON Online</h3><p>Repair common JSON syntax errors such as trailing commas, comments, single quotes, missing quotes and unmatched brackets.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/fix-json-trailing-comma/"><span><h3>Fix JSON Trailing Comma</h3><p>Remove trailing commas from JSON objects and arrays so strict JSON parsers can read the data.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/json-format-online/"><span><h3>JSON Format Online</h3><p>Format JSON online into readable indentation and copy clean output for APIs, configs and docs.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/json-formatter-online-free/"><span><h3>JSON Formatter Online Free</h3><p>Use a free online JSON formatter with no signup for quick developer copy-and-paste workflows.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/json-beautifier/"><span><h3>JSON Beautifier</h3><p>Beautify minified JSON into readable, indented output for debugging and documentation.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-            <a class="tool-card" href="/json-prettify/"><span><h3>Prettify JSON Online</h3><p>Prettify JSON online with clean indentation, validation feedback and one-click copy.</p></span><span class="tag-row"><span class="tag">JSON guide</span><span class="tag">Guide</span></span></a>
-          </div>
-        </section>
-        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>Can JSON be an array?</h3><p>Yes. A valid JSON document can be an object, array, string, number, boolean or null at the top level.</p></article><article class="faq-item"><h3>What does a JSON parser do?</h3><p>It reads JSON text and converts it into structured data your code can navigate.</p></article><article class="faq-item"><h3>Why does parsing fail?</h3><p>Parsing fails when syntax does not match the strict JSON grammar — usually trailing commas, comments, single quotes or mismatched brackets.</p></article><article class="faq-item"><h3>Is the parser online or local?</h3><p>The parser runs in your browser. Nothing is sent to a server when you click validate.</p></article><article class="faq-item"><h3>Can I parse very large payloads?</h3><p>Browser parsers handle multi-megabyte inputs but slow down on very large files. For huge payloads, parse in a Node script or use streaming JSON.</p></article></div></section>
-      </main>
+        </footer>
+      </div>
     </div>
-    <script src="/assets/app.js"></script>
+    <script>(function(){var seen=new Set();function pf(href){if(!href||seen.has(href))return;seen.add(href);try{var l=document.createElement('link');l.rel='prefetch';l.href=href;l.as='document';document.head.appendChild(l);}catch(e){}}function on(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');if(!u||u[0]!=='/'||u.indexOf('//')===0||u.indexOf('#')===0)return;if(a.host&&a.host!==location.host)return;pf(u);}document.addEventListener('mouseover',on,{passive:true});document.addEventListener('touchstart',on,{passive:true});})();</script>
   </body>
 </html>

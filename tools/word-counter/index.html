@@ -25,41 +25,85 @@
   </head>
   <body>
     <div id="app" data-page="word-counter">
-      <main class="main">
-        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>Word Counter</span></nav>
-        <section class="tool-intro">
-          <div class="eyebrow">Text tool</div>
-          <h1>Word Counter</h1>
-          <p>Count words, characters, lines and paragraphs in plain text.</p>
-          <p><a class="button primary" href="#tool-input">Use the tool</a></p>
-        </section>
-        <section class="content-band">
-          <h2>Common use cases</h2>
-          <ul class="plain-list">
-            <li>Clean copied notes and prompts.</li>
-            <li>Sort, replace and deduplicate text lists.</li>
-            <li>Prepare content for docs and development tasks.</li>
-          </ul>
-        </section>
-        <section class="content-band">
-          <h2>Example input</h2>
-          <pre class="code-sample"><code>AI JSON Format is a free developer tools website.
-      It formats JSON and converts timestamps.</code></pre>
-        </section>
-        <section class="content-band">
-          <h2>Related tools</h2>
-          <div class="tool-grid">
-            <a class="tool-card" href="/tools/case-converter/"><span><h3>Case Converter</h3><p>Convert text into camelCase, PascalCase, snake_case, kebab-case, uppercase and lowercase.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/slug-generator/"><span><h3>Slug Generator</h3><p>Generate clean URL slugs from titles, headings and article names.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/remove-whitespace/"><span><h3>Remove Whitespace</h3><p>Remove spaces, tabs, line breaks or normalize repeated whitespace in text.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/text-formatter/"><span><h3>Text Formatter</h3><p>Format plain text by trimming lines, normalizing blank lines and cleaning repeated spaces.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/text-replace/"><span><h3>Find and Replace Text</h3><p>Find and replace text online with plain text or regex-style replacement.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
-            <a class="tool-card" href="/tools/regex-tester/"><span><h3>Regex Tester</h3><p>Test regular expressions against text and inspect matches, groups and indexes.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+      <div class="site-shell">
+        <header class="topbar">
+          <nav class="nav" aria-label="Primary">
+            <a class="brand" href="/">
+              <span class="brand-mark">{ }</span>
+              <span>AI JSON Format</span>
+            </a>
+            <div class="nav-links">
+              <a class="nav-primary" href="/tools/json-formatter/">Format JSON</a>
+              <a class="nav-primary" href="/tools/ai-json-repair/">AI Repair</a>
+              <details class="nav-menu">
+                <summary>Tools</summary>
+                <div class="nav-menu-panel">
+                  <a href="/tools/">All Tools</a>
+                  <a href="/ai-json-tools/">AI JSON Tools</a>
+                  <a href="/json-tools/">JSON Tools</a>
+                  <a href="/json-converter-tools/">Converters</a>
+                  <a href="/text-tools/">Text Tools</a>
+                  <a href="/developer-tools/">Developer Tools</a>
+                </div>
+              </details>
+              <details class="nav-menu">
+                <summary>Resources</summary>
+                <div class="nav-menu-panel">
+                  <a href="/directories/">Directories</a>
+                  <a href="/guides/">Guides</a>
+                  <a href="/languages/">Languages</a>
+                  <a href="/tools/ai-json-schema-generator/">AI Schema</a>
+                  <a href="/tools/ai-mock-json-generator/">Mock JSON</a>
+                  <a href="/tools/ai-regex-generator/">AI Regex</a>
+                </div>
+              </details>
+            </div>
+          </nav>
+        </header>
+        <main class="main">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span>Word Counter</span></nav>
+          <section class="tool-intro">
+            <div class="eyebrow">Text tool</div>
+            <h1>Word Counter</h1>
+            <p>Count words, characters, lines and paragraphs in plain text.</p>
+            <p><a class="button primary" href="#tool-mount">Use the tool</a></p>
+          </section>
+          <div id="tool-mount" data-tool-id="word-counter"></div>
+          <section class="content-band">
+            <h2>Common use cases</h2>
+            <ul class="plain-list">
+              <li>Clean copied notes and prompts.</li>
+              <li>Sort, replace and deduplicate text lists.</li>
+              <li>Prepare content for docs and development tasks.</li>
+            </ul>
+          </section>
+          <section class="content-band">
+            <h2>Example input</h2>
+            <pre class="code-sample"><code>AI JSON Format is a free developer tools website.
+        It formats JSON and converts timestamps.</code></pre>
+          </section>
+          <section class="content-band">
+            <h2>Related tools</h2>
+            <div class="tool-grid">
+              <a class="tool-card" href="/tools/case-converter/"><span><h3>Case Converter</h3><p>Convert text into camelCase, PascalCase, snake_case, kebab-case, uppercase and lowercase.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/slug-generator/"><span><h3>Slug Generator</h3><p>Generate clean URL slugs from titles, headings and article names.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/remove-whitespace/"><span><h3>Remove Whitespace</h3><p>Remove spaces, tabs, line breaks or normalize repeated whitespace in text.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/text-formatter/"><span><h3>Text Formatter</h3><p>Format plain text by trimming lines, normalizing blank lines and cleaning repeated spaces.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/text-replace/"><span><h3>Find and Replace Text</h3><p>Find and replace text online with plain text or regex-style replacement.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+              <a class="tool-card" href="/tools/regex-tester/"><span><h3>Regex Tester</h3><p>Test regular expressions against text and inspect matches, groups and indexes.</p></span><span class="tag-row"><span class="tag">Text</span><span class="tag">Free</span></span></a>
+            </div>
+          </section>
+          <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What does this count?</h3><p>It counts words, characters, characters without spaces, lines and paragraphs.</p></article><article class="faq-item"><h3>Does it work offline?</h3><p>The counting logic runs locally in your browser.</p></article><article class="faq-item"><h3>Can I use it for meta descriptions?</h3><p>Yes. Character counts are useful when drafting titles and descriptions.</p></article></div></section>
+        </main>
+        <footer class="footer">
+          <div class="footer-inner">
+            <span>AI JSON Format provides free browser-based developer utilities.</span>
+            <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/contact/">Contact</a></span>
           </div>
-        </section>
-        <section class="content-band"><h2>FAQ</h2><div class="faq"><article class="faq-item"><h3>What does this count?</h3><p>It counts words, characters, characters without spaces, lines and paragraphs.</p></article><article class="faq-item"><h3>Does it work offline?</h3><p>The counting logic runs locally in your browser.</p></article><article class="faq-item"><h3>Can I use it for meta descriptions?</h3><p>Yes. Character counts are useful when drafting titles and descriptions.</p></article></div></section>
-      </main>
+        </footer>
+      </div>
     </div>
-    <script src="/assets/app.js"></script>
+    <script>(function(){var seen=new Set();function pf(href){if(!href||seen.has(href))return;seen.add(href);try{var l=document.createElement('link');l.rel='prefetch';l.href=href;l.as='document';document.head.appendChild(l);}catch(e){}}function on(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');if(!u||u[0]!=='/'||u.indexOf('//')===0||u.indexOf('#')===0)return;if(a.host&&a.host!==location.host)return;pf(u);}document.addEventListener('mouseover',on,{passive:true});document.addEventListener('touchstart',on,{passive:true});})();</script>
+    <script defer src="/assets/app.js"></script>
   </body>
 </html>
