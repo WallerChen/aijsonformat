@@ -120,8 +120,8 @@ function renderHead({ title, description, canonical, jsonLd, ogType = "website" 
     `<meta name="twitter:description" content="${escapeHtml(description)}" />`,
     `<meta name="twitter:image" content="${image}" />`,
     '<link rel="stylesheet" href="/assets/styles.css" />',
-    '<script async src="https://www.googletagmanager.com/gtag/js?id=G-GQ2BSP5T08"></script>',
-    "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GQ2BSP5T08');</script>",
+    '<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHFCLKH3CD"></script>',
+    "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CHFCLKH3CD');</script>",
     ...jsonLd.map((item) => `<script type="application/ld+json">${JSON.stringify(item)}</script>`)
   ].join("\n    ");
 }
